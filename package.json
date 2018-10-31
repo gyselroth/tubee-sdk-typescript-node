@@ -1,11 +1,35 @@
 {
-  "name": "tubee-sdk-typescript-node",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@gyselroth/tubee-sdk-node",
+  "version": "0.0.1",
+  "description": "The official tubee sdk for node with typescript support",
+  "main": "build/api.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc && nodejs build/main.js",
+    "build": "tsc"
   },
-  "author": "",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raffis/tubee-client-cli.git"
+  },
+  "keywords": [
+    "tubee",
+    "node",
+    "sdk"
+  ],
+  "author": "Raffael Sahli <sahli@gyselroth.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gyselroth/tubee-sdk-typescript-node/issues"
+  },
+  "dependencies": {
+    "@types/bluebird": "*",
+    "@types/request": "*",
+    "bluebird": "^3.5.2",
+    "http": "0.0.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.0",
+    "typescript": "^2.9.2"
+  }
 }
