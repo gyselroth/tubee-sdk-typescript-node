@@ -1,6 +1,6 @@
 {
   "name": "@gyselroth/tubee-sdk-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The official tubee sdk for node with typescript support",
   "main": "build/api.js",
   "scripts": {
@@ -43,6 +43,7 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testPathIgnorePatterns": ["/node_modules/", "/swagger-codegen/"],
     "moduleFileExtensions": [
       "ts",
       "tsx",
