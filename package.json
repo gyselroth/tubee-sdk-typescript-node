@@ -8,7 +8,7 @@
     "start": "tsc && nodejs build/main.js",
     "build": "tsc && jest --coverage",
     "test": "jest --coverage",
-    "coveralls": "coveralls < coverage/lcov.info",
+    "coveralls": "coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "typescript": "^2.9.2",
     "jest": "^23.0.1",
     "ts-jest": "^22.4.6",
-    "coveralls": "^3.0.1",
+    "coveralls": "^3.0.1"
   },
   "jest": {
     "transform": {
