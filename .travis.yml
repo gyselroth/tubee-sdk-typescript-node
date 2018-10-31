@@ -6,6 +6,8 @@ script:
   - mvn clean install
   - cd ..
   - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml -l typescript-node --http-user-agent "tubee typescript-node sdk" -t src -o src
+  - npm install
+  - npm run build
 after_success:
  - git config --global user.email "travis@travis-ci.org"
  - git config --global user.name "Travis CI"
