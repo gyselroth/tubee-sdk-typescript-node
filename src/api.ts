@@ -136,36 +136,15 @@ class ObjectSerializer {
     }
 }
 
-export class AccessRole {
-    'links'?: Links;
-    'kind'?: string;
-    'id'?: string;
-    'name'?: string;
+export class AccessroleData {
+    /**
+    * A list of user identifiers which the access role should match. It is also possible to specify a wildcard to match all identifiers.
+    */
     'identifiers'?: Array<string>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
         {
             "name": "identifiers",
             "baseName": "identifiers",
@@ -173,84 +152,31 @@ export class AccessRole {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRole.attributeTypeMap;
+        return AccessroleData.attributeTypeMap;
     }
 }
 
-export class AccessRoles {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<AccessRole>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<AccessRole>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return AccessRoles.attributeTypeMap;
-    }
-}
-
-export class AccessRule {
-    'links'?: Links;
-    'kind'?: string;
-    'id'?: string;
-    'name'?: string;
+export class AccessruleData {
+    /**
+    * A list of access-role names to match the given rule.
+    */
     'roles'?: Array<string>;
-    'verbs'?: Array<string>;
+    /**
+    * List of allowed HTTP rfc7231 verbs, you may also specify a wildcard to match all verbs.
+    */
+    'verbs'?: Array<AccessruleData.VerbsEnum>;
+    /**
+    * A list of selectors to match resources, for example mandator, datatype, endpoint, ...
+    */
     'selectors'?: Array<string>;
+    /**
+    * Values according to your selector list required to match a request.
+    */
     'resources'?: Array<string>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
         {
             "name": "roles",
             "baseName": "roles",
@@ -259,7 +185,7 @@ export class AccessRule {
         {
             "name": "verbs",
             "baseName": "verbs",
-            "type": "Array<string>"
+            "type": "Array<AccessruleData.VerbsEnum>"
         },
         {
             "name": "selectors",
@@ -273,51 +199,21 @@ export class AccessRule {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRule.attributeTypeMap;
+        return AccessruleData.attributeTypeMap;
     }
 }
 
-export class AccessRules {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<AccessRule>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<AccessRule>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return AccessRules.attributeTypeMap;
+export namespace AccessruleData {
+    export enum VerbsEnum {
+        Star = <any> '*',
+        GET = <any> 'GET',
+        POST = <any> 'POST',
+        PUT = <any> 'PUT',
+        PATCH = <any> 'PATCH',
+        DELETE = <any> 'DELETE',
+        HEAD = <any> 'HEAD'
     }
 }
-
 export class AttributeMap {
     'links'?: Links;
     'kind'?: string;
@@ -426,36 +322,106 @@ export class Data1 {
     }
 }
 
-export class Data10 {
+export class Data2 {
     /**
-    * ObjectID to the object to refernece to
+    * Name
     */
-    'relative': string;
+    'name': string;
     /**
-    * Add context data which describes the relation
+    * Description
     */
-    'context'?: any;
+    'descripiton'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "relative",
-            "baseName": "relative",
+            "name": "name",
+            "baseName": "name",
             "type": "string"
         },
         {
-            "name": "context",
-            "baseName": "context",
-            "type": "any"
+            "name": "descripiton",
+            "baseName": "descripiton",
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {
-        return Data10.attributeTypeMap;
+        return Data2.attributeTypeMap;
     }
 }
 
-export class Data11 {
+export class Data3 {
+    /**
+    * Name
+    */
+    'name': string;
+    /**
+    * Description
+    */
+    'descripiton'?: string;
+    'map'?: AttributeMap;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "descripiton",
+            "baseName": "descripiton",
+            "type": "string"
+        },
+        {
+            "name": "map",
+            "baseName": "map",
+            "type": "AttributeMap"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Data3.attributeTypeMap;
+    }
+}
+
+export class Data4 {
+    /**
+    * Name
+    */
+    'name': string;
+    /**
+    * Description
+    */
+    'descripiton'?: string;
+    'map'?: AttributeMap;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "descripiton",
+            "baseName": "descripiton",
+            "type": "string"
+        },
+        {
+            "name": "map",
+            "baseName": "map",
+            "type": "AttributeMap"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Data4.attributeTypeMap;
+    }
+}
+
+export class Data5 {
     /**
     * Object attributes
     */
@@ -480,178 +446,32 @@ export class Data11 {
         }    ];
 
     static getAttributeTypeMap() {
-        return Data11.attributeTypeMap;
-    }
-}
-
-export class Data2 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'schema'?: Schema;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "schema",
-            "baseName": "schema",
-            "type": "Schema"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data2.attributeTypeMap;
-    }
-}
-
-export class Data3 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'schema'?: Schema;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "schema",
-            "baseName": "schema",
-            "type": "Schema"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data3.attributeTypeMap;
-    }
-}
-
-export class Data4 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'schema'?: Schema;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "schema",
-            "baseName": "schema",
-            "type": "Schema"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data4.attributeTypeMap;
-    }
-}
-
-export class Data5 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'schema'?: Schema;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "schema",
-            "baseName": "schema",
-            "type": "Schema"
-        }    ];
-
-    static getAttributeTypeMap() {
         return Data5.attributeTypeMap;
     }
 }
 
 export class Data6 {
     /**
-    * Name
+    * ObjectID to the object to refernece to
     */
-    'name': string;
+    'relative': string;
     /**
-    * Description
+    * Add context data which describes the relation
     */
-    'descripiton'?: string;
-    'map'?: AttributeMap;
+    'context'?: any;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "relative",
+            "baseName": "relative",
             "type": "string"
         },
         {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "map",
-            "baseName": "map",
-            "type": "AttributeMap"
+            "name": "context",
+            "baseName": "context",
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
@@ -661,32 +481,26 @@ export class Data6 {
 
 export class Data7 {
     /**
-    * Name
+    * ObjectID to the object to refernece to
     */
-    'name': string;
+    'relative': string;
     /**
-    * Description
+    * Add context data which describes the relation
     */
-    'descripiton'?: string;
-    'map'?: AttributeMap;
+    'context'?: any;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
+            "name": "relative",
+            "baseName": "relative",
             "type": "string"
         },
         {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "map",
-            "baseName": "map",
-            "type": "AttributeMap"
+            "name": "context",
+            "baseName": "context",
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
@@ -723,513 +537,113 @@ export class Data8 {
     }
 }
 
-export class Data9 {
+export class EndpointData {
     /**
-    * ObjectID to the object to refernece to
+    * The implementation of the endpoint
     */
-    'relative': string;
+    '_class'?: EndpointData.ClassEnum;
     /**
-    * Add context data which describes the relation
+    * Specify the type of the endpoint.
     */
-    'context'?: any;
+    'type'?: EndpointData.TypeEnum;
+    /**
+    * Holds the entpoint type relevant options to connect to.
+    */
+    'resource'?: any;
+    'options'?: EndpointDataOptions;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "relative",
-            "baseName": "relative",
-            "type": "string"
-        },
-        {
-            "name": "context",
-            "baseName": "context",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data9.attributeTypeMap;
-    }
-}
-
-export class DataObject {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'id'?: string;
-    'version'?: number;
-    'created'?: Date;
-    'changed'?: Date;
-    'deleted'?: Date;
-    'mandator'?: string;
-    'datatype'?: string;
-    'locked'?: Date;
-    'data'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "version",
-            "baseName": "version",
-            "type": "number"
-        },
-        {
-            "name": "created",
-            "baseName": "created",
-            "type": "Date"
-        },
-        {
-            "name": "changed",
-            "baseName": "changed",
-            "type": "Date"
-        },
-        {
-            "name": "deleted",
-            "baseName": "deleted",
-            "type": "Date"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "string"
-        },
-        {
-            "name": "datatype",
-            "baseName": "datatype",
-            "type": "string"
-        },
-        {
-            "name": "locked",
-            "baseName": "locked",
-            "type": "Date"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return DataObject.attributeTypeMap;
-    }
-}
-
-export class DataObjects {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<DataObject>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<DataObject>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return DataObjects.attributeTypeMap;
-    }
-}
-
-export class Datatype {
-    'links'?: Links;
-    'kind'?: string;
-    /**
-    * Datatype name
-    */
-    'name'?: string;
-    'mandator'?: Mandator;
-    /**
-    * Is true if datatype is enabled
-    */
-    'enabled'?: boolean;
-    /**
-    * Name of implementation, usually Tubee\\Datatype
-    */
-    '_class'?: string;
-    /**
-    * Collection name which holds objects of this datatype
-    */
-    'collection'?: string;
-    /**
-    * Dataset aggregation query
-    */
-    'dataset'?: string;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Mandator"
-        },
-        {
-            "name": "enabled",
-            "baseName": "enabled",
-            "type": "boolean"
-        },
         {
             "name": "_class",
             "baseName": "class",
-            "type": "string"
-        },
-        {
-            "name": "collection",
-            "baseName": "collection",
-            "type": "string"
-        },
-        {
-            "name": "dataset",
-            "baseName": "dataset",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Datatype.attributeTypeMap;
-    }
-}
-
-export class Datatypes {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<Datatype>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Datatype>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Datatypes.attributeTypeMap;
-    }
-}
-
-export class Endpoint {
-    'links'?: Links;
-    'kind'?: string;
-    /**
-    * Endpoint name
-    */
-    'name'?: string;
-    'status'?: EndpointStatus;
-    'datatype'?: Datatype;
-    'mandator'?: Mandator;
-    /**
-    * Type of endpoint (Either source or destination)
-    */
-    'type'?: string;
-    /**
-    * Name of implementation (Endpoint type/protocol)
-    */
-    '_class'?: string;
-    /**
-    * Is true if history tracking is enabled to this endpoint
-    */
-    'history'?: boolean;
-    /**
-    * Array of attributes which are used as identifier
-    */
-    '_import'?: Array<string>;
-    /**
-    * Filter to identitfy exactly one object
-    */
-    'filterOne'?: string;
-    /**
-    * Filter whole endpoint
-    */
-    'filterAll'?: string;
-    /**
-    * Endpoint specific configuration
-    */
-    'resource'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "status",
-            "baseName": "status",
-            "type": "EndpointStatus"
-        },
-        {
-            "name": "datatype",
-            "baseName": "datatype",
-            "type": "Datatype"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Mandator"
+            "type": "EndpointData.ClassEnum"
         },
         {
             "name": "type",
             "baseName": "type",
-            "type": "string"
+            "type": "EndpointData.TypeEnum"
         },
         {
-            "name": "_class",
-            "baseName": "class",
-            "type": "string"
+            "name": "resource",
+            "baseName": "resource",
+            "type": "any"
         },
         {
-            "name": "history",
-            "baseName": "history",
-            "type": "boolean"
-        },
+            "name": "options",
+            "baseName": "options",
+            "type": "EndpointDataOptions"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return EndpointData.attributeTypeMap;
+    }
+}
+
+export namespace EndpointData {
+    export enum ClassEnum {
+        Pdo = <any> 'Pdo',
+        Mysql = <any> 'Mysql',
+        Xml = <any> 'Xml',
+        Csv = <any> 'Csv',
+        Image = <any> 'Image',
+        Json = <any> 'Json',
+        MongoDB = <any> 'MongoDB',
+        Moodle = <any> 'Moodle',
+        Balloon = <any> 'Balloon'
+    }
+    export enum TypeEnum {
+        Virtual = <any> 'virtual',
+        Source = <any> 'source',
+        Destination = <any> 'destination',
+        Bidirectional = <any> 'bidirectional'
+    }
+}
+export class EndpointDataOptions {
+    /**
+    * A list of attributes which gets used to uniquely identify an object on the endpoint.
+    */
+    '_import'?: Array<string>;
+    /**
+    * If true and the endpoint is of type source, the endpoint gets flushed before export. If the type is destination, the endpoints datatype gets flushed before import. Pay attention with flush as it may result in data loss!
+    */
+    'flush'?: boolean;
+    /**
+    * Specify an endpoint filter which gets used to filter for a single object.
+    */
+    'filterOne'?: Array<string>;
+    /**
+    * Specify a filter which always gets applied to the endpoint if objects are retrieved.
+    */
+    'filterAll'?: Array<string>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
             "name": "_import",
             "baseName": "import",
             "type": "Array<string>"
         },
         {
+            "name": "flush",
+            "baseName": "flush",
+            "type": "boolean"
+        },
+        {
             "name": "filterOne",
             "baseName": "filter_one",
-            "type": "string"
+            "type": "Array<string>"
         },
         {
             "name": "filterAll",
             "baseName": "filter_all",
-            "type": "string"
-        },
-        {
-            "name": "resource",
-            "baseName": "resource",
-            "type": "any"
+            "type": "Array<string>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Endpoint.attributeTypeMap;
-    }
-}
-
-export class EndpointStatus {
-    'online'?: boolean;
-    'timeout'?: number;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "online",
-            "baseName": "online",
-            "type": "boolean"
-        },
-        {
-            "name": "timeout",
-            "baseName": "timeout",
-            "type": "number"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return EndpointStatus.attributeTypeMap;
-    }
-}
-
-export class Endpoints {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<Endpoint>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Endpoint>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Endpoints.attributeTypeMap;
-    }
-}
-
-export class Job {
-    'links'?: Links;
-    'kind'?: string;
-    'id'?: string;
-    'status'?: number;
-    'created'?: Date;
-    'ended'?: Date;
-    'at'?: Date;
-    'interval'?: number;
-    'retry'?: number;
-    'retryInterval'?: number;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "status",
-            "baseName": "status",
-            "type": "number"
-        },
-        {
-            "name": "created",
-            "baseName": "created",
-            "type": "Date"
-        },
-        {
-            "name": "ended",
-            "baseName": "ended",
-            "type": "Date"
-        },
-        {
-            "name": "at",
-            "baseName": "at",
-            "type": "Date"
-        },
-        {
-            "name": "interval",
-            "baseName": "interval",
-            "type": "number"
-        },
-        {
-            "name": "retry",
-            "baseName": "retry",
-            "type": "number"
-        },
-        {
-            "name": "retryInterval",
-            "baseName": "retry_interval",
-            "type": "number"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job.attributeTypeMap;
+        return EndpointDataOptions.attributeTypeMap;
     }
 }
 
@@ -1477,144 +891,169 @@ export class Job5 {
     }
 }
 
-export class JobError {
-    'links'?: Links;
-    'kind'?: string;
-    'id'?: string;
-    'object'?: DataObject;
-    'endpoint'?: Endpoint;
-    'timestamp'?: Date;
-    'message'?: string;
-    '_class'?: string;
+export class JobData {
+    'notification'?: JobDataNotification;
+    /**
+    * A list of mandators (name) the job should match. You may use a wildcard to specify all mandators.
+    */
+    'mandators'?: Array<string>;
+    /**
+    * A list of datatypes (name) the job should match. You may use a wildcard to specify all datatypes.
+    */
+    'datatypes'?: Array<string>;
+    /**
+    * A list of endoints (name) the job should match. You may use a wildcard to specify all endpoints.
+    */
+    'endpoints'?: Array<string>;
+    /**
+    * If enabled the server tries to splitt the job into multiple parallel processes.
+    */
+    'loadbalance'?: boolean;
+    /**
+    * If enabled the server does ignores any sync errors and continue with the process.
+    */
+    'ignore'?: boolean;
+    /**
+    * You may change the log level which gets applied during a sync job. Note that a log level too verbose has a big impact on the sync performance.
+    */
+    'logLevel'?: JobData.LogLevelEnum;
+    'options'?: JobDataOptions;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
+            "name": "notification",
+            "baseName": "notification",
+            "type": "JobDataNotification"
         },
         {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
+            "name": "mandators",
+            "baseName": "mandators",
+            "type": "Array<string>"
         },
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
+            "name": "datatypes",
+            "baseName": "datatypes",
+            "type": "Array<string>"
         },
         {
-            "name": "object",
-            "baseName": "object",
-            "type": "DataObject"
+            "name": "endpoints",
+            "baseName": "endpoints",
+            "type": "Array<string>"
         },
         {
-            "name": "endpoint",
-            "baseName": "endpoint",
-            "type": "Endpoint"
+            "name": "loadbalance",
+            "baseName": "loadbalance",
+            "type": "boolean"
         },
         {
-            "name": "timestamp",
-            "baseName": "timestamp",
-            "type": "Date"
+            "name": "ignore",
+            "baseName": "ignore",
+            "type": "boolean"
         },
         {
-            "name": "message",
-            "baseName": "message",
-            "type": "string"
+            "name": "logLevel",
+            "baseName": "log_level",
+            "type": "JobData.LogLevelEnum"
         },
         {
-            "name": "_class",
-            "baseName": "class",
-            "type": "string"
+            "name": "options",
+            "baseName": "options",
+            "type": "JobDataOptions"
         }    ];
 
     static getAttributeTypeMap() {
-        return JobError.attributeTypeMap;
+        return JobData.attributeTypeMap;
     }
 }
 
-export class JobErrors {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<JobError>;
+export namespace JobData {
+    export enum LogLevelEnum {
+        Emerg = <any> 'emerg',
+        Error = <any> 'error',
+        Warn = <any> 'warn',
+        Info = <any> 'info',
+        Notice = <any> 'notice',
+        Debug = <any> 'debug'
+    }
+}
+export class JobDataNotification {
+    /**
+    * You may enable mail notification for a given job.
+    */
+    'enabled'?: boolean;
+    /**
+    * A list of mail adresses which the notification should be sent to. This option has no affect if notification is disabled.
+    */
+    'receiver'?: Array<string>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean"
         },
         {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<JobError>"
+            "name": "receiver",
+            "baseName": "receiver",
+            "type": "Array<string>"
         }    ];
 
     static getAttributeTypeMap() {
-        return JobErrors.attributeTypeMap;
+        return JobDataNotification.attributeTypeMap;
     }
 }
 
-export class Jobs {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<Job>;
+/**
+* Holds options about when a job should start and with what interval.
+*/
+export class JobDataOptions {
+    /**
+    * Holds a unix timestamp at what time the job should be executed.
+    */
+    'at'?: string;
+    /**
+    * The number of secconds after the job should be executed again. The default is only run once.
+    */
+    'interval'?: number;
+    /**
+    * The number of times a failed job should be restarted. The default is never.
+    */
+    'retry'?: number;
+    /**
+    * The number of secconds beween failed job retries. The default is 300 (5min).
+    */
+    'retryInterval'?: number;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
+            "name": "at",
+            "baseName": "at",
             "type": "string"
         },
         {
-            "name": "count",
-            "baseName": "count",
+            "name": "interval",
+            "baseName": "interval",
             "type": "number"
         },
         {
-            "name": "total",
-            "baseName": "total",
+            "name": "retry",
+            "baseName": "retry",
             "type": "number"
         },
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Job>"
+            "name": "retryInterval",
+            "baseName": "retry_interval",
+            "type": "number"
         }    ];
 
     static getAttributeTypeMap() {
-        return Jobs.attributeTypeMap;
+        return JobDataOptions.attributeTypeMap;
     }
 }
 
@@ -1681,6 +1120,53 @@ export class Links {
     }
 }
 
+export class List {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return List.attributeTypeMap;
+    }
+}
+
 export class ListLinks {
     'self'?: Link;
     'prev'?: Link;
@@ -1710,73 +1196,53 @@ export class ListLinks {
     }
 }
 
-export class Mandator {
-    'links'?: Links;
-    'kind'?: string;
-    'name'?: string;
+export class LogData {
+    'level'?: number;
+    'levelName'?: string;
+    /**
+    * The log message.
+    */
+    'message'?: string;
+    /**
+    * The server component which logged the message.
+    */
+    'category'?: string;
+    /**
+    * Holds an exception object if the log message holds an exception reference.
+    */
+    'exception'?: any;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Mandator.attributeTypeMap;
-    }
-}
-
-export class Mandators {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<Mandator>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
+            "name": "level",
+            "baseName": "level",
             "type": "number"
         },
         {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
+            "name": "levelName",
+            "baseName": "level_name",
+            "type": "string"
         },
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Mandator>"
+            "name": "message",
+            "baseName": "message",
+            "type": "string"
+        },
+        {
+            "name": "category",
+            "baseName": "category",
+            "type": "string"
+        },
+        {
+            "name": "exception",
+            "baseName": "exception",
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
-        return Mandators.attributeTypeMap;
+        return LogData.attributeTypeMap;
     }
 }
 
@@ -1815,10 +1281,1240 @@ export class ObjectEndpoint {
     }
 }
 
-export class ObjectEndpoints {
-    'links'?: ListLinks;
+export class ObjectrelativeData {
+    /**
+    * Optional context context data which describes the relationship.
+    */
+    'context'?: any;
+    'object'?: DataObject;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "context",
+            "baseName": "context",
+            "type": "any"
+        },
+        {
+            "name": "object",
+            "baseName": "object",
+            "type": "DataObject"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ObjectrelativeData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the status of this resource. Note that status is immutable.
+*/
+export class ProcessStatus {
+    /**
+    * The result code of the process.
+    */
+    'code'?: number;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "code",
+            "baseName": "code",
+            "type": "number"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ProcessStatus.attributeTypeMap;
+    }
+}
+
+export class Resource {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Resource.attributeTypeMap;
+    }
+}
+
+export class WorkflowData {
+    'ensure'?: WorkflowData.EnsureEnum;
+    /**
+    * Holds a scripted condition if a given workflow gets matched and executed.
+    */
+    'condition'?: string;
+    /**
+    * Map attributes from the endpoint to the datatype schema (if the endpoint is of type source) or map attributes from the datatype to the endpoint if the endpoint is of type destination.
+    */
+    'map'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "ensure",
+            "baseName": "ensure",
+            "type": "WorkflowData.EnsureEnum"
+        },
+        {
+            "name": "condition",
+            "baseName": "condition",
+            "type": "string"
+        },
+        {
+            "name": "map",
+            "baseName": "map",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return WorkflowData.attributeTypeMap;
+    }
+}
+
+export namespace WorkflowData {
+    export enum EnsureEnum {
+        Last = <any> 'last',
+        Exists = <any> 'exists',
+        Absent = <any> 'absent'
+    }
+}
+/**
+* An access role is defined list which matches authenticated user identifiers.
+*/
+export class AccessRole {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always AccessRole.
+    */
     'kind'?: string;
+    'data'?: AccessroleData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "AccessroleData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return AccessRole.attributeTypeMap;
+    }
+}
+
+/**
+* A list of access roles.
+*/
+export class AccessRoles {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
     'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<AccessRole>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<AccessRole>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return AccessRoles.attributeTypeMap;
+    }
+}
+
+/**
+* An access rule allows to specify what access roles can access which resources.
+*/
+export class AccessRule {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always AccessRule.
+    */
+    'kind'?: string;
+    'data'?: AccessruleData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "AccessruleData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return AccessRule.attributeTypeMap;
+    }
+}
+
+/**
+* A list of access rules.
+*/
+export class AccessRules {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<AccessRule>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<AccessRule>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return AccessRules.attributeTypeMap;
+    }
+}
+
+/**
+* A data object represents a single object in a datatype (data collection).
+*/
+export class DataObject {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always DataObject.
+    */
+    'kind'?: string;
+    /**
+    * Attributes
+    */
+    'data'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return DataObject.attributeTypeMap;
+    }
+}
+
+/**
+* List of data objects.
+*/
+export class DataObjects {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<DataObject>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<DataObject>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return DataObjects.attributeTypeMap;
+    }
+}
+
+/**
+* A datatype is a collection of data objects, meaning a collection of similar objects.
+*/
+export class Datatype {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always DataType.
+    */
+    'kind'?: string;
+    'data'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Datatype.attributeTypeMap;
+    }
+}
+
+/**
+* A list of datatypes.
+*/
+export class Datatypes {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Datatypes>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Datatypes>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Datatypes.attributeTypeMap;
+    }
+}
+
+/**
+* An endpoint represents an external resource with objects. This may be a database, a file, a http service, ...
+*/
+export class Endpoint {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Endpoint.
+    */
+    'kind'?: string;
+    'data'?: EndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "EndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Endpoint.attributeTypeMap;
+    }
+}
+
+/**
+* An endpoint object is the actual object on an endpoint itself.
+*/
+export class EndpointObject {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * Attributes
+    */
+    'data'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return EndpointObject.attributeTypeMap;
+    }
+}
+
+/**
+* A list of endpoint objects.
+*/
+export class EndpointObjects {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always EndpointObject.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<EndpointObject>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<EndpointObject>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return EndpointObjects.attributeTypeMap;
+    }
+}
+
+/**
+* A list of endpoints.
+*/
+export class Endpoints {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Endpoint>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Endpoint>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Endpoints.attributeTypeMap;
+    }
+}
+
+/**
+* A job is a synchronization job which declares when and what datatypes should be synchronized.
+*/
+export class Job {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Job.
+    */
+    'kind'?: string;
+    'data'?: JobData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "JobData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Job.attributeTypeMap;
+    }
+}
+
+/**
+* A list of jobs.
+*/
+export class Jobs {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Job>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Job>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Jobs.attributeTypeMap;
+    }
+}
+
+/**
+* A log messagage from a process.
+*/
+export class Log {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Log.
+    */
+    'kind'?: string;
+    'data'?: LogData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "LogData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Log.attributeTypeMap;
+    }
+}
+
+/**
+* A list of logs.
+*/
+export class Logs {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Log>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Log>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Logs.attributeTypeMap;
+    }
+}
+
+/**
+* A mandator is a namespace to separate resources.
+*/
+export class Mandator {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Mandator.
+    */
+    'kind'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Mandator.attributeTypeMap;
+    }
+}
+
+/**
+* A list of mandators.
+*/
+export class Mandators {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Mandator>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Mandator>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Mandators.attributeTypeMap;
+    }
+}
+
+export class ObjectEndpoints {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
     'total'?: number;
     'data'?: Array<ObjectEndpoint>;
 
@@ -1856,12 +2552,21 @@ export class ObjectEndpoints {
     }
 }
 
-export class ObjectHistory {
-    'links'?: ListLinks;
+/**
+* An object relation represents a releationship between two data objects. A relationship may apply to objects of different datatypes and/or mandators.
+*/
+export class ObjectRelative {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Mandator.
+    */
     'kind'?: string;
-    'count'?: number;
-    'total'?: number;
-    'data'?: Array<ObjectHistoryObject>;
+    'data'?: ObjectrelativeData;
 
     static discriminator: string | undefined = undefined;
 
@@ -1869,53 +2574,16 @@ export class ObjectHistory {
         {
             "name": "links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "Links"
         },
         {
-            "name": "kind",
-            "baseName": "kind",
+            "name": "name",
+            "baseName": "name",
             "type": "string"
         },
         {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<ObjectHistoryObject>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return ObjectHistory.attributeTypeMap;
-    }
-}
-
-export class ObjectHistoryObject {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'version'?: number;
-    'timestamp'?: Date;
-    'object'?: DataObject;
-    'data'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
+            "name": "id",
+            "baseName": "id",
             "type": "string"
         },
         {
@@ -1924,40 +2592,14 @@ export class ObjectHistoryObject {
             "type": "number"
         },
         {
-            "name": "timestamp",
-            "baseName": "timestamp",
-            "type": "Date"
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
         },
         {
-            "name": "object",
-            "baseName": "object",
-            "type": "DataObject"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return ObjectHistoryObject.attributeTypeMap;
-    }
-}
-
-export class ObjectRelative {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'relativeId'?: string;
-    'context'?: any;
-    'object'?: DataObject;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
         },
         {
             "name": "kind",
@@ -1965,19 +2607,9 @@ export class ObjectRelative {
             "type": "string"
         },
         {
-            "name": "relativeId",
-            "baseName": "relative_id",
-            "type": "string"
-        },
-        {
-            "name": "context",
-            "baseName": "context",
-            "type": "any"
-        },
-        {
-            "name": "object",
-            "baseName": "object",
-            "type": "DataObject"
+            "name": "data",
+            "baseName": "data",
+            "type": "ObjectrelativeData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1985,10 +2617,25 @@ export class ObjectRelative {
     }
 }
 
+/**
+* A list of related objects.
+*/
 export class ObjectRelatives {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
     'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
     'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
     'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
     'total'?: number;
     'data'?: Array<ObjectRelative>;
 
@@ -2026,75 +2673,21 @@ export class ObjectRelatives {
     }
 }
 
-export class Schema {
+/**
+* A process is a sub resource of a job. Each process represents one job execution.
+*/
+export class Process {
     'links'?: Links;
-    'kind'?: string;
-    'datatype'?: Datatype;
-    'mandator'?: Mandator;
-    /**
-    * Datatype schema
-    */
-    'schema'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "datatype",
-            "baseName": "datatype",
-            "type": "Datatype"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Mandator"
-        },
-        {
-            "name": "schema",
-            "baseName": "schema",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Schema.attributeTypeMap;
-    }
-}
-
-export class Workflow {
-    'links'?: Links;
-    'kind'?: string;
-    /**
-    * Workflow name
-    */
     'name'?: string;
-    'datatype'?: Datatype;
-    'mandator'?: Mandator;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
     /**
-    * Workflow name
+    * The resource type, always Process.
     */
-    'endpoint'?: string;
-    /**
-    * Name of implementation, usually Tubee\\Workflow
-    */
-    '_class'?: string;
-    /**
-    * Specifies what type of workflow this is.
-    */
-    'ensure'?: string;
-    /**
-    * Workflow condition
-    */
-    'condition'?: string;
+    'kind'?: string;
+    'status'?: ProcessStatus;
 
     static discriminator: string | undefined = undefined;
 
@@ -2103,11 +2696,6 @@ export class Workflow {
             "name": "links",
             "baseName": "_links",
             "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
         },
         {
             "name": "name",
@@ -2115,34 +2703,155 @@ export class Workflow {
             "type": "string"
         },
         {
-            "name": "datatype",
-            "baseName": "datatype",
-            "type": "Datatype"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Mandator"
-        },
-        {
-            "name": "endpoint",
-            "baseName": "endpoint",
+            "name": "id",
+            "baseName": "id",
             "type": "string"
         },
         {
-            "name": "_class",
-            "baseName": "class",
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
             "type": "string"
         },
         {
-            "name": "ensure",
-            "baseName": "ensure",
+            "name": "changed",
+            "baseName": "changed",
             "type": "string"
         },
         {
-            "name": "condition",
-            "baseName": "condition",
+            "name": "kind",
+            "baseName": "kind",
             "type": "string"
+        },
+        {
+            "name": "status",
+            "baseName": "status",
+            "type": "ProcessStatus"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Process.attributeTypeMap;
+    }
+}
+
+/**
+* A list of processes.
+*/
+export class Processes {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Process>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Process>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Processes.attributeTypeMap;
+    }
+}
+
+/**
+* A workflow gets used if an endpoint gets imported or exported. A workflow defines if and what object and also if and what attributes of an object should be written to or from an endpoint.
+*/
+export class Workflow {
+    'links'?: Links;
+    'name'?: string;
+    'id'?: string;
+    'version'?: number;
+    'created'?: string;
+    'changed'?: string;
+    /**
+    * The resource type, always Workflow.
+    */
+    'kind'?: string;
+    'data'?: WorkflowData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "WorkflowData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -2150,10 +2859,25 @@ export class Workflow {
     }
 }
 
+/**
+* A list of workflows.
+*/
 export class Workflows {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
     'links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
     'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
     'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
     'total'?: number;
     'data'?: Array<Workflow>;
 
@@ -2193,18 +2917,19 @@ export class Workflows {
 
 
 let enumsMap: {[index: string]: any} = {
+        "AccessruleData.VerbsEnum": AccessruleData.VerbsEnum,
+        "EndpointData.ClassEnum": EndpointData.ClassEnum,
+        "EndpointData.TypeEnum": EndpointData.TypeEnum,
+        "JobData.LogLevelEnum": JobData.LogLevelEnum,
+        "WorkflowData.EnsureEnum": WorkflowData.EnsureEnum,
 }
 
 let typeMap: {[index: string]: any} = {
-    "AccessRole": AccessRole,
-    "AccessRoles": AccessRoles,
-    "AccessRule": AccessRule,
-    "AccessRules": AccessRules,
+    "AccessroleData": AccessroleData,
+    "AccessruleData": AccessruleData,
     "AttributeMap": AttributeMap,
     "Data": Data,
     "Data1": Data1,
-    "Data10": Data10,
-    "Data11": Data11,
     "Data2": Data2,
     "Data3": Data3,
     "Data4": Data4,
@@ -2212,36 +2937,50 @@ let typeMap: {[index: string]: any} = {
     "Data6": Data6,
     "Data7": Data7,
     "Data8": Data8,
-    "Data9": Data9,
-    "DataObject": DataObject,
-    "DataObjects": DataObjects,
-    "Datatype": Datatype,
-    "Datatypes": Datatypes,
-    "Endpoint": Endpoint,
-    "EndpointStatus": EndpointStatus,
-    "Endpoints": Endpoints,
-    "Job": Job,
+    "EndpointData": EndpointData,
+    "EndpointDataOptions": EndpointDataOptions,
     "Job1": Job1,
     "Job2": Job2,
     "Job3": Job3,
     "Job4": Job4,
     "Job5": Job5,
-    "JobError": JobError,
-    "JobErrors": JobErrors,
-    "Jobs": Jobs,
+    "JobData": JobData,
+    "JobDataNotification": JobDataNotification,
+    "JobDataOptions": JobDataOptions,
     "JsonPatch": JsonPatch,
     "Link": Link,
     "Links": Links,
+    "List": List,
     "ListLinks": ListLinks,
+    "LogData": LogData,
+    "ObjectEndpoint": ObjectEndpoint,
+    "ObjectrelativeData": ObjectrelativeData,
+    "ProcessStatus": ProcessStatus,
+    "Resource": Resource,
+    "WorkflowData": WorkflowData,
+    "AccessRole": AccessRole,
+    "AccessRoles": AccessRoles,
+    "AccessRule": AccessRule,
+    "AccessRules": AccessRules,
+    "DataObject": DataObject,
+    "DataObjects": DataObjects,
+    "Datatype": Datatype,
+    "Datatypes": Datatypes,
+    "Endpoint": Endpoint,
+    "EndpointObject": EndpointObject,
+    "EndpointObjects": EndpointObjects,
+    "Endpoints": Endpoints,
+    "Job": Job,
+    "Jobs": Jobs,
+    "Log": Log,
+    "Logs": Logs,
     "Mandator": Mandator,
     "Mandators": Mandators,
-    "ObjectEndpoint": ObjectEndpoint,
     "ObjectEndpoints": ObjectEndpoints,
-    "ObjectHistory": ObjectHistory,
-    "ObjectHistoryObject": ObjectHistoryObject,
     "ObjectRelative": ObjectRelative,
     "ObjectRelatives": ObjectRelatives,
-    "Schema": Schema,
+    "Process": Process,
+    "Processes": Processes,
     "Workflow": Workflow,
     "Workflows": Workflows,
 }
@@ -3327,7 +4066,7 @@ export class DataApi {
      * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data Object
      */
-    public addObject (mandator: string, datatype: string, write?: boolean, data?: Data11) : any {
+    public addObject (mandator: string, datatype: string, write?: boolean, data?: Data8) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -3359,7 +4098,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data11")
+            body: ObjectSerializer.serialize(data, "Data8")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3401,7 +4140,7 @@ export class DataApi {
      * @param object Object ID
      * @param data Object
      */
-    public addObjectRelative (mandator: string, datatype: string, object: string, data?: Data9) : any {
+    public addObjectRelative (mandator: string, datatype: string, object: string, data?: Data6) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -3435,7 +4174,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data9")
+            body: ObjectSerializer.serialize(data, "Data6")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3707,12 +4446,12 @@ export class DataApi {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: EndpointObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObjects");
+                    body = ObjectSerializer.deserialize(body, "EndpointObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -3786,12 +4525,12 @@ export class DataApi {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectHistory;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectHistory");
+                    body = ObjectSerializer.deserialize(body, "DataObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -4295,7 +5034,7 @@ export class DataApi {
      * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data Object
      */
-    public replaceObject (mandator: string, datatype: string, object: string, write?: boolean, data?: Data8) : any {
+    public replaceObject (mandator: string, datatype: string, object: string, write?: boolean, data?: Data5) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4333,7 +5072,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data8")
+            body: ObjectSerializer.serialize(data, "Data5")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -4457,7 +5196,7 @@ export class DataApi {
      * @param relative Object ID
      * @param data Object
      */
-    public updateObjectRelative (mandator: string, datatype: string, object: string, relative: string, data?: Data10) : any {
+    public updateObjectRelative (mandator: string, datatype: string, object: string, relative: string, data?: Data7) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives/{relative}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4497,7 +5236,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data10")
+            body: ObjectSerializer.serialize(data, "Data7")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5038,7 +5777,7 @@ export class DatatypesApi {
      * @param mandator Mandator name
      * @param data Datatype
      */
-    public addDatatype (mandator: string, data?: Data2) : any {
+    public addDatatype (mandator: string, data?: Datatype) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
         let localVarQueryParameters: any = {};
@@ -5060,7 +5799,7 @@ export class DatatypesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data2")
+            body: ObjectSerializer.serialize(data, "Datatype")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5309,7 +6048,7 @@ export class DatatypesApi {
      * @param datatype Datatype
      * @param data Datatype
      */
-    public replaceDatatype (mandator: string, datatype: string, data?: Data3) : any {
+    public replaceDatatype (mandator: string, datatype: string, data?: Datatype) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -5337,7 +6076,7 @@ export class DatatypesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data3")
+            body: ObjectSerializer.serialize(data, "Datatype")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5499,7 +6238,7 @@ export class EndpointsApi {
      * @param datatype Datatype
      * @param data Endpoint
      */
-    public addEndpoint (mandator: string, datatype: string, data?: Data4) : any {
+    public addEndpoint (mandator: string, datatype: string, data?: Endpoint) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -5527,7 +6266,7 @@ export class EndpointsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data4")
+            body: ObjectSerializer.serialize(data, "Endpoint")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5796,9 +6535,9 @@ export class EndpointsApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint name
-     * @param data Datatype
+     * @param data Endpoint
      */
-    public replaceEndpoint (mandator: string, datatype: string, endpoint: string, data?: Data5) : any {
+    public replaceEndpoint (mandator: string, datatype: string, endpoint: string, data?: Data2) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5832,7 +6571,7 @@ export class EndpointsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data5")
+            body: ObjectSerializer.serialize(data, "Data2")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -6110,6 +6849,72 @@ export class JobsApi {
     }
     /**
      * 
+     * @summary Abort running process
+     * @param job Job ID
+     * @param process Process ID
+     */
+    public deleteProcess (job: string, process: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+            .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling deleteProcess.');
+        }
+
+        // verify required parameter 'process' is not null or undefined
+        if (process === null || process === undefined) {
+            throw new Error('Required parameter process was null or undefined when calling deleteProcess.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'DELETE',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("deleteProcess".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
      * @summary Get job by id
      * @param job Job ID
      */
@@ -6172,24 +6977,24 @@ export class JobsApi {
      * 
      * @summary Get a single job error
      * @param job Job ID
-     * @param error Error id
+     * @param log Log id
      */
-    public getJobError (job: string, error: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/errors/{error}'
+    public getJobLog (job: string, log: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/logs/{log}'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
-            .replace('{' + 'error' + '}', encodeURIComponent(String(error)));
+            .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getJobError.');
+            throw new Error('Required parameter job was null or undefined when calling getJobLog.');
         }
 
-        // verify required parameter 'error' is not null or undefined
-        if (error === null || error === undefined) {
-            throw new Error('Required parameter error was null or undefined when calling getJobError.');
+        // verify required parameter 'log' is not null or undefined
+        if (log === null || log === undefined) {
+            throw new Error('Required parameter log was null or undefined when calling getJobLog.');
         }
 
 
@@ -6216,16 +7021,16 @@ export class JobsApi {
             }
         }
 
-        if("getJobError".match('^watch[A-Z]')) {
+        if("getJobLog".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: JobError;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "JobError");
+                    body = ObjectSerializer.deserialize(body, "Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6237,15 +7042,16 @@ export class JobsApi {
     }
     /**
      * 
-     * @summary Get all errors of a job
+     * @summary Get logs of a job
      * @param job Job ID
+     * @param query JSON query
      * @param attributes Filter attributes
-     * @param query Complex query to get a specific set of objects (A mongodb compatible query can be applied)
      * @param offset Objects offset, per default it starts from 0
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getJobErrors (job: string, attributes?: Array<string>, query?: string, offset?: number, limit?: number) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/errors'
+    public getJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/logs'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -6253,15 +7059,15 @@ export class JobsApi {
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getJobErrors.');
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+            throw new Error('Required parameter job was null or undefined when calling getJobLogs.');
         }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
         }
 
         if (offset !== undefined) {
@@ -6270,6 +7076,10 @@ export class JobsApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -6296,16 +7106,16 @@ export class JobsApi {
             }
         }
 
-        if("getJobErrors".match('^watch[A-Z]')) {
+        if("getJobLogs".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: JobErrors;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "JobErrors");
+                    body = ObjectSerializer.deserialize(body, "Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6390,29 +7200,26 @@ export class JobsApi {
     }
     /**
      * 
-     * @summary Monitor  job erros as live stream (Long running http request, needs to be resend after timeout)
+     * @summary Get a single process of a job
      * @param job Job ID
-     * @param attributes Filter attributes
-     * @param query Complex query to get a specific set of objects (A mongodb compatible query can be applied)
+     * @param process Process ID
      */
-    public watchJobErrors (job: string, attributes?: Array<string>, query?: string) : any {
-        const localVarPath = this.basePath + '/watch/jobs/{job}/errors'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+    public getProcess (job: string, process: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+            .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling watchJobErrors.');
+            throw new Error('Required parameter job was null or undefined when calling getProcess.');
         }
 
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        // verify required parameter 'process' is not null or undefined
+        if (process === null || process === undefined) {
+            throw new Error('Required parameter process was null or undefined when calling getProcess.');
         }
 
 
@@ -6439,16 +7246,670 @@ export class JobsApi {
             }
         }
 
-        if("watchJobErrors".match('^watch[A-Z]')) {
+        if("getProcess".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: JobErrors;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "JobErrors");
+                    body = ObjectSerializer.deserialize(body, "Process");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get a single process log
+     * @param job Job ID
+     * @param process Process ID
+     * @param log Log id
+     */
+    public getProcessLog (job: string, process: string, log: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/process/{process}/logs/{log}'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+            .replace('{' + 'process' + '}', encodeURIComponent(String(process)))
+            .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling getProcessLog.');
+        }
+
+        // verify required parameter 'process' is not null or undefined
+        if (process === null || process === undefined) {
+            throw new Error('Required parameter process was null or undefined when calling getProcessLog.');
+        }
+
+        // verify required parameter 'log' is not null or undefined
+        if (log === null || log === undefined) {
+            throw new Error('Required parameter log was null or undefined when calling getProcessLog.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getProcessLog".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get logs of a process
+     * @param job Job ID
+     * @param process Process ID
+     * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0
+     * @param limit Objects limit, per default 20 objects will get returned
+     */
+    public getProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}/logs'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+            .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling getProcessLogs.');
+        }
+
+        // verify required parameter 'process' is not null or undefined
+        if (process === null || process === undefined) {
+            throw new Error('Required parameter process was null or undefined when calling getProcessLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getProcessLogs".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get all processes from a job
+     * @param job Job ID
+     * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0
+     * @param limit Objects limit, per default 20 objects will get returned
+     */
+    public getProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/processes'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling getProcesses.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getProcesses".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Processes;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Processes");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Trigger a process for given job by force
+     * @param job Job ID
+     */
+    public triggerProcess (job: string) : any {
+        const localVarPath = this.basePath + '/jobs/{job}/processes'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling triggerProcess.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("triggerProcess".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Process");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Update specific attributes of a job
+     * @summary Patch job as rfc6902 request
+     * @param job Job ID
+     * @param data Object
+     */
+    public updateJob (job: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/jobs/{job}'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling updateJob.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PATCH',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateJob".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Job");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Watch log stream
+     * @param job Job ID
+     * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
+     */
+    public watchJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/jobs/{job}/logs'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling watchJobLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchJobLogs".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * A job is an asynchronous server process
+     * @summary Get realtime updates
+     * @param query JSON query
+     * @param attributes Filter attributes
+     */
+    public watchJobs (query?: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/watch/jobs';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchJobs".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Watch log stream
+     * @param job Job ID
+     * @param process Process ID
+     * @param query JSON query
+     * @param attributes Filter attributes
+     */
+    public watchProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/watch/jobs/{job}/processes/{process}/logs'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+            .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling watchProcessLogs.');
+        }
+
+        // verify required parameter 'process' is not null or undefined
+        if (process === null || process === undefined) {
+            throw new Error('Required parameter process was null or undefined when calling watchProcessLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchProcessLogs".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Watch job processes
+     * @param job Job ID
+     * @param query JSON query
+     * @param attributes Filter attributes
+     */
+    public watchProcesses (job: string, query?: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/watch/jobs/{job}/processes'
+            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'job' is not null or undefined
+        if (job === null || job === undefined) {
+            throw new Error('Required parameter job was null or undefined when calling watchProcesses.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchProcesses".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6936,7 +8397,7 @@ export class WorkflowsApi {
      * @param endpoint Endpoint name
      * @param data Workflow
      */
-    public addWorkflow (mandator: string, datatype: string, endpoint: string, data?: Data6) : any {
+    public addWorkflow (mandator: string, datatype: string, endpoint: string, data?: Data3) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -6970,7 +8431,7 @@ export class WorkflowsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data6")
+            body: ObjectSerializer.serialize(data, "Data3")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -7263,7 +8724,7 @@ export class WorkflowsApi {
      * @param workflow Workflow name
      * @param data Workflow
      */
-    public replaceWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Data7) : any {
+    public replaceWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Data4) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -7303,7 +8764,7 @@ export class WorkflowsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data7")
+            body: ObjectSerializer.serialize(data, "Data4")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
