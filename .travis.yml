@@ -5,13 +5,14 @@ script:
   - cd swagger-codegen
   - mvn clean install
   - cd ..
-  - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml -l typescript-node --http-user-agent "tubee typescript-node sdk" -t src -o src
+  - wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml src/swagger.yaml
+  - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i src/swagger.yml -l typescript-node --http-user-agent "tubee typescript-node sdk" -t src -o src
   - npm install
   - npm run build
 after_success:
  - git config --global user.email "travis@travis-ci.org"
  - git config --global user.name "Travis CI"
- - git add src/*.ts
+ - git add src/*.ts; git add src/*.yml
  - git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
  - git remote add origin-pages https://${GH_TOKEN}@github.com/gyselroth/tubee-sdk-typescript-node.git > /dev/null 2>&1
  - git push --quiet --set-upstream master master
