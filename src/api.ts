@@ -140,14 +140,14 @@ export class AccessroleData {
     /**
     * A list of user identifiers which the access role should match. It is also possible to specify a wildcard to match all identifiers.
     */
-    'identifiers'?: Array<string>;
+    'selectors'?: Array<string>;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "identifiers",
-            "baseName": "identifiers",
+            "name": "selectors",
+            "baseName": "selectors",
             "type": "Array<string>"
         }    ];
 
