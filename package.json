@@ -1,6 +1,6 @@
 {
   "name": "@gyselroth/tubee-sdk-node",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "The official tubee sdk for node with typescript support",
   "main": "build/api.js",
   "scripts": {

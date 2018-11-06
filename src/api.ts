@@ -273,267 +273,20 @@ export class AttributeMap {
     }
 }
 
-export class Data {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
+export class DatatypeData {
+    'schema'?: any;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data.attributeTypeMap;
-    }
-}
-
-export class Data1 {
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data1.attributeTypeMap;
-    }
-}
-
-export class Data2 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data2.attributeTypeMap;
-    }
-}
-
-export class Data3 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'map'?: AttributeMap;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "map",
-            "baseName": "map",
-            "type": "AttributeMap"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data3.attributeTypeMap;
-    }
-}
-
-export class Data4 {
-    /**
-    * Name
-    */
-    'name': string;
-    /**
-    * Description
-    */
-    'descripiton'?: string;
-    'map'?: AttributeMap;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "descripiton",
-            "baseName": "descripiton",
-            "type": "string"
-        },
-        {
-            "name": "map",
-            "baseName": "map",
-            "type": "AttributeMap"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data4.attributeTypeMap;
-    }
-}
-
-export class Data5 {
-    /**
-    * Object attributes
-    */
-    'data': any;
-    /**
-    * Specify destination endpoints, if not set the objects get exported to all destination endpoints
-    */
-    'endpoints'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "any"
-        },
-        {
-            "name": "endpoints",
-            "baseName": "endpoints",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data5.attributeTypeMap;
-    }
-}
-
-export class Data6 {
-    /**
-    * ObjectID to the object to refernece to
-    */
-    'relative': string;
-    /**
-    * Add context data which describes the relation
-    */
-    'context'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "relative",
-            "baseName": "relative",
-            "type": "string"
-        },
-        {
-            "name": "context",
-            "baseName": "context",
+            "name": "schema",
+            "baseName": "schema",
             "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
-        return Data6.attributeTypeMap;
-    }
-}
-
-export class Data7 {
-    /**
-    * ObjectID to the object to refernece to
-    */
-    'relative': string;
-    /**
-    * Add context data which describes the relation
-    */
-    'context'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "relative",
-            "baseName": "relative",
-            "type": "string"
-        },
-        {
-            "name": "context",
-            "baseName": "context",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data7.attributeTypeMap;
-    }
-}
-
-export class Data8 {
-    /**
-    * Object attributes
-    */
-    'data': any;
-    /**
-    * Specify destination endpoints, if not set the objects get exported to all destination endpoints
-    */
-    'endpoints'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "any"
-        },
-        {
-            "name": "endpoints",
-            "baseName": "endpoints",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Data8.attributeTypeMap;
+        return DatatypeData.attributeTypeMap;
     }
 }
 
@@ -644,250 +397,6 @@ export class EndpointDataOptions {
 
     static getAttributeTypeMap() {
         return EndpointDataOptions.attributeTypeMap;
-    }
-}
-
-export class Job1 {
-    /**
-    * Unique name of the access rule
-    */
-    'name'?: string;
-    /**
-    * array of http verbs, you may also specify a wildcard ['*']
-    */
-    'verbs'?: Array<string>;
-    /**
-    * Array of resources to verify, for example mandator, datatype, object, you may also specify a wildcard ['*']
-    */
-    'selectors'?: Array<string>;
-    /**
-    * Resource identifiers to check with selectors, you may also specify a wildcard ['*']
-    */
-    'resources'?: Array<string>;
-    /**
-    * Array of role names to apply the rule
-    */
-    'roles'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "verbs",
-            "baseName": "verbs",
-            "type": "Array<string>"
-        },
-        {
-            "name": "selectors",
-            "baseName": "selectors",
-            "type": "Array<string>"
-        },
-        {
-            "name": "resources",
-            "baseName": "resources",
-            "type": "Array<string>"
-        },
-        {
-            "name": "roles",
-            "baseName": "roles",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job1.attributeTypeMap;
-    }
-}
-
-export class Job2 {
-    /**
-    * array of http verbs, you may also specify a wildcard ['*']
-    */
-    'verbs'?: Array<string>;
-    /**
-    * Array of resources to verify, for example mandator, datatype, object, you may also specify a wildcard ['*']
-    */
-    'selectors'?: Array<string>;
-    /**
-    * Resource identifiers to check with selectors, you may also specify a wildcard ['*']
-    */
-    'resources'?: Array<string>;
-    /**
-    * Array of role names to apply the rule
-    */
-    'roles'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "verbs",
-            "baseName": "verbs",
-            "type": "Array<string>"
-        },
-        {
-            "name": "selectors",
-            "baseName": "selectors",
-            "type": "Array<string>"
-        },
-        {
-            "name": "resources",
-            "baseName": "resources",
-            "type": "Array<string>"
-        },
-        {
-            "name": "roles",
-            "baseName": "roles",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job2.attributeTypeMap;
-    }
-}
-
-export class Job3 {
-    /**
-    * Unique name of the access role
-    */
-    'name'?: string;
-    /**
-    * Array of user identifiers to which the role shall be applied
-    */
-    'users'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job3.attributeTypeMap;
-    }
-}
-
-export class Job4 {
-    /**
-    * Array of user identifiers to which the role shall be applied
-    */
-    'users'?: Array<string>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "users",
-            "baseName": "users",
-            "type": "Array<string>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job4.attributeTypeMap;
-    }
-}
-
-export class Job5 {
-    /**
-    * Type of sync job: 1 (import), 2 (export), (4) import/export
-    */
-    'type'?: number;
-    /**
-    * Array of mandators, if not given all mandators are used
-    */
-    'mandator'?: Array<string>;
-    /**
-    * Array of datatypes, if not given all datatypes are used
-    */
-    'datatypes'?: Array<string>;
-    /**
-    * Array of source endpoints, if not given all mandators are used
-    */
-    'endpoints'?: Array<string>;
-    /**
-    * Ignore object error and continue with the next one
-    */
-    'ignore'?: boolean;
-    /**
-    * Simulate job
-    */
-    'simulate'?: boolean;
-    /**
-    * Specify an interval for this job. If not specified the jobs runs once.
-    */
-    'interval'?: number;
-    /**
-    * Specify a retry count for this job. If not specified the job does not repeat if failed before.
-    */
-    'retry'?: number;
-    /**
-    * Specify an exact timestamp when the job should get executed. The job will get executed not before this time and not before there is a free slot
-    */
-    'executeAt'?: number;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "number"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Array<string>"
-        },
-        {
-            "name": "datatypes",
-            "baseName": "datatypes",
-            "type": "Array<string>"
-        },
-        {
-            "name": "endpoints",
-            "baseName": "endpoints",
-            "type": "Array<string>"
-        },
-        {
-            "name": "ignore",
-            "baseName": "ignore",
-            "type": "boolean"
-        },
-        {
-            "name": "simulate",
-            "baseName": "simulate",
-            "type": "boolean"
-        },
-        {
-            "name": "interval",
-            "baseName": "interval",
-            "type": "number"
-        },
-        {
-            "name": "retry",
-            "baseName": "retry",
-            "type": "number"
-        },
-        {
-            "name": "executeAt",
-            "baseName": "execute_at",
-            "type": "number"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Job5.attributeTypeMap;
     }
 }
 
@@ -1057,6 +566,9 @@ export class JobDataOptions {
     }
 }
 
+/**
+* A JSON Patch according rfc6902.
+*/
 export class JsonPatch {
     'op'?: string;
     'path'?: string;
@@ -1103,6 +615,9 @@ export class Link {
     }
 }
 
+/**
+* Contains resource links (URL) to other resources.
+*/
 export class Links {
     'self'?: Link;
 
@@ -1332,10 +847,25 @@ export class ProcessStatus {
 
 export class Resource {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
 
     static discriminator: string | undefined = undefined;
@@ -1416,7 +946,8 @@ export namespace WorkflowData {
     export enum EnsureEnum {
         Last = <any> 'last',
         Exists = <any> 'exists',
-        Absent = <any> 'absent'
+        Absent = <any> 'absent',
+        Merge = <any> 'merge'
     }
 }
 /**
@@ -1424,10 +955,25 @@ export namespace WorkflowData {
 */
 export class AccessRole {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always AccessRole.
@@ -1545,10 +1091,25 @@ export class AccessRoles {
 */
 export class AccessRule {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always AccessRule.
@@ -1666,10 +1227,25 @@ export class AccessRules {
 */
 export class DataObject {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always DataObject.
@@ -1790,16 +1366,31 @@ export class DataObjects {
 */
 export class Datatype {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always DataType.
     */
     'kind'?: string;
-    'data'?: any;
+    'data'?: DatatypeData;
 
     static discriminator: string | undefined = undefined;
 
@@ -1842,7 +1433,7 @@ export class Datatype {
         {
             "name": "data",
             "baseName": "data",
-            "type": "any"
+            "type": "DatatypeData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1911,10 +1502,25 @@ export class Datatypes {
 */
 export class Endpoint {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Endpoint.
@@ -1976,10 +1582,25 @@ export class Endpoint {
 */
 export class EndpointObject {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * Attributes
@@ -2147,10 +1768,25 @@ export class Endpoints {
 */
 export class Job {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Job.
@@ -2268,10 +1904,25 @@ export class Jobs {
 */
 export class Log {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Log.
@@ -2389,10 +2040,25 @@ export class Logs {
 */
 export class Mandator {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Mandator.
@@ -2557,10 +2223,25 @@ export class ObjectEndpoints {
 */
 export class ObjectRelative {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Mandator.
@@ -2678,10 +2359,25 @@ export class ObjectRelatives {
 */
 export class Process {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Process.
@@ -2799,10 +2495,25 @@ export class Processes {
 */
 export class Workflow {
     'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
     'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
     'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
     'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
     'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
     'changed'?: string;
     /**
     * The resource type, always Workflow.
@@ -2928,22 +2639,9 @@ let typeMap: {[index: string]: any} = {
     "AccessroleData": AccessroleData,
     "AccessruleData": AccessruleData,
     "AttributeMap": AttributeMap,
-    "Data": Data,
-    "Data1": Data1,
-    "Data2": Data2,
-    "Data3": Data3,
-    "Data4": Data4,
-    "Data5": Data5,
-    "Data6": Data6,
-    "Data7": Data7,
-    "Data8": Data8,
+    "DatatypeData": DatatypeData,
     "EndpointData": EndpointData,
     "EndpointDataOptions": EndpointDataOptions,
-    "Job1": Job1,
-    "Job2": Job2,
-    "Job3": Job3,
-    "Job4": Job4,
-    "Job5": Job5,
     "JobData": JobData,
     "JobDataNotification": JobDataNotification,
     "JobDataOptions": JobDataOptions,
@@ -3091,9 +2789,9 @@ export class AccessRolesApi {
     /**
      * 
      * @summary Create a new access role
-     * @param job The access role to create
+     * @param data 
      */
-    public addAccessRole (job?: Job3) : any {
+    public addAccessRole (data?: AccessRole) : any {
         const localVarPath = this.basePath + '/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3109,7 +2807,7 @@ export class AccessRolesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Job3")
+            body: ObjectSerializer.serialize(data, "AccessRole")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3267,10 +2965,11 @@ export class AccessRolesApi {
      * @summary Get access roles
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3290,6 +2989,10 @@ export class AccessRolesApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -3339,9 +3042,9 @@ export class AccessRolesApi {
      * 
      * @summary Create or replace an access role
      * @param accessRole Access role name
-     * @param job The access role to create
+     * @param data 
      */
-    public replaceAccessRole (accessRole: string, job?: Job4) : any {
+    public replaceAccessRole (accessRole: string, data?: AccessRole) : any {
         const localVarPath = this.basePath + '/access-roles/{access-role}'
             .replace('{' + 'access-role' + '}', encodeURIComponent(String(accessRole)));
         let localVarQueryParameters: any = {};
@@ -3363,7 +3066,7 @@ export class AccessRolesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Job4")
+            body: ObjectSerializer.serialize(data, "AccessRole")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3464,8 +3167,11 @@ export class AccessRolesApi {
      * @summary Watch access roles
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchAccessRoles (query?: string, attributes?: Array<string>) : any {
+    public watchAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3477,6 +3183,18 @@ export class AccessRolesApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -3576,9 +3294,9 @@ export class AccessRulesApi {
     /**
      * 
      * @summary Create a new access rule
-     * @param job The access rule to create
+     * @param data 
      */
-    public addAccessRule (job?: Job1) : any {
+    public addAccessRule (data?: AccessRule) : any {
         const localVarPath = this.basePath + '/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3594,7 +3312,7 @@ export class AccessRulesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Job1")
+            body: ObjectSerializer.serialize(data, "AccessRule")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3752,10 +3470,11 @@ export class AccessRulesApi {
      * @summary Get access rules
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3775,6 +3494,10 @@ export class AccessRulesApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -3824,9 +3547,9 @@ export class AccessRulesApi {
      * 
      * @summary Create or replace an access rule
      * @param accessRule Access rule name
-     * @param job The access rule to create
+     * @param data 
      */
-    public replaceAccessRule (accessRule: string, job?: Job2) : any {
+    public replaceAccessRule (accessRule: string, data?: AccessRule) : any {
         const localVarPath = this.basePath + '/access-rules/{access-rule}'
             .replace('{' + 'access-rule' + '}', encodeURIComponent(String(accessRule)));
         let localVarQueryParameters: any = {};
@@ -3848,7 +3571,7 @@ export class AccessRulesApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Job2")
+            body: ObjectSerializer.serialize(data, "AccessRule")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -3949,8 +3672,11 @@ export class AccessRulesApi {
      * @summary Watch access rules
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchAccessRules (query?: string, attributes?: Array<string>) : any {
+    public watchAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -3962,6 +3688,18 @@ export class AccessRulesApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -4064,9 +3802,9 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param write If true, the objects gets synced to all configured destination endpoints
-     * @param data Object
+     * @param data 
      */
-    public addObject (mandator: string, datatype: string, write?: boolean, data?: Data8) : any {
+    public addObject (mandator: string, datatype: string, write?: boolean, data?: DataObject) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -4098,7 +3836,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data8")
+            body: ObjectSerializer.serialize(data, "DataObject")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -4138,9 +3876,9 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param data Object
+     * @param data 
      */
-    public addObjectRelative (mandator: string, datatype: string, object: string, data?: Data6) : any {
+    public addObjectRelative (mandator: string, datatype: string, object: string, data?: ObjectRelative) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4174,7 +3912,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data6")
+            body: ObjectSerializer.serialize(data, "ObjectRelative")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -4375,10 +4113,11 @@ export class DataApi {
      * @param endpoint Endpoint
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getEndpointObjects (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getEndpointObjects (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4416,6 +4155,10 @@ export class DataApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -4468,8 +4211,12 @@ export class DataApi {
      * @param datatype Datatype
      * @param object Object ID
      * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getHistory (mandator: string, datatype: string, object: string, query?: string) : any {
+    public getHistory (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/history'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4495,6 +4242,22 @@ export class DataApi {
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -4706,8 +4469,12 @@ export class DataApi {
      * @param datatype Datatype
      * @param object Object ID
      * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getObjectEndpoints (mandator: string, datatype: string, object: string, query?: string) : any {
+    public getObjectEndpoints (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/endpoints'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4733,6 +4500,22 @@ export class DataApi {
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -4866,8 +4649,12 @@ export class DataApi {
      * @param datatype Datatype
      * @param object Object ID
      * @param query JSON query
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getObjectRelatives (mandator: string, datatype: string, object: string, query?: string) : any {
+    public getObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4893,6 +4680,22 @@ export class DataApi {
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -4945,10 +4748,11 @@ export class DataApi {
      * @param datatype Datatype
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -4980,6 +4784,10 @@ export class DataApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5032,9 +4840,9 @@ export class DataApi {
      * @param datatype Datatype
      * @param object Object ID
      * @param write If true, the objects gets synced to all configured destination endpoints
-     * @param data Object
+     * @param data 
      */
-    public replaceObject (mandator: string, datatype: string, object: string, write?: boolean, data?: Data5) : any {
+    public replaceObject (mandator: string, datatype: string, object: string, write?: boolean, data?: DataObject) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5072,7 +4880,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data5")
+            body: ObjectSerializer.serialize(data, "DataObject")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5194,9 +5002,9 @@ export class DataApi {
      * @param datatype Datatype
      * @param object Object ID
      * @param relative Object ID
-     * @param data Object
+     * @param data 
      */
-    public updateObjectRelative (mandator: string, datatype: string, object: string, relative: string, data?: Data7) : any {
+    public updateObjectRelative (mandator: string, datatype: string, object: string, relative: string, data?: ObjectRelative) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives/{relative}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5236,7 +5044,7 @@ export class DataApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data7")
+            body: ObjectSerializer.serialize(data, "ObjectRelative")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -5276,8 +5084,11 @@ export class DataApi {
      * @param mandator Mandator name
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchDatatypes (mandator: string, query?: string, attributes?: Array<string>) : any {
+    public watchDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
         let localVarQueryParameters: any = {};
@@ -5295,6 +5106,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5346,8 +5169,11 @@ export class DataApi {
      * @param datatype Datatype
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>) : any {
+    public watchEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -5371,6 +5197,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5420,8 +5258,11 @@ export class DataApi {
      * @summary Watch mandators
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchMandators (query?: string, attributes?: Array<string>) : any {
+    public watchMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5433,6 +5274,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5485,8 +5338,11 @@ export class DataApi {
      * @param object Object ID
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>) : any {
+    public watchObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5516,6 +5372,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5567,8 +5435,11 @@ export class DataApi {
      * @param datatype Datatype
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>) : any {
+    public watchObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -5592,6 +5463,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5644,8 +5527,11 @@ export class DataApi {
      * @param endpoint Endpoint name
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>) : any {
+    public watchWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5675,6 +5561,18 @@ export class DataApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -5775,7 +5673,7 @@ export class DatatypesApi {
      * 
      * @summary Add datatype
      * @param mandator Mandator name
-     * @param data Datatype
+     * @param data 
      */
     public addDatatype (mandator: string, data?: Datatype) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
@@ -5977,8 +5875,11 @@ export class DatatypesApi {
      * @param mandator Mandator name
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getDatatypes (mandator: string, query?: string, attributes?: Array<string>) : any {
+    public getDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
         let localVarQueryParameters: any = {};
@@ -5996,6 +5897,18 @@ export class DatatypesApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -6046,7 +5959,7 @@ export class DatatypesApi {
      * @summary Create or replace datatype
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param data Datatype
+     * @param data 
      */
     public replaceDatatype (mandator: string, datatype: string, data?: Datatype) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
@@ -6236,7 +6149,7 @@ export class EndpointsApi {
      * @summary Add Endpoint
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param data Endpoint
+     * @param data 
      */
     public addEndpoint (mandator: string, datatype: string, data?: Endpoint) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
@@ -6459,8 +6372,11 @@ export class EndpointsApi {
      * @param datatype Datatype
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>) : any {
+    public getEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -6484,6 +6400,18 @@ export class EndpointsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -6535,9 +6463,9 @@ export class EndpointsApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint name
-     * @param data Endpoint
+     * @param data 
      */
-    public replaceEndpoint (mandator: string, datatype: string, endpoint: string, data?: Data2) : any {
+    public replaceEndpoint (mandator: string, datatype: string, endpoint: string, data?: Endpoint) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -6571,7 +6499,7 @@ export class EndpointsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data2")
+            body: ObjectSerializer.serialize(data, "Endpoint")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -6736,9 +6664,9 @@ export class JobsApi {
     /**
      * 
      * @summary Create new job
-     * @param job The job to create
+     * @param data 
      */
-    public addJob (job?: Job5) : any {
+    public addJob (data?: Job) : any {
         const localVarPath = this.basePath + '/jobs';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -6754,7 +6682,7 @@ export class JobsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Job5")
+            body: ObjectSerializer.serialize(data, "Job")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -7046,7 +6974,7 @@ export class JobsApi {
      * @param job Job ID
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
@@ -7130,10 +7058,11 @@ export class JobsApi {
      * @summary Get list of active queued jobs
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/jobs';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -7153,6 +7082,10 @@ export class JobsApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7346,10 +7279,11 @@ export class JobsApi {
      * @param process Process ID
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/jobs/{job}/processes/{process}/logs'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
@@ -7381,6 +7315,10 @@ export class JobsApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7432,10 +7370,11 @@ export class JobsApi {
      * @param job Job ID
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number) : any {
+    public getProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/jobs/{job}/processes'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
@@ -7461,6 +7400,10 @@ export class JobsApi {
 
         if (limit !== undefined) {
             localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7634,7 +7577,7 @@ export class JobsApi {
      * @param job Job ID
      * @param query JSON query
      * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
@@ -7717,8 +7660,11 @@ export class JobsApi {
      * @summary Get realtime updates
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchJobs (query?: string, attributes?: Array<string>) : any {
+    public watchJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/jobs';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -7730,6 +7676,18 @@ export class JobsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7781,8 +7739,11 @@ export class JobsApi {
      * @param process Process ID
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>) : any {
+    public watchProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/jobs/{job}/processes/{process}/logs'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
@@ -7806,6 +7767,18 @@ export class JobsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7856,8 +7829,11 @@ export class JobsApi {
      * @param job Job ID
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public watchProcesses (job: string, query?: string, attributes?: Array<string>) : any {
+    public watchProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/jobs/{job}/processes'
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
@@ -7875,6 +7851,18 @@ export class JobsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -7974,9 +7962,9 @@ export class MandatorsApi {
     /**
      * 
      * @summary Add mandator
-     * @param data Mandator
+     * @param data 
      */
-    public addMandator (data?: Data) : any {
+    public addMandator (data?: Mandator) : any {
         const localVarPath = this.basePath + '/mandators';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -7992,7 +7980,7 @@ export class MandatorsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data")
+            body: ObjectSerializer.serialize(data, "Mandator")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -8155,8 +8143,11 @@ export class MandatorsApi {
      * @summary Get mandators
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getMandators (query?: string, attributes?: Array<string>) : any {
+    public getMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -8168,6 +8159,18 @@ export class MandatorsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -8279,9 +8282,9 @@ export class MandatorsApi {
      * 
      * @summary Create or replace mandator
      * @param mandator Mandator name
-     * @param data Mandator
+     * @param data 
      */
-    public replaceMandator (mandator: string, data?: Data1) : any {
+    public replaceMandator (mandator: string, data?: Mandator) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
         let localVarQueryParameters: any = {};
@@ -8303,7 +8306,7 @@ export class MandatorsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data1")
+            body: ObjectSerializer.serialize(data, "Mandator")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -8395,9 +8398,9 @@ export class WorkflowsApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint name
-     * @param data Workflow
+     * @param data 
      */
-    public addWorkflow (mandator: string, datatype: string, endpoint: string, data?: Data3) : any {
+    public addWorkflow (mandator: string, datatype: string, endpoint: string, data?: Workflow) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -8431,7 +8434,7 @@ export class WorkflowsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data3")
+            body: ObjectSerializer.serialize(data, "Workflow")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
@@ -8639,8 +8642,11 @@ export class WorkflowsApi {
      * @param endpoint Endpoint name
      * @param query JSON query
      * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort JSON sort
      */
-    public getWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>) : any {
+    public getWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -8670,6 +8676,18 @@ export class WorkflowsApi {
 
         if (attributes !== undefined) {
             localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
 
@@ -8722,9 +8740,9 @@ export class WorkflowsApi {
      * @param datatype Datatype
      * @param endpoint Endpoint name
      * @param workflow Workflow name
-     * @param data Workflow
+     * @param data 
      */
-    public replaceWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Data4) : any {
+    public replaceWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Workflow) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -8764,7 +8782,7 @@ export class WorkflowsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Data4")
+            body: ObjectSerializer.serialize(data, "Workflow")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
