@@ -223,7 +223,7 @@ export class AttributeMap {
     /**
     * Name of implementation, usually Tubee\\AttributeMap
     */
-    '_class'?: string;
+    'class'?: string;
     /**
     * Attribute map
     */
@@ -258,7 +258,7 @@ export class AttributeMap {
             "type": "Workflow"
         },
         {
-            "name": "_class",
+            "name": "class",
             "baseName": "class",
             "type": "string"
         },
@@ -294,34 +294,25 @@ export class EndpointData {
     /**
     * The implementation of the endpoint
     */
-    '_class'?: EndpointData.ClassEnum;
+    'class'?: EndpointData.ModelClassEnum;
     /**
     * Specify the type of the endpoint.
     */
     'type'?: EndpointData.TypeEnum;
-    /**
-    * Holds the entpoint type relevant options to connect to.
-    */
-    'resource'?: any;
     'options'?: EndpointDataOptions;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "_class",
+            "name": "class",
             "baseName": "class",
-            "type": "EndpointData.ClassEnum"
+            "type": "EndpointData.ModelClassEnum"
         },
         {
             "name": "type",
             "baseName": "type",
             "type": "EndpointData.TypeEnum"
-        },
-        {
-            "name": "resource",
-            "baseName": "resource",
-            "type": "any"
         },
         {
             "name": "options",
@@ -335,7 +326,7 @@ export class EndpointData {
 }
 
 export namespace EndpointData {
-    export enum ClassEnum {
+    export enum ModelClassEnum {
         Pdo = <any> 'Pdo',
         Mysql = <any> 'Mysql',
         Xml = <any> 'Xml',
@@ -357,7 +348,7 @@ export class EndpointDataOptions {
     /**
     * A list of attributes which gets used to uniquely identify an object on the endpoint.
     */
-    '_import'?: Array<string>;
+    'import'?: Array<string>;
     /**
     * If true and the endpoint is of type source, the endpoint gets flushed before export. If the type is destination, the endpoints datatype gets flushed before import. Pay attention with flush as it may result in data loss!
     */
@@ -375,7 +366,7 @@ export class EndpointDataOptions {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "_import",
+            "name": "import",
             "baseName": "import",
             "type": "Array<string>"
         },
@@ -819,6 +810,64 @@ export class ObjectrelativeData {
 
     static getAttributeTypeMap() {
         return ObjectrelativeData.attributeTypeMap;
+    }
+}
+
+export class PdoendpointData {
+    /**
+    * Table or view
+    */
+    'table'?: string;
+    'resource'?: PdoendpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "table",
+            "baseName": "table",
+            "type": "string"
+        },
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "PdoendpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return PdoendpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the entpoint type relevant options to connect to.
+*/
+export class PdoendpointDataResource {
+    'dsn'?: string;
+    'username'?: string;
+    'passwd'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "dsn",
+            "baseName": "dsn",
+            "type": "string"
+        },
+        {
+            "name": "username",
+            "baseName": "username",
+            "type": "string"
+        },
+        {
+            "name": "passwd",
+            "baseName": "passwd",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return PdoendpointDataResource.attributeTypeMap;
     }
 }
 
@@ -2626,10 +2675,90 @@ export class Workflows {
     }
 }
 
+/**
+* Pdo endpoint
+*/
+export class PdoEndpoint {
+    'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * The resource type, always Endpoint.
+    */
+    'kind'?: string;
+    'data'?: PdoendpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "PdoendpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return PdoEndpoint.attributeTypeMap;
+    }
+}
+
 
 let enumsMap: {[index: string]: any} = {
         "AccessruleData.VerbsEnum": AccessruleData.VerbsEnum,
-        "EndpointData.ClassEnum": EndpointData.ClassEnum,
+        "EndpointData.ModelClassEnum": EndpointData.ModelClassEnum,
         "EndpointData.TypeEnum": EndpointData.TypeEnum,
         "JobData.LogLevelEnum": JobData.LogLevelEnum,
         "WorkflowData.EnsureEnum": WorkflowData.EnsureEnum,
@@ -2653,6 +2782,8 @@ let typeMap: {[index: string]: any} = {
     "LogData": LogData,
     "ObjectEndpoint": ObjectEndpoint,
     "ObjectrelativeData": ObjectrelativeData,
+    "PdoendpointData": PdoendpointData,
+    "PdoendpointDataResource": PdoendpointDataResource,
     "ProcessStatus": ProcessStatus,
     "Resource": Resource,
     "WorkflowData": WorkflowData,
@@ -2681,6 +2812,7 @@ let typeMap: {[index: string]: any} = {
     "Processes": Processes,
     "Workflow": Workflow,
     "Workflows": Workflows,
+    "PdoEndpoint": PdoEndpoint,
 }
 
 export interface Authentication {
@@ -6151,7 +6283,7 @@ export class EndpointsApi {
      * @param datatype Datatype
      * @param data 
      */
-    public addEndpoint (mandator: string, datatype: string, data?: Endpoint) : any {
+    public addEndpoint (mandator: string, datatype: string, data?: any) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -6179,7 +6311,7 @@ export class EndpointsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Endpoint")
+            body: ObjectSerializer.serialize(data, "any")
         };
 
         this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);

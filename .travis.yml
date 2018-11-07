@@ -6,7 +6,7 @@ script:
   - mvn clean install
   - cd ..
   - wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml src/swagger.yaml
-  - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i src/swagger.yml -l typescript-node --http-user-agent "tubee typescript-node sdk" -t src -o src
+  - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i src/swagger.yml -l typescript-node --http-user-agent "tubee typescript-node sdk" -t src -o src --reserved-words-mappings=import=import,class=class
   - npm install
   - npm run build
 after_success:
