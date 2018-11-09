@@ -14,6 +14,8 @@ import localVarRequest = require('request');
 import http = require('http');
 import Promise = require('bluebird');
 
+export const specPath = __dirname+'/../swagger.yml';
+
 let defaultBasePath = 'https://localhost/api/v1';
 
 // ===============================================
@@ -6225,6 +6227,110 @@ export class DatatypesApi {
         });
     }
 }
+export enum DefaultApiApiKeys {
+    api_key,
+}
+
+export class DefaultApi {
+    protected _basePath = defaultBasePath;
+    protected defaultHeaders : any = {};
+    protected _useQuerystring : boolean = false;
+
+    protected authentications = {
+        'default': <Authentication>new VoidAuth(),
+        'api_key': new ApiKeyAuth('header', 'api_key'),
+        'petstore_auth': new OAuth(),
+    }
+
+    constructor(basePath?: string);
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+    }
+
+    set useQuerystring(value: boolean) {
+        this._useQuerystring = value;
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+    public setDefaultAuthentication(auth: Authentication) {
+	this.authentications.default = auth;
+    }
+
+    public setApiKey(key: DefaultApiApiKeys, value: string) {
+        (this.authentications as any)[DefaultApiApiKeys[key]].apiKey = value;
+    }
+
+    set accessToken(token: string) {
+        this.authentications.petstore_auth.accessToken = token;
+    }
+    /**
+     * 
+     * @summary Get api entrypoint
+     */
+    public root () : any {
+        const localVarPath = this.basePath + '/';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("root".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+}
 export enum EndpointsApiApiKeys {
     api_key,
 }
@@ -6850,6 +6956,61 @@ export class JobsApi {
     }
     /**
      * 
+     * @summary Trigger a new process
+     * @param data 
+     */
+    public addProcess (data?: Process) : any {
+        const localVarPath = this.basePath + '/processes';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Process")
+        };
+
+        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("addProcess".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Process");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
      * @summary Delete job by id
      * @param job Job ID
      */
@@ -6910,21 +7071,14 @@ export class JobsApi {
     /**
      * 
      * @summary Abort running process
-     * @param job Job ID
      * @param process Process ID
      */
-    public deleteProcess (job: string, process: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+    public deleteProcess (process: string) : any {
+        const localVarPath = this.basePath + '/processes/{process}'
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling deleteProcess.');
-        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -7266,21 +7420,14 @@ export class JobsApi {
     /**
      * 
      * @summary Get a single process of a job
-     * @param job Job ID
      * @param process Process ID
      */
-    public getProcess (job: string, process: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+    public getProcess (process: string) : any {
+        const localVarPath = this.basePath + '/processes/{process}'
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getProcess.');
-        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -7333,23 +7480,16 @@ export class JobsApi {
     /**
      * 
      * @summary Get a single process log
-     * @param job Job ID
      * @param process Process ID
      * @param log Log id
      */
-    public getProcessLog (job: string, process: string, log: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/process/{process}/logs/{log}'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+    public getProcessLog (process: string, log: string) : any {
+        const localVarPath = this.basePath + '/process/{process}/logs/{log}'
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)))
             .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getProcessLog.');
-        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -7407,7 +7547,6 @@ export class JobsApi {
     /**
      * 
      * @summary Get logs of a process
-     * @param job Job ID
      * @param process Process ID
      * @param query JSON query
      * @param attributes Filter attributes
@@ -7415,18 +7554,12 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
-    public getProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/processes/{process}/logs'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+    public getProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/processes/{process}/logs'
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getProcessLogs.');
-        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -7498,25 +7631,18 @@ export class JobsApi {
     }
     /**
      * 
-     * @summary Get all processes from a job
-     * @param job Job ID
+     * @summary Get all processes
      * @param query JSON query
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
-    public getProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/processes'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+    public getProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/processes';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling getProcesses.');
-        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -7572,66 +7698,6 @@ export class JobsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Processes");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Trigger a process for given job by force
-     * @param job Job ID
-     */
-    public triggerProcess (job: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/processes'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling triggerProcess.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("triggerProcess".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Process");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7867,7 +7933,6 @@ export class JobsApi {
     /**
      * 
      * @summary Watch log stream
-     * @param job Job ID
      * @param process Process ID
      * @param query JSON query
      * @param attributes Filter attributes
@@ -7875,18 +7940,12 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
-    public watchProcessLogs (job: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/jobs/{job}/processes/{process}/logs'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
+    public watchProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/processes/{process}/logs'
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling watchProcessLogs.');
-        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -7958,24 +8017,17 @@ export class JobsApi {
     /**
      * 
      * @summary Watch job processes
-     * @param job Job ID
      * @param query JSON query
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort JSON sort
      */
-    public watchProcesses (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/jobs/{job}/processes'
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
+    public watchProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/processes';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling watchProcesses.');
-        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
