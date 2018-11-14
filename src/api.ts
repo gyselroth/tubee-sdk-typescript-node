@@ -350,6 +350,10 @@ export class EndpointDataOptions {
     /**
     * A list of attributes which gets used to uniquely identify an object on the endpoint.
     */
+    'identifier'?: Array<string>;
+    /**
+    * A list of attributes which gets used to uniquely identify an object on the endpoint.
+    */
     'import'?: Array<string>;
     /**
     * If true and the endpoint is of type source, the endpoint gets flushed before export. If the type is destination, the endpoints datatype gets flushed before import. Pay attention with flush as it may result in data loss!
@@ -367,6 +371,11 @@ export class EndpointDataOptions {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "identifier",
+            "baseName": "identifier",
+            "type": "Array<string>"
+        },
         {
             "name": "import",
             "baseName": "import",
@@ -591,6 +600,100 @@ export class JsonPatch {
     }
 }
 
+export class LdapendpointData {
+    'resource'?: LdapendpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "LdapendpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return LdapendpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class LdapendpointDataResource {
+    /**
+    * A full LDAP URI of the form ldap://hostname:port or ldaps://hostname:port for SSL encryption.
+    */
+    'uri'?: string;
+    /**
+    * Bind DN if required.
+    */
+    'binddn'?: string;
+    /**
+    * Bind password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    */
+    'bindpw'?: string;
+    /**
+    * Is true if a password has been set.
+    */
+    'hasPassword'?: boolean;
+    /**
+    * Specifies the base dn (Like dc=example,dc=net).
+    */
+    'basedn'?: string;
+    /**
+    * Set to true if TLS shall be used.
+    */
+    'tls'?: boolean;
+    /**
+    * More ldap specific settings (http://php.net/manual/en/function.ldap-set-option.php).
+    */
+    'options'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "uri",
+            "baseName": "uri",
+            "type": "string"
+        },
+        {
+            "name": "binddn",
+            "baseName": "binddn",
+            "type": "string"
+        },
+        {
+            "name": "bindpw",
+            "baseName": "bindpw",
+            "type": "string"
+        },
+        {
+            "name": "hasPassword",
+            "baseName": "has_password",
+            "type": "boolean"
+        },
+        {
+            "name": "basedn",
+            "baseName": "basedn",
+            "type": "string"
+        },
+        {
+            "name": "tls",
+            "baseName": "tls",
+            "type": "boolean"
+        },
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return LdapendpointDataResource.attributeTypeMap;
+    }
+}
+
 export class Link {
     'href'?: string;
 
@@ -754,6 +857,100 @@ export class LogData {
     }
 }
 
+export class MysqlendpointData {
+    /**
+    * Table or view
+    */
+    'table'?: string;
+    'resource'?: MysqlendpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "table",
+            "baseName": "table",
+            "type": "string"
+        },
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "MysqlendpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MysqlendpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class MysqlendpointDataResource {
+    /**
+    * MySQL Server (Or compatible MySQL fork like MariaDB).
+    */
+    'host'?: string;
+    /**
+    * Username.
+    */
+    'username'?: string;
+    /**
+    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    */
+    'passwd'?: string;
+    /**
+    * Is true if a password has been set.
+    */
+    'hasPassword'?: boolean;
+    /**
+    * Specifies the port number to attempt to connect to the MySQL server.
+    */
+    'port'?: number;
+    /**
+    * Specifies the socket or named pipe that should be used.
+    */
+    'socket'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "host",
+            "baseName": "host",
+            "type": "string"
+        },
+        {
+            "name": "username",
+            "baseName": "username",
+            "type": "string"
+        },
+        {
+            "name": "passwd",
+            "baseName": "passwd",
+            "type": "string"
+        },
+        {
+            "name": "hasPassword",
+            "baseName": "has_password",
+            "type": "boolean"
+        },
+        {
+            "name": "port",
+            "baseName": "port",
+            "type": "number"
+        },
+        {
+            "name": "socket",
+            "baseName": "socket",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MysqlendpointDataResource.attributeTypeMap;
+    }
+}
+
 export class ObjectEndpoint {
     'links'?: ListLinks;
     'kind'?: string;
@@ -842,12 +1039,29 @@ export class PdoendpointData {
 }
 
 /**
-* Holds the entpoint type relevant options to connect to.
+* Holds the relevant options of how to connect to the endpoint.
 */
 export class PdoendpointDataResource {
+    /**
+    * Data source name (DSN).
+    */
     'dsn'?: string;
+    /**
+    * Username if required.
+    */
     'username'?: string;
+    /**
+    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    */
     'passwd'?: string;
+    /**
+    * Is true if a password has been set.
+    */
+    'hasPassword'?: boolean;
+    /**
+    * Driver specific connection options.
+    */
+    'options'?: any;
 
     static discriminator: string | undefined = undefined;
 
@@ -866,6 +1080,16 @@ export class PdoendpointDataResource {
             "name": "passwd",
             "baseName": "passwd",
             "type": "string"
+        },
+        {
+            "name": "hasPassword",
+            "baseName": "has_password",
+            "type": "boolean"
+        },
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
@@ -955,6 +1179,155 @@ export class Resource {
 
     static getAttributeTypeMap() {
         return Resource.attributeTypeMap;
+    }
+}
+
+export class RestendpointData {
+    'resource'?: RestendpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "RestendpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RestendpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class RestendpointDataResource {
+    /**
+    * Base uri to resourses (Like https://rest.api/v1/resources).
+    */
+    'baseUri'?: string;
+    /**
+    * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
+    */
+    'auth'?: RestendpointDataResource.AuthEnum;
+    'basic'?: RestendpointDataResourceBasic;
+    'oauth2'?: RestendpointDataResourceOauth2;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "baseUri",
+            "baseName": "base_uri",
+            "type": "string"
+        },
+        {
+            "name": "auth",
+            "baseName": "auth",
+            "type": "RestendpointDataResource.AuthEnum"
+        },
+        {
+            "name": "basic",
+            "baseName": "basic",
+            "type": "RestendpointDataResourceBasic"
+        },
+        {
+            "name": "oauth2",
+            "baseName": "oauth2",
+            "type": "RestendpointDataResourceOauth2"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RestendpointDataResource.attributeTypeMap;
+    }
+}
+
+export namespace RestendpointDataResource {
+    export enum AuthEnum {
+        Basic = <any> 'basic',
+        Oauth2 = <any> 'oauth2'
+    }
+}
+/**
+* HTTP Basic authentication. auth must be set to basic if this adapter should be used.
+*/
+export class RestendpointDataResourceBasic {
+    /**
+    * Basic authentication username.
+    */
+    'username'?: string;
+    /**
+    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    */
+    'password'?: string;
+    /**
+    * Is true if a password has been set.
+    */
+    'hasPassword'?: boolean;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "username",
+            "baseName": "username",
+            "type": "string"
+        },
+        {
+            "name": "password",
+            "baseName": "password",
+            "type": "string"
+        },
+        {
+            "name": "hasPassword",
+            "baseName": "has_password",
+            "type": "boolean"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RestendpointDataResourceBasic.attributeTypeMap;
+    }
+}
+
+/**
+* Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
+*/
+export class RestendpointDataResourceOauth2 {
+    /**
+    * URI to token endpoint.
+    */
+    'tokenUri'?: string;
+    /**
+    * OAuth2 client_id.
+    */
+    'clientId'?: string;
+    /**
+    * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
+    */
+    'clientSecret'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "tokenUri",
+            "baseName": "token_uri",
+            "type": "string"
+        },
+        {
+            "name": "clientId",
+            "baseName": "client_id",
+            "type": "string"
+        },
+        {
+            "name": "clientSecret",
+            "baseName": "client_secret",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RestendpointDataResourceOauth2.attributeTypeMap;
     }
 }
 
@@ -2406,86 +2779,6 @@ export class ObjectRelatives {
 }
 
 /**
-* A process is a sub resource of a job. Each process represents one job execution.
-*/
-export class Process {
-    'links'?: Links;
-    /**
-    * Resource identifier. Note that the name is immutable once created on the server.
-    */
-    'name'?: string;
-    /**
-    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
-    */
-    'id'?: string;
-    /**
-    * The version of the resource. A version gets increased once the resource have been modified.
-    */
-    'version'?: number;
-    /**
-    * ISO 8601 timestamp when the resource was created.
-    */
-    'created'?: string;
-    /**
-    * ISO 8601 timestamp when the resource was changed.
-    */
-    'changed'?: string;
-    /**
-    * The resource type, always Process.
-    */
-    'kind'?: string;
-    'status'?: ProcessStatus;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "version",
-            "baseName": "version",
-            "type": "number"
-        },
-        {
-            "name": "created",
-            "baseName": "created",
-            "type": "string"
-        },
-        {
-            "name": "changed",
-            "baseName": "changed",
-            "type": "string"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "status",
-            "baseName": "status",
-            "type": "ProcessStatus"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Process.attributeTypeMap;
-    }
-}
-
-/**
 * A list of processes.
 */
 export class Processes {
@@ -2678,6 +2971,166 @@ export class Workflows {
 }
 
 /**
+* LDAP (OpenLDAP, Microsoft AD and other LDAP compatible Server) endpoint
+*/
+export class LdapEndpoint {
+    'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * The resource type, always Endpoint.
+    */
+    'kind'?: string;
+    'data'?: LdapendpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "LdapendpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return LdapEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* MySQL/MariaDB (and other MySQL forks) endpoint
+*/
+export class MysqlEndpoint {
+    'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * The resource type, always Endpoint.
+    */
+    'kind'?: string;
+    'data'?: MysqlendpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "MysqlendpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MysqlEndpoint.attributeTypeMap;
+    }
+}
+
+/**
 * Pdo endpoint
 */
 export class PdoEndpoint {
@@ -2757,12 +3210,179 @@ export class PdoEndpoint {
     }
 }
 
+/**
+* A process is a sub resource of a job. Each process represents one job execution.
+*/
+export class Process {
+    'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * The resource type, always Process.
+    */
+    'kind'?: string;
+    'data'?: JobData;
+    'status'?: ProcessStatus;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "JobData"
+        },
+        {
+            "name": "status",
+            "baseName": "status",
+            "type": "ProcessStatus"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Process.attributeTypeMap;
+    }
+}
+
+/**
+* Propper REST API endpoint
+*/
+export class RestEndpoint {
+    'links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * The resource type, always Endpoint.
+    */
+    'kind'?: string;
+    'data'?: RestendpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "RestendpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return RestEndpoint.attributeTypeMap;
+    }
+}
+
 
 let enumsMap: {[index: string]: any} = {
         "AccessruleData.VerbsEnum": AccessruleData.VerbsEnum,
         "EndpointData.ModelClassEnum": EndpointData.ModelClassEnum,
         "EndpointData.TypeEnum": EndpointData.TypeEnum,
         "JobData.LogLevelEnum": JobData.LogLevelEnum,
+        "RestendpointDataResource.AuthEnum": RestendpointDataResource.AuthEnum,
         "WorkflowData.EnsureEnum": WorkflowData.EnsureEnum,
 }
 
@@ -2777,17 +3397,25 @@ let typeMap: {[index: string]: any} = {
     "JobDataNotification": JobDataNotification,
     "JobDataOptions": JobDataOptions,
     "JsonPatch": JsonPatch,
+    "LdapendpointData": LdapendpointData,
+    "LdapendpointDataResource": LdapendpointDataResource,
     "Link": Link,
     "Links": Links,
     "List": List,
     "ListLinks": ListLinks,
     "LogData": LogData,
+    "MysqlendpointData": MysqlendpointData,
+    "MysqlendpointDataResource": MysqlendpointDataResource,
     "ObjectEndpoint": ObjectEndpoint,
     "ObjectrelativeData": ObjectrelativeData,
     "PdoendpointData": PdoendpointData,
     "PdoendpointDataResource": PdoendpointDataResource,
     "ProcessStatus": ProcessStatus,
     "Resource": Resource,
+    "RestendpointData": RestendpointData,
+    "RestendpointDataResource": RestendpointDataResource,
+    "RestendpointDataResourceBasic": RestendpointDataResourceBasic,
+    "RestendpointDataResourceOauth2": RestendpointDataResourceOauth2,
     "WorkflowData": WorkflowData,
     "AccessRole": AccessRole,
     "AccessRoles": AccessRoles,
@@ -2810,11 +3438,14 @@ let typeMap: {[index: string]: any} = {
     "ObjectEndpoints": ObjectEndpoints,
     "ObjectRelative": ObjectRelative,
     "ObjectRelatives": ObjectRelatives,
-    "Process": Process,
     "Processes": Processes,
     "Workflow": Workflow,
     "Workflows": Workflows,
+    "LdapEndpoint": LdapEndpoint,
+    "MysqlEndpoint": MysqlEndpoint,
     "PdoEndpoint": PdoEndpoint,
+    "Process": Process,
+    "RestEndpoint": RestEndpoint,
 }
 
 export interface Authentication {
