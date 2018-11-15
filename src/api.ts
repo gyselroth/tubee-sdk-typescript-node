@@ -217,7 +217,7 @@ export namespace AccessruleData {
     }
 }
 export class AttributeMap {
-    'links'?: Links;
+    '_links'?: Links;
     'kind'?: string;
     'datatype'?: Datatype;
     'mandator'?: Mandator;
@@ -235,7 +235,7 @@ export class AttributeMap {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -362,11 +362,11 @@ export class EndpointDataOptions {
     /**
     * Specify an endpoint filter which gets used to filter for a single object.
     */
-    'filterOne'?: Array<string>;
+    'filter_one'?: any;
     /**
     * Specify a filter which always gets applied to the endpoint if objects are retrieved.
     */
-    'filterAll'?: Array<string>;
+    'filter_all'?: any;
 
     static discriminator: string | undefined = undefined;
 
@@ -387,14 +387,14 @@ export class EndpointDataOptions {
             "type": "boolean"
         },
         {
-            "name": "filterOne",
+            "name": "filter_one",
             "baseName": "filter_one",
-            "type": "Array<string>"
+            "type": "any"
         },
         {
-            "name": "filterAll",
+            "name": "filter_all",
             "baseName": "filter_all",
-            "type": "Array<string>"
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
@@ -417,6 +417,10 @@ export class JobData {
     */
     'endpoints'?: Array<string>;
     /**
+    * Data object filter.
+    */
+    'filter'?: any;
+    /**
     * If enabled the server tries to splitt the job into multiple parallel processes.
     */
     'loadbalance'?: boolean;
@@ -427,7 +431,7 @@ export class JobData {
     /**
     * You may change the log level which gets applied during a sync job. Note that a log level too verbose has a big impact on the sync performance.
     */
-    'logLevel'?: JobData.LogLevelEnum;
+    'log_level'?: JobData.LogLevelEnum;
     'options'?: JobDataOptions;
 
     static discriminator: string | undefined = undefined;
@@ -454,6 +458,11 @@ export class JobData {
             "type": "Array<string>"
         },
         {
+            "name": "filter",
+            "baseName": "filter",
+            "type": "any"
+        },
+        {
             "name": "loadbalance",
             "baseName": "loadbalance",
             "type": "boolean"
@@ -464,7 +473,7 @@ export class JobData {
             "type": "boolean"
         },
         {
-            "name": "logLevel",
+            "name": "log_level",
             "baseName": "log_level",
             "type": "JobData.LogLevelEnum"
         },
@@ -537,7 +546,7 @@ export class JobDataOptions {
     /**
     * The number of secconds beween failed job retries. The default is 300 (5min).
     */
-    'retryInterval'?: number;
+    'retry_interval'?: number;
 
     static discriminator: string | undefined = undefined;
 
@@ -558,7 +567,7 @@ export class JobDataOptions {
             "type": "number"
         },
         {
-            "name": "retryInterval",
+            "name": "retry_interval",
             "baseName": "retry_interval",
             "type": "number"
         }    ];
@@ -636,7 +645,7 @@ export class LdapendpointDataResource {
     /**
     * Is true if a password has been set.
     */
-    'hasPassword'?: boolean;
+    'has_password'?: boolean;
     /**
     * Specifies the base dn (Like dc=example,dc=net).
     */
@@ -669,7 +678,7 @@ export class LdapendpointDataResource {
             "type": "string"
         },
         {
-            "name": "hasPassword",
+            "name": "has_password",
             "baseName": "has_password",
             "type": "boolean"
         },
@@ -735,7 +744,7 @@ export class List {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -753,7 +762,7 @@ export class List {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -809,7 +818,7 @@ export class ListLinks {
 
 export class LogData {
     'level'?: number;
-    'levelName'?: string;
+    'level_name'?: string;
     /**
     * The log message.
     */
@@ -832,7 +841,7 @@ export class LogData {
             "type": "number"
         },
         {
-            "name": "levelName",
+            "name": "level_name",
             "baseName": "level_name",
             "type": "string"
         },
@@ -902,7 +911,7 @@ export class MysqlendpointDataResource {
     /**
     * Is true if a password has been set.
     */
-    'hasPassword'?: boolean;
+    'has_password'?: boolean;
     /**
     * Specifies the port number to attempt to connect to the MySQL server.
     */
@@ -931,7 +940,7 @@ export class MysqlendpointDataResource {
             "type": "string"
         },
         {
-            "name": "hasPassword",
+            "name": "has_password",
             "baseName": "has_password",
             "type": "boolean"
         },
@@ -948,41 +957,6 @@ export class MysqlendpointDataResource {
 
     static getAttributeTypeMap() {
         return MysqlendpointDataResource.attributeTypeMap;
-    }
-}
-
-export class ObjectEndpoint {
-    'links'?: ListLinks;
-    'kind'?: string;
-    'id'?: string;
-    'data'?: any;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "any"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return ObjectEndpoint.attributeTypeMap;
     }
 }
 
@@ -1057,7 +1031,7 @@ export class PdoendpointDataResource {
     /**
     * Is true if a password has been set.
     */
-    'hasPassword'?: boolean;
+    'has_password'?: boolean;
     /**
     * Driver specific connection options.
     */
@@ -1082,7 +1056,7 @@ export class PdoendpointDataResource {
             "type": "string"
         },
         {
-            "name": "hasPassword",
+            "name": "has_password",
             "baseName": "has_password",
             "type": "boolean"
         },
@@ -1121,7 +1095,7 @@ export class ProcessStatus {
 }
 
 export class Resource {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1147,7 +1121,7 @@ export class Resource {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -1206,7 +1180,7 @@ export class RestendpointDataResource {
     /**
     * Base uri to resourses (Like https://rest.api/v1/resources).
     */
-    'baseUri'?: string;
+    'base_uri'?: string;
     /**
     * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
     */
@@ -1218,7 +1192,7 @@ export class RestendpointDataResource {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "baseUri",
+            "name": "base_uri",
             "baseName": "base_uri",
             "type": "string"
         },
@@ -1264,7 +1238,7 @@ export class RestendpointDataResourceBasic {
     /**
     * Is true if a password has been set.
     */
-    'hasPassword'?: boolean;
+    'has_password'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
@@ -1280,7 +1254,7 @@ export class RestendpointDataResourceBasic {
             "type": "string"
         },
         {
-            "name": "hasPassword",
+            "name": "has_password",
             "baseName": "has_password",
             "type": "boolean"
         }    ];
@@ -1297,31 +1271,31 @@ export class RestendpointDataResourceOauth2 {
     /**
     * URI to token endpoint.
     */
-    'tokenUri'?: string;
+    'token_uri'?: string;
     /**
     * OAuth2 client_id.
     */
-    'clientId'?: string;
+    'client_id'?: string;
     /**
     * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
     */
-    'clientSecret'?: string;
+    'client_secret'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "tokenUri",
+            "name": "token_uri",
             "baseName": "token_uri",
             "type": "string"
         },
         {
-            "name": "clientId",
+            "name": "client_id",
             "baseName": "client_id",
             "type": "string"
         },
         {
-            "name": "clientSecret",
+            "name": "client_secret",
             "baseName": "client_secret",
             "type": "string"
         }    ];
@@ -1378,7 +1352,7 @@ export namespace WorkflowData {
 * An access role is defined list which matches authenticated user identifiers.
 */
 export class AccessRole {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1409,7 +1383,7 @@ export class AccessRole {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -1461,7 +1435,7 @@ export class AccessRoles {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -1480,7 +1454,7 @@ export class AccessRoles {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -1514,7 +1488,7 @@ export class AccessRoles {
 * An access rule allows to specify what access roles can access which resources.
 */
 export class AccessRule {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1545,7 +1519,7 @@ export class AccessRule {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -1597,7 +1571,7 @@ export class AccessRules {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -1616,7 +1590,7 @@ export class AccessRules {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -1650,7 +1624,7 @@ export class AccessRules {
 * A data object represents a single object in a datatype (data collection).
 */
 export class DataObject {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1684,7 +1658,7 @@ export class DataObject {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -1736,7 +1710,7 @@ export class DataObjects {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -1755,7 +1729,7 @@ export class DataObjects {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -1789,7 +1763,7 @@ export class DataObjects {
 * A datatype is a collection of data objects, meaning a collection of similar objects.
 */
 export class Datatype {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1820,7 +1794,7 @@ export class Datatype {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -1872,7 +1846,7 @@ export class Datatypes {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -1891,7 +1865,7 @@ export class Datatypes {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -1925,7 +1899,7 @@ export class Datatypes {
 * An endpoint represents an external resource with objects. This may be a database, a file, a http service, ...
 */
 export class Endpoint {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -1956,7 +1930,7 @@ export class Endpoint {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2005,7 +1979,7 @@ export class Endpoint {
 * An endpoint object is the actual object on an endpoint itself.
 */
 export class EndpointObject {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2035,7 +2009,7 @@ export class EndpointObject {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2082,7 +2056,7 @@ export class EndpointObjects {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always EndpointObject.
     */
@@ -2101,7 +2075,7 @@ export class EndpointObjects {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2138,7 +2112,7 @@ export class Endpoints {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2157,7 +2131,7 @@ export class Endpoints {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2191,7 +2165,7 @@ export class Endpoints {
 * A job is a synchronization job which declares when and what datatypes should be synchronized.
 */
 export class Job {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2222,7 +2196,7 @@ export class Job {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2274,7 +2248,7 @@ export class Jobs {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2293,7 +2267,7 @@ export class Jobs {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2327,7 +2301,7 @@ export class Jobs {
 * A log messagage from a process.
 */
 export class Log {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2358,7 +2332,7 @@ export class Log {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2410,7 +2384,7 @@ export class Logs {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2429,7 +2403,7 @@ export class Logs {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2463,7 +2437,7 @@ export class Logs {
 * A mandator is a namespace to separate resources.
 */
 export class Mandator {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2493,7 +2467,7 @@ export class Mandator {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2540,7 +2514,7 @@ export class Mandators {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2559,7 +2533,7 @@ export class Mandators {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2589,64 +2563,11 @@ export class Mandators {
     }
 }
 
-export class ObjectEndpoints {
-    /**
-    * Holds a list of links rfc1738 to other resources.
-    */
-    'links'?: ListLinks;
-    /**
-    * The resource type, always List.
-    */
-    'kind'?: string;
-    /**
-    * Holds the number of items in the current list response.
-    */
-    'count'?: number;
-    /**
-    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
-    */
-    'total'?: number;
-    'data'?: Array<ObjectEndpoint>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<ObjectEndpoint>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return ObjectEndpoints.attributeTypeMap;
-    }
-}
-
 /**
 * An object relation represents a releationship between two data objects. A relationship may apply to objects of different datatypes and/or mandators.
 */
 export class ObjectRelative {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2677,7 +2598,7 @@ export class ObjectRelative {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2729,7 +2650,7 @@ export class ObjectRelatives {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2748,7 +2669,7 @@ export class ObjectRelatives {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2785,7 +2706,7 @@ export class Processes {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2804,7 +2725,7 @@ export class Processes {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2838,7 +2759,7 @@ export class Processes {
 * A workflow gets used if an endpoint gets imported or exported. A workflow defines if and what object and also if and what attributes of an object should be written to or from an endpoint.
 */
 export class Workflow {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -2869,7 +2790,7 @@ export class Workflow {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -2921,7 +2842,7 @@ export class Workflows {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    'links'?: ListLinks;
+    '_links'?: ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2940,7 +2861,7 @@ export class Workflows {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "ListLinks"
         },
@@ -2974,7 +2895,7 @@ export class Workflows {
 * LDAP (OpenLDAP, Microsoft AD and other LDAP compatible Server) endpoint
 */
 export class LdapEndpoint {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -3005,7 +2926,7 @@ export class LdapEndpoint {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -3054,7 +2975,7 @@ export class LdapEndpoint {
 * MySQL/MariaDB (and other MySQL forks) endpoint
 */
 export class MysqlEndpoint {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -3085,7 +3006,7 @@ export class MysqlEndpoint {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -3134,7 +3055,7 @@ export class MysqlEndpoint {
 * Pdo endpoint
 */
 export class PdoEndpoint {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -3165,7 +3086,7 @@ export class PdoEndpoint {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -3214,7 +3135,7 @@ export class PdoEndpoint {
 * A process is a sub resource of a job. Each process represents one job execution.
 */
 export class Process {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -3246,7 +3167,7 @@ export class Process {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -3300,7 +3221,7 @@ export class Process {
 * Propper REST API endpoint
 */
 export class RestEndpoint {
-    'links'?: Links;
+    '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server.
     */
@@ -3331,7 +3252,7 @@ export class RestEndpoint {
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "links",
+            "name": "_links",
             "baseName": "_links",
             "type": "Links"
         },
@@ -3406,7 +3327,6 @@ let typeMap: {[index: string]: any} = {
     "LogData": LogData,
     "MysqlendpointData": MysqlendpointData,
     "MysqlendpointDataResource": MysqlendpointDataResource,
-    "ObjectEndpoint": ObjectEndpoint,
     "ObjectrelativeData": ObjectrelativeData,
     "PdoendpointData": PdoendpointData,
     "PdoendpointDataResource": PdoendpointDataResource,
@@ -3435,7 +3355,6 @@ let typeMap: {[index: string]: any} = {
     "Logs": Logs,
     "Mandator": Mandator,
     "Mandators": Mandators,
-    "ObjectEndpoints": ObjectEndpoints,
     "ObjectRelative": ObjectRelative,
     "ObjectRelatives": ObjectRelatives,
     "Processes": Processes,
@@ -3501,7 +3420,6 @@ export class VoidAuth implements Authentication {
 }
 
 export enum AccessRolesApiApiKeys {
-    api_key,
 }
 
 export class AccessRolesApi {
@@ -3511,8 +3429,6 @@ export class AccessRolesApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -3547,10 +3463,6 @@ export class AccessRolesApi {
     public setApiKey(key: AccessRolesApiApiKeys, value: string) {
         (this.authentications as any)[AccessRolesApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Create a new access role
@@ -3574,8 +3486,6 @@ export class AccessRolesApi {
             json: true,
             body: ObjectSerializer.serialize(data, "AccessRole")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -3609,18 +3519,18 @@ export class AccessRolesApi {
     /**
      * 
      * @summary Delete access-role by name
-     * @param accessRole Access role name
+     * @param access_role Access role name
      */
-    public deleteAccessRole (accessRole: string) : any {
+    public deleteAccessRole (access_role: string) : any {
         const localVarPath = this.basePath + '/access-roles/{access-role}'
-            .replace('{' + 'access-role' + '}', encodeURIComponent(String(accessRole)));
+            .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRole' is not null or undefined
-        if (accessRole === null || accessRole === undefined) {
-            throw new Error('Required parameter accessRole was null or undefined when calling deleteAccessRole.');
+        // verify required parameter 'access_role' is not null or undefined
+        if (access_role === null || access_role === undefined) {
+            throw new Error('Required parameter access_role was null or undefined when calling deleteAccessRole.');
         }
 
 
@@ -3634,8 +3544,6 @@ export class AccessRolesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -3668,18 +3576,18 @@ export class AccessRolesApi {
     /**
      * 
      * @summary Get access role by name
-     * @param accessRole Access role name
+     * @param access_role Access role name
      */
-    public getAccessRole (accessRole: string) : any {
+    public getAccessRole (access_role: string) : any {
         const localVarPath = this.basePath + '/access-roles/{access-role}'
-            .replace('{' + 'access-role' + '}', encodeURIComponent(String(accessRole)));
+            .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRole' is not null or undefined
-        if (accessRole === null || accessRole === undefined) {
-            throw new Error('Required parameter accessRole was null or undefined when calling getAccessRole.');
+        // verify required parameter 'access_role' is not null or undefined
+        if (access_role === null || access_role === undefined) {
+            throw new Error('Required parameter access_role was null or undefined when calling getAccessRole.');
         }
 
 
@@ -3693,8 +3601,6 @@ export class AccessRolesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -3728,11 +3634,11 @@ export class AccessRolesApi {
     /**
      * An access role defines what role is granted access to what resource
      * @summary Get access roles
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/access-roles';
@@ -3772,8 +3678,6 @@ export class AccessRolesApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -3806,19 +3710,19 @@ export class AccessRolesApi {
     /**
      * 
      * @summary Create or replace an access role
-     * @param accessRole Access role name
+     * @param access_role Access role name
      * @param data 
      */
-    public replaceAccessRole (accessRole: string, data?: AccessRole) : any {
+    public replaceAccessRole (access_role: string, data?: AccessRole) : any {
         const localVarPath = this.basePath + '/access-roles/{access-role}'
-            .replace('{' + 'access-role' + '}', encodeURIComponent(String(accessRole)));
+            .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRole' is not null or undefined
-        if (accessRole === null || accessRole === undefined) {
-            throw new Error('Required parameter accessRole was null or undefined when calling replaceAccessRole.');
+        // verify required parameter 'access_role' is not null or undefined
+        if (access_role === null || access_role === undefined) {
+            throw new Error('Required parameter access_role was null or undefined when calling replaceAccessRole.');
         }
 
 
@@ -3833,8 +3737,6 @@ export class AccessRolesApi {
             json: true,
             body: ObjectSerializer.serialize(data, "AccessRole")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -3868,19 +3770,19 @@ export class AccessRolesApi {
     /**
      * 
      * @summary Patch access role as rfc6902 request
-     * @param accessRole Access role name
+     * @param access_role Access role name
      * @param job Access role json patch
      */
-    public updateAccessRole (accessRole: string, job?: Array<JsonPatch>) : any {
+    public updateAccessRole (access_role: string, job?: Array<JsonPatch>) : any {
         const localVarPath = this.basePath + '/access-roles/{access-role}'
-            .replace('{' + 'access-role' + '}', encodeURIComponent(String(accessRole)));
+            .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRole' is not null or undefined
-        if (accessRole === null || accessRole === undefined) {
-            throw new Error('Required parameter accessRole was null or undefined when calling updateAccessRole.');
+        // verify required parameter 'access_role' is not null or undefined
+        if (access_role === null || access_role === undefined) {
+            throw new Error('Required parameter access_role was null or undefined when calling updateAccessRole.');
         }
 
 
@@ -3895,8 +3797,6 @@ export class AccessRolesApi {
             json: true,
             body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -3930,11 +3830,11 @@ export class AccessRolesApi {
     /**
      * Watch updates in realtime
      * @summary Watch access roles
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/access-roles';
@@ -3974,8 +3874,6 @@ export class AccessRolesApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4006,7 +3904,6 @@ export class AccessRolesApi {
     }
 }
 export enum AccessRulesApiApiKeys {
-    api_key,
 }
 
 export class AccessRulesApi {
@@ -4016,8 +3913,6 @@ export class AccessRulesApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -4052,10 +3947,6 @@ export class AccessRulesApi {
     public setApiKey(key: AccessRulesApiApiKeys, value: string) {
         (this.authentications as any)[AccessRulesApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Create a new access rule
@@ -4079,8 +3970,6 @@ export class AccessRulesApi {
             json: true,
             body: ObjectSerializer.serialize(data, "AccessRule")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4114,18 +4003,18 @@ export class AccessRulesApi {
     /**
      * 
      * @summary Delete access-rule by name
-     * @param accessRule Access rule name
+     * @param access_rule Access rule name
      */
-    public deleteAccessRule (accessRule: string) : any {
+    public deleteAccessRule (access_rule: string) : any {
         const localVarPath = this.basePath + '/access-rules/{access-rule}'
-            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(accessRule)));
+            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRule' is not null or undefined
-        if (accessRule === null || accessRule === undefined) {
-            throw new Error('Required parameter accessRule was null or undefined when calling deleteAccessRule.');
+        // verify required parameter 'access_rule' is not null or undefined
+        if (access_rule === null || access_rule === undefined) {
+            throw new Error('Required parameter access_rule was null or undefined when calling deleteAccessRule.');
         }
 
 
@@ -4139,8 +4028,6 @@ export class AccessRulesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4173,18 +4060,18 @@ export class AccessRulesApi {
     /**
      * 
      * @summary Get access rule by name
-     * @param accessRule Access rule name
+     * @param access_rule Access rule name
      */
-    public getAccessRule (accessRule: string) : any {
+    public getAccessRule (access_rule: string) : any {
         const localVarPath = this.basePath + '/access-rules/{access-rule}'
-            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(accessRule)));
+            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRule' is not null or undefined
-        if (accessRule === null || accessRule === undefined) {
-            throw new Error('Required parameter accessRule was null or undefined when calling getAccessRule.');
+        // verify required parameter 'access_rule' is not null or undefined
+        if (access_rule === null || access_rule === undefined) {
+            throw new Error('Required parameter access_rule was null or undefined when calling getAccessRule.');
         }
 
 
@@ -4198,8 +4085,6 @@ export class AccessRulesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4233,11 +4118,11 @@ export class AccessRulesApi {
     /**
      * An access rule defines what role is granted access to what resource
      * @summary Get access rules
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/access-rules';
@@ -4277,8 +4162,6 @@ export class AccessRulesApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4311,19 +4194,19 @@ export class AccessRulesApi {
     /**
      * 
      * @summary Create or replace an access rule
-     * @param accessRule Access rule name
+     * @param access_rule Access rule name
      * @param data 
      */
-    public replaceAccessRule (accessRule: string, data?: AccessRule) : any {
+    public replaceAccessRule (access_rule: string, data?: AccessRule) : any {
         const localVarPath = this.basePath + '/access-rules/{access-rule}'
-            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(accessRule)));
+            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRule' is not null or undefined
-        if (accessRule === null || accessRule === undefined) {
-            throw new Error('Required parameter accessRule was null or undefined when calling replaceAccessRule.');
+        // verify required parameter 'access_rule' is not null or undefined
+        if (access_rule === null || access_rule === undefined) {
+            throw new Error('Required parameter access_rule was null or undefined when calling replaceAccessRule.');
         }
 
 
@@ -4338,8 +4221,6 @@ export class AccessRulesApi {
             json: true,
             body: ObjectSerializer.serialize(data, "AccessRule")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4373,19 +4254,19 @@ export class AccessRulesApi {
     /**
      * 
      * @summary Patch access rule as rfc6902 request
-     * @param accessRule Access rule name
+     * @param access_rule Access rule name
      * @param job Access rule json patch
      */
-    public updateAccessRule (accessRule: string, job?: Array<JsonPatch>) : any {
+    public updateAccessRule (access_rule: string, job?: Array<JsonPatch>) : any {
         const localVarPath = this.basePath + '/access-rules/{access-rule}'
-            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(accessRule)));
+            .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'accessRule' is not null or undefined
-        if (accessRule === null || accessRule === undefined) {
-            throw new Error('Required parameter accessRule was null or undefined when calling updateAccessRule.');
+        // verify required parameter 'access_rule' is not null or undefined
+        if (access_rule === null || access_rule === undefined) {
+            throw new Error('Required parameter access_rule was null or undefined when calling updateAccessRule.');
         }
 
 
@@ -4400,8 +4281,6 @@ export class AccessRulesApi {
             json: true,
             body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4435,11 +4314,11 @@ export class AccessRulesApi {
     /**
      * Watch updates in realtime
      * @summary Watch access rules
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/access-rules';
@@ -4479,8 +4358,6 @@ export class AccessRulesApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4511,7 +4388,6 @@ export class AccessRulesApi {
     }
 }
 export enum DataApiApiKeys {
-    api_key,
 }
 
 export class DataApi {
@@ -4521,8 +4397,6 @@ export class DataApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -4557,19 +4431,14 @@ export class DataApi {
     public setApiKey(key: DataApiApiKeys, value: string) {
         (this.authentications as any)[DataApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Add a new object of a specifc datatype
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data 
      */
-    public addObject (mandator: string, datatype: string, write?: boolean, data?: DataObject) : any {
+    public addObject (mandator: string, datatype: string, data?: DataObject) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
@@ -4587,10 +4456,6 @@ export class DataApi {
             throw new Error('Required parameter datatype was null or undefined when calling addObject.');
         }
 
-        if (write !== undefined) {
-            localVarQueryParameters['write'] = ObjectSerializer.serialize(write, "boolean");
-        }
-
 
         let localVarUseFormData = false;
 
@@ -4603,8 +4468,6 @@ export class DataApi {
             json: true,
             body: ObjectSerializer.serialize(data, "DataObject")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4680,8 +4543,6 @@ export class DataApi {
             body: ObjectSerializer.serialize(data, "ObjectRelative")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4717,9 +4578,8 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param write If true, the objects gets synced to all configured destination endpoints
      */
-    public deleteObject (mandator: string, datatype: string, object: string, write?: boolean) : any {
+    public deleteObject (mandator: string, datatype: string, object: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -4743,10 +4603,6 @@ export class DataApi {
             throw new Error('Required parameter object was null or undefined when calling deleteObject.');
         }
 
-        if (write !== undefined) {
-            localVarQueryParameters['write'] = ObjectSerializer.serialize(write, "boolean");
-        }
-
 
         let localVarUseFormData = false;
 
@@ -4758,8 +4614,6 @@ export class DataApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -4840,8 +4694,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4876,11 +4728,11 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getEndpointObjects (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/objects'
@@ -4938,8 +4790,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -4960,105 +4810,6 @@ export class DataApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "EndpointObjects");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Get the history of all modifications from a specific object
-     * @summary Get object history
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     * @param object Object ID
-     * @param query JSON query
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
-     */
-    public getHistory (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/history'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getHistory.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getHistory.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling getHistory.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getHistory".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "DataObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5116,8 +4867,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5147,100 +4896,19 @@ export class DataApi {
         });
     }
     /**
-     * Get object from all endpoints the object is related to
-     * @summary Get object from endpoint
+     * Get the history of all modifications from a specific object
+     * @summary Get object history
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param endpoint Endpoint nmae
-     */
-    public getObjectEndpoint (mandator: string, datatype: string, object: string, endpoint: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/endpoints/{endpoint}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
-            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjectEndpoint.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjectEndpoint.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling getObjectEndpoint.');
-        }
-
-        // verify required parameter 'endpoint' is not null or undefined
-        if (endpoint === null || endpoint === undefined) {
-            throw new Error('Required parameter endpoint was null or undefined when calling getObjectEndpoint.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getObjectEndpoint".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: ObjectEndpoint;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectEndpoint");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Get object from all endpoints the object is related to
-     * @summary Get object from endpoints
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     * @param object Object ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getObjectEndpoints (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/endpoints'
+    public getObjectHistory (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/history'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
@@ -5250,17 +4918,17 @@ export class DataApi {
 
         // verify required parameter 'mandator' is not null or undefined
         if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjectEndpoints.');
+            throw new Error('Required parameter mandator was null or undefined when calling getObjectHistory.');
         }
 
         // verify required parameter 'datatype' is not null or undefined
         if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjectEndpoints.');
+            throw new Error('Required parameter datatype was null or undefined when calling getObjectHistory.');
         }
 
         // verify required parameter 'object' is not null or undefined
         if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling getObjectEndpoints.');
+            throw new Error('Required parameter object was null or undefined when calling getObjectHistory.');
         }
 
         if (query !== undefined) {
@@ -5295,8 +4963,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5307,16 +4973,16 @@ export class DataApi {
             }
         }
 
-        if("getObjectEndpoints".match('^watch[A-Z]')) {
+        if("getObjectHistory".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectEndpoints;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectEndpoints");
+                    body = ObjectSerializer.deserialize(body, "DataObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5376,8 +5042,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5413,11 +5077,11 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
@@ -5475,8 +5139,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5511,11 +5173,11 @@ export class DataApi {
      * @summary Get objects of a specific datatype
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
@@ -5566,8 +5228,6 @@ export class DataApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -5648,8 +5308,6 @@ export class DataApi {
             body: ObjectSerializer.serialize(data, "DataObject")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5685,10 +5343,9 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data Object
      */
-    public updateObject (mandator: string, datatype: string, object: string, write?: boolean, data?: Array<JsonPatch>) : any {
+    public updateObject (mandator: string, datatype: string, object: string, data?: Array<JsonPatch>) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
             .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
             .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
@@ -5712,10 +5369,6 @@ export class DataApi {
             throw new Error('Required parameter object was null or undefined when calling updateObject.');
         }
 
-        if (write !== undefined) {
-            localVarQueryParameters['write'] = ObjectSerializer.serialize(write, "boolean");
-        }
-
 
         let localVarUseFormData = false;
 
@@ -5728,8 +5381,6 @@ export class DataApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -5812,8 +5463,6 @@ export class DataApi {
             body: ObjectSerializer.serialize(data, "ObjectRelative")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5847,11 +5496,11 @@ export class DataApi {
      * Watch datatypes in realtime
      * @summary Watch datatypes
      * @param mandator Mandator name
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes'
@@ -5897,8 +5546,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -5932,11 +5579,11 @@ export class DataApi {
      * @summary Watch endpoints
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints'
@@ -5988,8 +5635,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6021,11 +5666,11 @@ export class DataApi {
     /**
      * Watch mandators in realtime
      * @summary Watch mandators
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators';
@@ -6065,8 +5710,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6101,11 +5744,11 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param object Object ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
@@ -6163,8 +5806,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6198,11 +5839,11 @@ export class DataApi {
      * @summary Watch objects
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects'
@@ -6254,8 +5895,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6290,11 +5929,11 @@ export class DataApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint name
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
@@ -6352,8 +5991,6 @@ export class DataApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6384,7 +6021,6 @@ export class DataApi {
     }
 }
 export enum DatatypesApiApiKeys {
-    api_key,
 }
 
 export class DatatypesApi {
@@ -6394,8 +6030,6 @@ export class DatatypesApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -6430,10 +6064,6 @@ export class DatatypesApi {
     public setApiKey(key: DatatypesApiApiKeys, value: string) {
         (this.authentications as any)[DatatypesApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Add datatype
@@ -6464,8 +6094,6 @@ export class DatatypesApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Datatype")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -6531,8 +6159,6 @@ export class DatatypesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -6603,8 +6229,6 @@ export class DatatypesApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6638,11 +6262,11 @@ export class DatatypesApi {
      * A datatype is collection of data objects of a specific type
      * @summary Get datatypes
      * @param mandator Mandator name
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
@@ -6687,8 +6311,6 @@ export class DatatypesApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -6757,8 +6379,6 @@ export class DatatypesApi {
             body: ObjectSerializer.serialize(data, "Datatype")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6826,8 +6446,6 @@ export class DatatypesApi {
             body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -6859,7 +6477,6 @@ export class DatatypesApi {
     }
 }
 export enum DefaultApiApiKeys {
-    api_key,
 }
 
 export class DefaultApi {
@@ -6869,8 +6486,6 @@ export class DefaultApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -6905,10 +6520,6 @@ export class DefaultApi {
     public setApiKey(key: DefaultApiApiKeys, value: string) {
         (this.authentications as any)[DefaultApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Get api entrypoint
@@ -6930,8 +6541,6 @@ export class DefaultApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -6963,7 +6572,6 @@ export class DefaultApi {
     }
 }
 export enum EndpointsApiApiKeys {
-    api_key,
 }
 
 export class EndpointsApi {
@@ -6973,8 +6581,6 @@ export class EndpointsApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -7008,10 +6614,6 @@ export class EndpointsApi {
 
     public setApiKey(key: EndpointsApiApiKeys, value: string) {
         (this.authentications as any)[EndpointsApiApiKeys[key]].apiKey = value;
-    }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
     }
     /**
      * 
@@ -7050,8 +6652,6 @@ export class EndpointsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "any")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7124,8 +6724,6 @@ export class EndpointsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7203,8 +6801,6 @@ export class EndpointsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7239,11 +6835,11 @@ export class EndpointsApi {
      * @summary Get endpoints
      * @param mandator Mandator name
      * @param datatype Datatype
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
@@ -7294,8 +6890,6 @@ export class EndpointsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7371,8 +6965,6 @@ export class EndpointsApi {
             body: ObjectSerializer.serialize(data, "Endpoint")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7447,8 +7039,6 @@ export class EndpointsApi {
             body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7480,7 +7070,6 @@ export class EndpointsApi {
     }
 }
 export enum JobsApiApiKeys {
-    api_key,
 }
 
 export class JobsApi {
@@ -7490,8 +7079,6 @@ export class JobsApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -7526,10 +7113,6 @@ export class JobsApi {
     public setApiKey(key: JobsApiApiKeys, value: string) {
         (this.authentications as any)[JobsApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Create new job
@@ -7553,8 +7136,6 @@ export class JobsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Job")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7608,8 +7189,6 @@ export class JobsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Process")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7669,8 +7248,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7728,8 +7305,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7786,8 +7361,6 @@ export class JobsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -7854,8 +7427,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7889,11 +7460,11 @@ export class JobsApi {
      * 
      * @summary Get logs of a job
      * @param job Job ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/jobs/{job}/logs'
@@ -7939,8 +7510,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -7973,11 +7542,11 @@ export class JobsApi {
     /**
      * A job is an asynchronous server process
      * @summary Get list of active queued jobs
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/jobs';
@@ -8016,8 +7585,6 @@ export class JobsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -8076,8 +7643,6 @@ export class JobsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -8144,8 +7709,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8179,11 +7742,11 @@ export class JobsApi {
      * 
      * @summary Get logs of a process
      * @param process Process ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/processes/{process}/logs'
@@ -8229,8 +7792,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8263,11 +7824,11 @@ export class JobsApi {
     /**
      * 
      * @summary Get all processes
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/processes';
@@ -8306,8 +7867,6 @@ export class JobsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -8369,8 +7928,6 @@ export class JobsApi {
             body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8404,11 +7961,11 @@ export class JobsApi {
      * 
      * @summary Watch log stream
      * @param job Job ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/jobs/{job}/logs'
@@ -8454,8 +8011,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8487,11 +8042,11 @@ export class JobsApi {
     /**
      * A job is an asynchronous server process
      * @summary Get realtime updates
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/jobs';
@@ -8531,8 +8086,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8565,11 +8118,11 @@ export class JobsApi {
      * 
      * @summary Watch log stream
      * @param process Process ID
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/processes/{process}/logs'
@@ -8615,8 +8168,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8648,11 +8199,11 @@ export class JobsApi {
     /**
      * 
      * @summary Watch job processes
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public watchProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/watch/processes';
@@ -8692,8 +8243,6 @@ export class JobsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8724,7 +8273,6 @@ export class JobsApi {
     }
 }
 export enum MandatorsApiApiKeys {
-    api_key,
 }
 
 export class MandatorsApi {
@@ -8734,8 +8282,6 @@ export class MandatorsApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -8770,10 +8316,6 @@ export class MandatorsApi {
     public setApiKey(key: MandatorsApiApiKeys, value: string) {
         (this.authentications as any)[MandatorsApiApiKeys[key]].apiKey = value;
     }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
-    }
     /**
      * 
      * @summary Add mandator
@@ -8797,8 +8339,6 @@ export class MandatorsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Mandator")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -8857,8 +8397,6 @@ export class MandatorsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -8922,8 +8460,6 @@ export class MandatorsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -8956,11 +8492,11 @@ export class MandatorsApi {
     /**
      * A mandator is a logical group of datatypes
      * @summary Get mandators
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators';
@@ -9000,8 +8536,6 @@ export class MandatorsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -9022,68 +8556,6 @@ export class MandatorsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Mandators");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Update specific attributes of a mandator
-     * @summary Patch mandator as rfc6902 request
-     * @param mandator Mandator name
-     * @param data Mandator
-     */
-    public mandatorsMandatorPatch (mandator: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling mandatorsMandatorPatch.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PATCH',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
-        };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("mandatorsMandatorPatch".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Mandator");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9124,8 +8596,6 @@ export class MandatorsApi {
             body: ObjectSerializer.serialize(data, "Mandator")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -9155,9 +8625,68 @@ export class MandatorsApi {
             });
         });
     }
+    /**
+     * Update specific attributes of a mandator
+     * @summary Patch mandator as rfc6902 request
+     * @param mandator Mandator name
+     * @param data Mandator
+     */
+    public updateMandator (mandator: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/mandators/{mandator}'
+            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'mandator' is not null or undefined
+        if (mandator === null || mandator === undefined) {
+            throw new Error('Required parameter mandator was null or undefined when calling updateMandator.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PATCH',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateMandator".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Mandator");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
 }
 export enum WorkflowsApiApiKeys {
-    api_key,
 }
 
 export class WorkflowsApi {
@@ -9167,8 +8696,6 @@ export class WorkflowsApi {
 
     protected authentications = {
         'default': <Authentication>new VoidAuth(),
-        'api_key': new ApiKeyAuth('header', 'api_key'),
-        'petstore_auth': new OAuth(),
     }
 
     constructor(basePath?: string);
@@ -9202,10 +8729,6 @@ export class WorkflowsApi {
 
     public setApiKey(key: WorkflowsApiApiKeys, value: string) {
         (this.authentications as any)[WorkflowsApiApiKeys[key]].apiKey = value;
-    }
-
-    set accessToken(token: string) {
-        this.authentications.petstore_auth.accessToken = token;
     }
     /**
      * 
@@ -9251,8 +8774,6 @@ export class WorkflowsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Workflow")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -9332,8 +8853,6 @@ export class WorkflowsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -9418,8 +8937,6 @@ export class WorkflowsApi {
             json: true,
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -9455,11 +8972,11 @@ export class WorkflowsApi {
      * @param mandator Mandator name
      * @param datatype Datatype
      * @param endpoint Endpoint name
-     * @param query JSON query
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort JSON sort
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
     public getWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
         const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
@@ -9516,8 +9033,6 @@ export class WorkflowsApi {
             useQuerystring: this._useQuerystring,
             json: true,
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
@@ -9600,8 +9115,6 @@ export class WorkflowsApi {
             body: ObjectSerializer.serialize(data, "Workflow")
         };
 
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
-
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
         if (Object.keys(localVarFormParams).length) {
@@ -9682,8 +9195,6 @@ export class WorkflowsApi {
             json: true,
             body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
         };
-
-        this.authentications.petstore_auth.applyToRequest(localVarRequestOptions);
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
 
