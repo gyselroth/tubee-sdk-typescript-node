@@ -362,11 +362,11 @@ export class EndpointDataOptions {
     /**
     * Specify an endpoint filter which gets used to filter for a single object.
     */
-    'filter_one'?: any;
+    'filter_one'?: string;
     /**
     * Specify a filter which always gets applied to the endpoint if objects are retrieved.
     */
-    'filter_all'?: any;
+    'filter_all'?: string;
 
     static discriminator: string | undefined = undefined;
 
@@ -389,12 +389,12 @@ export class EndpointDataOptions {
         {
             "name": "filter_one",
             "baseName": "filter_one",
-            "type": "any"
+            "type": "string"
         },
         {
             "name": "filter_all",
             "baseName": "filter_all",
-            "type": "any"
+            "type": "string"
         }    ];
 
     static getAttributeTypeMap() {

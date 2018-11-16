@@ -43,7 +43,10 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "testPathIgnorePatterns": ["/node_modules/", "/swagger-codegen/"],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/swagger-codegen/"
+    ],
     "moduleFileExtensions": [
       "ts",
       "tsx",
