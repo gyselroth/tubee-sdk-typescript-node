@@ -1097,7 +1097,7 @@ export class ProcessStatus {
 export class Resource {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1116,6 +1116,10 @@ export class Resource {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1149,6 +1153,11 @@ export class Resource {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1305,6 +1314,67 @@ export class RestendpointDataResourceOauth2 {
     }
 }
 
+export class SecretMount {
+    /**
+    * The name of the secret from which the key's value should be injected.
+    */
+    'secret'?: string;
+    /**
+    * The name of the key which should be taken from a secret (You may use a recursive path by delimiting keys with '.', for example: password).
+    */
+    'key'?: string;
+    /**
+    * The resource path where the secret value should be injected (You may use a recursive path by delimiting keys with '.', for example: data.resource.password).
+    */
+    'to'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "secret",
+            "baseName": "secret",
+            "type": "string"
+        },
+        {
+            "name": "key",
+            "baseName": "key",
+            "type": "string"
+        },
+        {
+            "name": "to",
+            "baseName": "to",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return SecretMount.attributeTypeMap;
+    }
+}
+
+/**
+* The user information.
+*/
+export class UserData {
+    /**
+    * The users password. Gets hashed on the server and can not be retrieved after.
+    */
+    'password'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "password",
+            "baseName": "password",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return UserData.attributeTypeMap;
+    }
+}
+
 export class WorkflowData {
     'ensure'?: WorkflowData.EnsureEnum;
     /**
@@ -1354,7 +1424,7 @@ export namespace WorkflowData {
 export class AccessRole {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1373,6 +1443,10 @@ export class AccessRole {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always AccessRole.
     */
@@ -1411,6 +1485,11 @@ export class AccessRole {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -1490,7 +1569,7 @@ export class AccessRoles {
 export class AccessRule {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1509,6 +1588,10 @@ export class AccessRule {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always AccessRule.
     */
@@ -1547,6 +1630,11 @@ export class AccessRule {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -1626,7 +1714,7 @@ export class AccessRules {
 export class DataObject {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1645,6 +1733,10 @@ export class DataObject {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always DataObject.
     */
@@ -1686,6 +1778,11 @@ export class DataObject {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -1765,7 +1862,7 @@ export class DataObjects {
 export class Datatype {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1784,6 +1881,10 @@ export class Datatype {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always DataType.
     */
@@ -1822,6 +1923,11 @@ export class Datatype {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -1901,7 +2007,7 @@ export class Datatypes {
 export class Endpoint {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -1920,6 +2026,10 @@ export class Endpoint {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Endpoint.
     */
@@ -1960,6 +2070,11 @@ export class Endpoint {
             "type": "string"
         },
         {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
             "name": "kind",
             "baseName": "kind",
             "type": "string"
@@ -1981,7 +2096,7 @@ export class Endpoint {
 export class EndpointObject {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2000,6 +2115,10 @@ export class EndpointObject {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * Attributes
     */
@@ -2037,6 +2156,11 @@ export class EndpointObject {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "data",
@@ -2167,7 +2291,7 @@ export class Endpoints {
 export class Job {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2186,6 +2310,10 @@ export class Job {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Job.
     */
@@ -2224,6 +2352,11 @@ export class Job {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -2303,7 +2436,7 @@ export class Jobs {
 export class Log {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2322,6 +2455,10 @@ export class Log {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Log.
     */
@@ -2360,6 +2497,11 @@ export class Log {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -2439,7 +2581,7 @@ export class Logs {
 export class Mandator {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2458,6 +2600,10 @@ export class Mandator {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Mandator.
     */
@@ -2495,6 +2641,11 @@ export class Mandator {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -2569,7 +2720,7 @@ export class Mandators {
 export class ObjectRelative {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2588,6 +2739,10 @@ export class ObjectRelative {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Mandator.
     */
@@ -2626,6 +2781,11 @@ export class ObjectRelative {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -2756,12 +2916,12 @@ export class Processes {
 }
 
 /**
-* A workflow gets used if an endpoint gets imported or exported. A workflow defines if and what object and also if and what attributes of an object should be written to or from an endpoint.
+* A secret is sensitive information which can be injected into another resource. A secret gets specially encrypted on the server and is always base64 encoded.
 */
-export class Workflow {
+export class Secret {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2780,6 +2940,303 @@ export class Workflow {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The resource type, always Secret.
+    */
+    'kind'?: string;
+    /**
+    * The secrets data. You may specify multiple keys. Important: You need to base64 encode the values!
+    */
+    'data'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Secret.attributeTypeMap;
+    }
+}
+
+/**
+* A list of secrets.
+*/
+export class Secrets {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    '_links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Secret>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Secret>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Secrets.attributeTypeMap;
+    }
+}
+
+/**
+* A local tubee user.
+*/
+export class User {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The resource type, always User.
+    */
+    'kind'?: string;
+    'data'?: UserData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "UserData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return User.attributeTypeMap;
+    }
+}
+
+/**
+* A list of users.
+*/
+export class Users {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    '_links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<User>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<User>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Users.attributeTypeMap;
+    }
+}
+
+/**
+* A workflow gets used if an endpoint gets imported or exported. A workflow defines if and what object and also if and what attributes of an object should be written to or from an endpoint.
+*/
+export class Workflow {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Workflow.
     */
@@ -2818,6 +3275,11 @@ export class Workflow {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -2897,7 +3359,7 @@ export class Workflows {
 export class LdapEndpoint {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2916,6 +3378,10 @@ export class LdapEndpoint {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Endpoint.
     */
@@ -2956,6 +3422,11 @@ export class LdapEndpoint {
             "type": "string"
         },
         {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
             "name": "kind",
             "baseName": "kind",
             "type": "string"
@@ -2977,7 +3448,7 @@ export class LdapEndpoint {
 export class MysqlEndpoint {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -2996,6 +3467,10 @@ export class MysqlEndpoint {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Endpoint.
     */
@@ -3036,6 +3511,11 @@ export class MysqlEndpoint {
             "type": "string"
         },
         {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
             "name": "kind",
             "baseName": "kind",
             "type": "string"
@@ -3057,7 +3537,7 @@ export class MysqlEndpoint {
 export class PdoEndpoint {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -3076,6 +3556,10 @@ export class PdoEndpoint {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Endpoint.
     */
@@ -3116,6 +3600,11 @@ export class PdoEndpoint {
             "type": "string"
         },
         {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
             "name": "kind",
             "baseName": "kind",
             "type": "string"
@@ -3137,7 +3626,7 @@ export class PdoEndpoint {
 export class Process {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -3156,6 +3645,10 @@ export class Process {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Process.
     */
@@ -3197,6 +3690,11 @@ export class Process {
             "type": "string"
         },
         {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
             "name": "kind",
             "baseName": "kind",
             "type": "string"
@@ -3223,7 +3721,7 @@ export class Process {
 export class RestEndpoint {
     '_links'?: Links;
     /**
-    * Resource identifier. Note that the name is immutable once created on the server.
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
     'name'?: string;
     /**
@@ -3242,6 +3740,10 @@ export class RestEndpoint {
     * ISO 8601 timestamp when the resource was changed.
     */
     'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
     /**
     * The resource type, always Endpoint.
     */
@@ -3280,6 +3782,11 @@ export class RestEndpoint {
             "name": "changed",
             "baseName": "changed",
             "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
         },
         {
             "name": "kind",
@@ -3336,6 +3843,8 @@ let typeMap: {[index: string]: any} = {
     "RestendpointDataResource": RestendpointDataResource,
     "RestendpointDataResourceBasic": RestendpointDataResourceBasic,
     "RestendpointDataResourceOauth2": RestendpointDataResourceOauth2,
+    "SecretMount": SecretMount,
+    "UserData": UserData,
     "WorkflowData": WorkflowData,
     "AccessRole": AccessRole,
     "AccessRoles": AccessRoles,
@@ -3358,6 +3867,10 @@ let typeMap: {[index: string]: any} = {
     "ObjectRelative": ObjectRelative,
     "ObjectRelatives": ObjectRelatives,
     "Processes": Processes,
+    "Secret": Secret,
+    "Secrets": Secrets,
+    "User": User,
+    "Users": Users,
     "Workflow": Workflow,
     "Workflows": Workflows,
     "LdapEndpoint": LdapEndpoint,
@@ -8676,6 +9189,974 @@ export class MandatorsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Mandator");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+}
+export enum SecretsApiApiKeys {
+}
+
+export class SecretsApi {
+    protected _basePath = defaultBasePath;
+    protected defaultHeaders : any = {};
+    protected _useQuerystring : boolean = false;
+
+    protected authentications = {
+        'default': <Authentication>new VoidAuth(),
+    }
+
+    constructor(basePath?: string);
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+    }
+
+    set useQuerystring(value: boolean) {
+        this._useQuerystring = value;
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+    public setDefaultAuthentication(auth: Authentication) {
+	this.authentications.default = auth;
+    }
+
+    public setApiKey(key: SecretsApiApiKeys, value: string) {
+        (this.authentications as any)[SecretsApiApiKeys[key]].apiKey = value;
+    }
+    /**
+     * 
+     * @summary Create a new secret
+     * @param data 
+     */
+    public addSecret (data?: Secret) : any {
+        const localVarPath = this.basePath + '/secrets';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Secret")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("addSecret".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Secret");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Delete secret by name
+     * @param secret secret name
+     */
+    public deleteSecret (secret: string) : any {
+        const localVarPath = this.basePath + '/secrets/{secret}'
+            .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'secret' is not null or undefined
+        if (secret === null || secret === undefined) {
+            throw new Error('Required parameter secret was null or undefined when calling deleteSecret.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'DELETE',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("deleteSecret".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get secret by name
+     * @param secret secret name
+     */
+    public getSecret (secret: string) : any {
+        const localVarPath = this.basePath + '/secrets/{secret}'
+            .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'secret' is not null or undefined
+        if (secret === null || secret === undefined) {
+            throw new Error('Required parameter secret was null or undefined when calling getSecret.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getSecret".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Secret");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * An secret defines what role is granted access to what resource
+     * @summary Get secrets
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public getSecrets (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/secrets';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getSecrets".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Secrets;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Secrets");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Create or replace an secret
+     * @param secret secret name
+     * @param data 
+     */
+    public replaceSecret (secret: string, data?: Secret) : any {
+        const localVarPath = this.basePath + '/secrets/{secret}'
+            .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'secret' is not null or undefined
+        if (secret === null || secret === undefined) {
+            throw new Error('Required parameter secret was null or undefined when calling replaceSecret.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Secret")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("replaceSecret".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Secret");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Patch secret as rfc6902 request
+     * @param secret secret name
+     * @param job secret json patch
+     */
+    public updateSecret (secret: string, job?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/secrets/{secret}'
+            .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'secret' is not null or undefined
+        if (secret === null || secret === undefined) {
+            throw new Error('Required parameter secret was null or undefined when calling updateSecret.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PATCH',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateSecret".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Secret");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Watch updates in realtime
+     * @summary Watch secrets
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchSecrets (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/secrets';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchSecrets".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+}
+export enum UsersApiApiKeys {
+}
+
+export class UsersApi {
+    protected _basePath = defaultBasePath;
+    protected defaultHeaders : any = {};
+    protected _useQuerystring : boolean = false;
+
+    protected authentications = {
+        'default': <Authentication>new VoidAuth(),
+    }
+
+    constructor(basePath?: string);
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+    }
+
+    set useQuerystring(value: boolean) {
+        this._useQuerystring = value;
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+    public setDefaultAuthentication(auth: Authentication) {
+	this.authentications.default = auth;
+    }
+
+    public setApiKey(key: UsersApiApiKeys, value: string) {
+        (this.authentications as any)[UsersApiApiKeys[key]].apiKey = value;
+    }
+    /**
+     * 
+     * @summary Create a new User
+     * @param data 
+     */
+    public addUser (data?: User) : any {
+        const localVarPath = this.basePath + '/users';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "User")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("addUser".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "User");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Delete User by name
+     * @param User User name
+     */
+    public deleteUser (User: string) : any {
+        const localVarPath = this.basePath + '/users/{User}'
+            .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'User' is not null or undefined
+        if (User === null || User === undefined) {
+            throw new Error('Required parameter User was null or undefined when calling deleteUser.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'DELETE',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("deleteUser".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get User by name
+     * @param User User name
+     */
+    public getUser (User: string) : any {
+        const localVarPath = this.basePath + '/users/{User}'
+            .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'User' is not null or undefined
+        if (User === null || User === undefined) {
+            throw new Error('Required parameter User was null or undefined when calling getUser.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getUser".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "User");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * An User defines what role is granted access to what resource
+     * @summary Get users
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public getUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/users';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getUsers".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Users;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Users");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Create or replace an User
+     * @param User User name
+     * @param data 
+     */
+    public replaceUser (User: string, data?: User) : any {
+        const localVarPath = this.basePath + '/users/{User}'
+            .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'User' is not null or undefined
+        if (User === null || User === undefined) {
+            throw new Error('Required parameter User was null or undefined when calling replaceUser.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "User")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("replaceUser".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "User");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Patch User as rfc6902 request
+     * @param User User name
+     * @param job User json patch
+     */
+    public updateUser (User: string, job?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/users/{User}'
+            .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'User' is not null or undefined
+        if (User === null || User === undefined) {
+            throw new Error('Required parameter User was null or undefined when calling updateUser.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PATCH',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateUser".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "User");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Watch updates in realtime
+     * @summary Watch users
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/users';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchUsers".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
