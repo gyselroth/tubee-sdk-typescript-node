@@ -138,7 +138,7 @@ class ObjectSerializer {
     }
 }
 
-export class AccessroleData {
+export class AccessRoleData {
     /**
     * A list of user identifiers which the access role should match. It is also possible to specify a wildcard to match all identifiers.
     */
@@ -154,11 +154,11 @@ export class AccessroleData {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessroleData.attributeTypeMap;
+        return AccessRoleData.attributeTypeMap;
     }
 }
 
-export class AccessruleData {
+export class AccessRuleData {
     /**
     * A list of access-role names to match the given rule.
     */
@@ -166,9 +166,9 @@ export class AccessruleData {
     /**
     * List of allowed HTTP rfc7231 verbs, you may also specify a wildcard to match all verbs.
     */
-    'verbs'?: Array<AccessruleData.VerbsEnum>;
+    'verbs'?: Array<AccessRuleData.VerbsEnum>;
     /**
-    * A list of selectors to match resources, for example mandator, datatype, endpoint, ...
+    * A list of selectors to match resources, for example namespace, collection, endpoint, ...
     */
     'selectors'?: Array<string>;
     /**
@@ -187,7 +187,7 @@ export class AccessruleData {
         {
             "name": "verbs",
             "baseName": "verbs",
-            "type": "Array<AccessruleData.VerbsEnum>"
+            "type": "Array<AccessRuleData.VerbsEnum>"
         },
         {
             "name": "selectors",
@@ -201,11 +201,11 @@ export class AccessruleData {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessruleData.attributeTypeMap;
+        return AccessRuleData.attributeTypeMap;
     }
 }
 
-export namespace AccessruleData {
+export namespace AccessRuleData {
     export enum VerbsEnum {
         Star = <any> '*',
         GET = <any> 'GET',
@@ -217,15 +217,6 @@ export namespace AccessruleData {
     }
 }
 export class AttributeMap {
-    '_links'?: Links;
-    'kind'?: string;
-    'datatype'?: Datatype;
-    'mandator'?: Mandator;
-    'workflow'?: Workflow;
-    /**
-    * Name of implementation, usually Tubee\\AttributeMap
-    */
-    'class'?: string;
     /**
     * Attribute map
     */
@@ -234,36 +225,6 @@ export class AttributeMap {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "_links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "datatype",
-            "baseName": "datatype",
-            "type": "Datatype"
-        },
-        {
-            "name": "mandator",
-            "baseName": "mandator",
-            "type": "Mandator"
-        },
-        {
-            "name": "workflow",
-            "baseName": "workflow",
-            "type": "Workflow"
-        },
-        {
-            "name": "class",
-            "baseName": "class",
-            "type": "string"
-        },
         {
             "name": "map",
             "baseName": "map",
@@ -275,7 +236,74 @@ export class AttributeMap {
     }
 }
 
-export class DatatypeData {
+export class BalloonEndpointData {
+    'resource'?: BalloonEndpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "BalloonEndpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return BalloonEndpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class BalloonEndpointDataResource {
+    /**
+    * Base uri to resources (Like https://rest.api/v2/users).
+    */
+    'base_uri'?: string;
+    /**
+    * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
+    */
+    'auth'?: BalloonEndpointDataResource.AuthEnum;
+    'basic'?: OdataRestEndpointDataResourceBasic;
+    'oauth2'?: OdataRestEndpointDataResourceOauth2;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "base_uri",
+            "baseName": "base_uri",
+            "type": "string"
+        },
+        {
+            "name": "auth",
+            "baseName": "auth",
+            "type": "BalloonEndpointDataResource.AuthEnum"
+        },
+        {
+            "name": "basic",
+            "baseName": "basic",
+            "type": "OdataRestEndpointDataResourceBasic"
+        },
+        {
+            "name": "oauth2",
+            "baseName": "oauth2",
+            "type": "OdataRestEndpointDataResourceOauth2"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return BalloonEndpointDataResource.attributeTypeMap;
+    }
+}
+
+export namespace BalloonEndpointDataResource {
+    export enum AuthEnum {
+        Basic = <any> 'basic',
+        Oauth2 = <any> 'oauth2'
+    }
+}
+export class CollectionData {
     'schema'?: any;
 
     static discriminator: string | undefined = undefined;
@@ -288,15 +316,84 @@ export class DatatypeData {
         }    ];
 
     static getAttributeTypeMap() {
-        return DatatypeData.attributeTypeMap;
+        return CollectionData.attributeTypeMap;
+    }
+}
+
+export class CsvEndpointData {
+    'storage'?: Storage;
+    /**
+    * File uri or pattern, depends what storage you have choosen.
+    */
+    'file'?: string;
+    'resource'?: CsvEndpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "storage",
+            "baseName": "storage",
+            "type": "Storage"
+        },
+        {
+            "name": "file",
+            "baseName": "file",
+            "type": "string"
+        },
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "CsvEndpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return CsvEndpointData.attributeTypeMap;
+    }
+}
+
+/**
+* CSV parse options.
+*/
+export class CsvEndpointDataResource {
+    /**
+    * Field delimiter.
+    */
+    'delimiter'?: string;
+    /**
+    * Field enclosure.
+    */
+    'enclosure'?: string;
+    /**
+    * Escape character.
+    */
+    'escape'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "delimiter",
+            "baseName": "delimiter",
+            "type": "string"
+        },
+        {
+            "name": "enclosure",
+            "baseName": "enclosure",
+            "type": "string"
+        },
+        {
+            "name": "escape",
+            "baseName": "escape",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return CsvEndpointDataResource.attributeTypeMap;
     }
 }
 
 export class EndpointData {
-    /**
-    * The implementation of the endpoint
-    */
-    'class'?: EndpointData.ModelClassEnum;
     /**
     * Specify the type of the endpoint.
     */
@@ -306,11 +403,6 @@ export class EndpointData {
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "class",
-            "baseName": "class",
-            "type": "EndpointData.ModelClassEnum"
-        },
         {
             "name": "type",
             "baseName": "type",
@@ -328,19 +420,8 @@ export class EndpointData {
 }
 
 export namespace EndpointData {
-    export enum ModelClassEnum {
-        Pdo = <any> 'Pdo',
-        Mysql = <any> 'Mysql',
-        Xml = <any> 'Xml',
-        Csv = <any> 'Csv',
-        Image = <any> 'Image',
-        Json = <any> 'Json',
-        MongoDB = <any> 'MongoDB',
-        Moodle = <any> 'Moodle',
-        Balloon = <any> 'Balloon'
-    }
     export enum TypeEnum {
-        Virtual = <any> 'virtual',
+        Browse = <any> 'browse',
         Source = <any> 'source',
         Destination = <any> 'destination',
         Bidirectional = <any> 'bidirectional'
@@ -356,7 +437,7 @@ export class EndpointDataOptions {
     */
     'import'?: Array<string>;
     /**
-    * If true and the endpoint is of type source, the endpoint gets flushed before export. If the type is destination, the endpoints datatype gets flushed before import. Pay attention with flush as it may result in data loss!
+    * If true and the endpoint is of type source, the endpoint gets flushed before export. If the type is destination, the endpoints collection gets flushed before import. Pay attention with flush as it may result in data loss!
     */
     'flush'?: boolean;
     /**
@@ -405,13 +486,13 @@ export class EndpointDataOptions {
 export class JobData {
     'notification'?: JobDataNotification;
     /**
-    * A list of mandators (name) the job should match. You may use a wildcard to specify all mandators.
+    * A list of namespaces (name) the job should match. You may use a wildcard to specify all namespaces.
     */
-    'mandators'?: Array<string>;
+    'namespaces'?: Array<string>;
     /**
-    * A list of datatypes (name) the job should match. You may use a wildcard to specify all datatypes.
+    * A list of collections (name) the job should match. You may use a wildcard to specify all collections.
     */
-    'datatypes'?: Array<string>;
+    'collections'?: Array<string>;
     /**
     * A list of endoints (name) the job should match. You may use a wildcard to specify all endpoints.
     */
@@ -443,13 +524,13 @@ export class JobData {
             "type": "JobDataNotification"
         },
         {
-            "name": "mandators",
-            "baseName": "mandators",
+            "name": "namespaces",
+            "baseName": "namespaces",
             "type": "Array<string>"
         },
         {
-            "name": "datatypes",
-            "baseName": "datatypes",
+            "name": "collections",
+            "baseName": "collections",
             "type": "Array<string>"
         },
         {
@@ -577,6 +658,32 @@ export class JobDataOptions {
     }
 }
 
+export class JsonEndpointData {
+    'storage'?: Storage;
+    /**
+    * File uri or pattern, depends what storage you have choosen.
+    */
+    'file'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "storage",
+            "baseName": "storage",
+            "type": "Storage"
+        },
+        {
+            "name": "file",
+            "baseName": "file",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return JsonEndpointData.attributeTypeMap;
+    }
+}
+
 /**
 * A JSON Patch according rfc6902.
 */
@@ -609,8 +716,8 @@ export class JsonPatch {
     }
 }
 
-export class LdapendpointData {
-    'resource'?: LdapendpointDataResource;
+export class LdapEndpointData {
+    'resource'?: LdapEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -618,18 +725,18 @@ export class LdapendpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "LdapendpointDataResource"
+            "type": "LdapEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return LdapendpointData.attributeTypeMap;
+        return LdapEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class LdapendpointDataResource {
+export class LdapEndpointDataResource {
     /**
     * A full LDAP URI of the form ldap://hostname:port or ldaps://hostname:port for SSL encryption.
     */
@@ -699,7 +806,7 @@ export class LdapendpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return LdapendpointDataResource.attributeTypeMap;
+        return LdapEndpointDataResource.attributeTypeMap;
     }
 }
 
@@ -866,12 +973,79 @@ export class LogData {
     }
 }
 
-export class MysqlendpointData {
+export class MongodbEndpointData {
+    /**
+    * The name of the MongoDB collection where the data is located at.
+    */
+    'collection'?: string;
+    'resource'?: MongodbEndpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "collection",
+            "baseName": "collection",
+            "type": "string"
+        },
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "MongodbEndpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MongodbEndpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class MongodbEndpointDataResource {
+    /**
+    * MongoDB connection uri
+    */
+    'uri'?: string;
+    /**
+    * Advanced URI options
+    */
+    'uri_options'?: any;
+    /**
+    * Advanced Driver options
+    */
+    'driver_options'?: any;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "uri",
+            "baseName": "uri",
+            "type": "string"
+        },
+        {
+            "name": "uri_options",
+            "baseName": "uri_options",
+            "type": "any"
+        },
+        {
+            "name": "driver_options",
+            "baseName": "driver_options",
+            "type": "any"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MongodbEndpointDataResource.attributeTypeMap;
+    }
+}
+
+export class MysqlEndpointData {
     /**
     * Table or view
     */
     'table'?: string;
-    'resource'?: MysqlendpointDataResource;
+    'resource'?: MysqlEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -884,18 +1058,18 @@ export class MysqlendpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "MysqlendpointDataResource"
+            "type": "MysqlEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return MysqlendpointData.attributeTypeMap;
+        return MysqlEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class MysqlendpointDataResource {
+export class MysqlEndpointDataResource {
     /**
     * MySQL Server (Or compatible MySQL fork like MariaDB).
     */
@@ -956,11 +1130,11 @@ export class MysqlendpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return MysqlendpointDataResource.attributeTypeMap;
+        return MysqlEndpointDataResource.attributeTypeMap;
     }
 }
 
-export class ObjectrelativeData {
+export class ObjectRelativeData {
     /**
     * Optional context context data which describes the relationship.
     */
@@ -982,16 +1156,165 @@ export class ObjectrelativeData {
         }    ];
 
     static getAttributeTypeMap() {
-        return ObjectrelativeData.attributeTypeMap;
+        return ObjectRelativeData.attributeTypeMap;
     }
 }
 
-export class PdoendpointData {
+export class OdataRestEndpointData {
+    'resource'?: OdataRestEndpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "OdataRestEndpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OdataRestEndpointData.attributeTypeMap;
+    }
+}
+
+/**
+* Holds the relevant options of how to connect to the endpoint.
+*/
+export class OdataRestEndpointDataResource {
+    /**
+    * Base uri to resources (Like https://rest.api/v1/resources).
+    */
+    'base_uri'?: string;
+    /**
+    * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
+    */
+    'auth'?: OdataRestEndpointDataResource.AuthEnum;
+    'basic'?: OdataRestEndpointDataResourceBasic;
+    'oauth2'?: OdataRestEndpointDataResourceOauth2;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "base_uri",
+            "baseName": "base_uri",
+            "type": "string"
+        },
+        {
+            "name": "auth",
+            "baseName": "auth",
+            "type": "OdataRestEndpointDataResource.AuthEnum"
+        },
+        {
+            "name": "basic",
+            "baseName": "basic",
+            "type": "OdataRestEndpointDataResourceBasic"
+        },
+        {
+            "name": "oauth2",
+            "baseName": "oauth2",
+            "type": "OdataRestEndpointDataResourceOauth2"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OdataRestEndpointDataResource.attributeTypeMap;
+    }
+}
+
+export namespace OdataRestEndpointDataResource {
+    export enum AuthEnum {
+        Basic = <any> 'basic',
+        Oauth2 = <any> 'oauth2'
+    }
+}
+/**
+* HTTP Basic authentication. auth must be set to basic if this adapter should be used.
+*/
+export class OdataRestEndpointDataResourceBasic {
+    /**
+    * Basic authentication username.
+    */
+    'username'?: string;
+    /**
+    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    */
+    'password'?: string;
+    /**
+    * Is true if a password has been set.
+    */
+    'has_password'?: boolean;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "username",
+            "baseName": "username",
+            "type": "string"
+        },
+        {
+            "name": "password",
+            "baseName": "password",
+            "type": "string"
+        },
+        {
+            "name": "has_password",
+            "baseName": "has_password",
+            "type": "boolean"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OdataRestEndpointDataResourceBasic.attributeTypeMap;
+    }
+}
+
+/**
+* Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
+*/
+export class OdataRestEndpointDataResourceOauth2 {
+    /**
+    * URI to token endpoint.
+    */
+    'token_uri'?: string;
+    /**
+    * OAuth2 client_id.
+    */
+    'client_id'?: string;
+    /**
+    * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
+    */
+    'client_secret'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "token_uri",
+            "baseName": "token_uri",
+            "type": "string"
+        },
+        {
+            "name": "client_id",
+            "baseName": "client_id",
+            "type": "string"
+        },
+        {
+            "name": "client_secret",
+            "baseName": "client_secret",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OdataRestEndpointDataResourceOauth2.attributeTypeMap;
+    }
+}
+
+export class PdoEndpointData {
     /**
     * Table or view
     */
     'table'?: string;
-    'resource'?: PdoendpointDataResource;
+    'resource'?: PdoEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1004,18 +1327,18 @@ export class PdoendpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "PdoendpointDataResource"
+            "type": "PdoEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return PdoendpointData.attributeTypeMap;
+        return PdoEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class PdoendpointDataResource {
+export class PdoEndpointDataResource {
     /**
     * Data source name (DSN).
     */
@@ -1067,7 +1390,7 @@ export class PdoendpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return PdoendpointDataResource.attributeTypeMap;
+        return PdoEndpointDataResource.attributeTypeMap;
     }
 }
 
@@ -1165,155 +1488,6 @@ export class Resource {
     }
 }
 
-export class RestendpointData {
-    'resource'?: RestendpointDataResource;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "resource",
-            "baseName": "resource",
-            "type": "RestendpointDataResource"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return RestendpointData.attributeTypeMap;
-    }
-}
-
-/**
-* Holds the relevant options of how to connect to the endpoint.
-*/
-export class RestendpointDataResource {
-    /**
-    * Base uri to resourses (Like https://rest.api/v1/resources).
-    */
-    'base_uri'?: string;
-    /**
-    * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
-    */
-    'auth'?: RestendpointDataResource.AuthEnum;
-    'basic'?: RestendpointDataResourceBasic;
-    'oauth2'?: RestendpointDataResourceOauth2;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "base_uri",
-            "baseName": "base_uri",
-            "type": "string"
-        },
-        {
-            "name": "auth",
-            "baseName": "auth",
-            "type": "RestendpointDataResource.AuthEnum"
-        },
-        {
-            "name": "basic",
-            "baseName": "basic",
-            "type": "RestendpointDataResourceBasic"
-        },
-        {
-            "name": "oauth2",
-            "baseName": "oauth2",
-            "type": "RestendpointDataResourceOauth2"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return RestendpointDataResource.attributeTypeMap;
-    }
-}
-
-export namespace RestendpointDataResource {
-    export enum AuthEnum {
-        Basic = <any> 'basic',
-        Oauth2 = <any> 'oauth2'
-    }
-}
-/**
-* HTTP Basic authentication. auth must be set to basic if this adapter should be used.
-*/
-export class RestendpointDataResourceBasic {
-    /**
-    * Basic authentication username.
-    */
-    'username'?: string;
-    /**
-    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
-    */
-    'password'?: string;
-    /**
-    * Is true if a password has been set.
-    */
-    'has_password'?: boolean;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "username",
-            "baseName": "username",
-            "type": "string"
-        },
-        {
-            "name": "password",
-            "baseName": "password",
-            "type": "string"
-        },
-        {
-            "name": "has_password",
-            "baseName": "has_password",
-            "type": "boolean"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return RestendpointDataResourceBasic.attributeTypeMap;
-    }
-}
-
-/**
-* Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
-*/
-export class RestendpointDataResourceOauth2 {
-    /**
-    * URI to token endpoint.
-    */
-    'token_uri'?: string;
-    /**
-    * OAuth2 client_id.
-    */
-    'client_id'?: string;
-    /**
-    * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
-    */
-    'client_secret'?: string;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "token_uri",
-            "baseName": "token_uri",
-            "type": "string"
-        },
-        {
-            "name": "client_id",
-            "baseName": "client_id",
-            "type": "string"
-        },
-        {
-            "name": "client_secret",
-            "baseName": "client_secret",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return RestendpointDataResourceOauth2.attributeTypeMap;
-    }
-}
-
 export class SecretMount {
     /**
     * The name of the secret from which the key's value should be injected.
@@ -1353,6 +1527,37 @@ export class SecretMount {
 }
 
 /**
+* The storage defines where data can be fetched.
+*/
+export class Storage {
+    /**
+    * The kind of storage where data shall be fetched.
+    */
+    'kind'?: Storage.KindEnum;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "Storage.KindEnum"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Storage.attributeTypeMap;
+    }
+}
+
+export namespace Storage {
+    export enum KindEnum {
+        Stream = <any> 'Stream',
+        LocalFilesystem = <any> 'LocalFilesystem',
+        Smb = <any> 'Smb',
+        Balloon = <any> 'Balloon'
+    }
+}
+/**
 * The user information.
 */
 export class UserData {
@@ -1382,7 +1587,7 @@ export class WorkflowData {
     */
     'condition'?: string;
     /**
-    * Map attributes from the endpoint to the datatype schema (if the endpoint is of type source) or map attributes from the datatype to the endpoint if the endpoint is of type destination.
+    * Map attributes from the endpoint to the collection schema (if the endpoint is of type source) or map attributes from the collection to the endpoint if the endpoint is of type destination.
     */
     'map'?: any;
 
@@ -1418,6 +1623,88 @@ export namespace WorkflowData {
         Merge = <any> 'merge'
     }
 }
+export class XmlEndpointData {
+    'storage'?: Storage;
+    /**
+    * File uri or pattern, depends what storage you have choosen.
+    */
+    'file'?: string;
+    'resource'?: XmlEndpointDataResource;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "storage",
+            "baseName": "storage",
+            "type": "Storage"
+        },
+        {
+            "name": "file",
+            "baseName": "file",
+            "type": "string"
+        },
+        {
+            "name": "resource",
+            "baseName": "resource",
+            "type": "XmlEndpointDataResource"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return XmlEndpointData.attributeTypeMap;
+    }
+}
+
+/**
+* CSV parse options.
+*/
+export class XmlEndpointDataResource {
+    /**
+    * The name of the root element.
+    */
+    'root_name'?: string;
+    /**
+    * The name of the sub node of the root element. For example: <root><row><a>0</a></row><a>1</a><row></row</root>
+    */
+    'node_name'?: string;
+    /**
+    * Prettify xml output, note this is only useful if the XmlEndpoint is a destination endpoint.
+    */
+    'pretty'?: boolean;
+    /**
+    * Preserve whitespace, note this is only useful if the XmlEndpoint is a destination endpoint.
+    */
+    'preserve_whitespace'?: boolean;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "root_name",
+            "baseName": "root_name",
+            "type": "string"
+        },
+        {
+            "name": "node_name",
+            "baseName": "node_name",
+            "type": "string"
+        },
+        {
+            "name": "pretty",
+            "baseName": "pretty",
+            "type": "boolean"
+        },
+        {
+            "name": "preserve_whitespace",
+            "baseName": "preserve_whitespace",
+            "type": "boolean"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return XmlEndpointDataResource.attributeTypeMap;
+    }
+}
+
 /**
 * An access role is defined list which matches authenticated user identifiers.
 */
@@ -1451,7 +1738,7 @@ export class AccessRole {
     * The resource type, always AccessRole.
     */
     'kind'?: string;
-    'data'?: AccessroleData;
+    'data'?: AccessRoleData;
 
     static discriminator: string | undefined = undefined;
 
@@ -1499,7 +1786,7 @@ export class AccessRole {
         {
             "name": "data",
             "baseName": "data",
-            "type": "AccessroleData"
+            "type": "AccessRoleData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1596,7 +1883,7 @@ export class AccessRule {
     * The resource type, always AccessRule.
     */
     'kind'?: string;
-    'data'?: AccessruleData;
+    'data'?: AccessRuleData;
 
     static discriminator: string | undefined = undefined;
 
@@ -1644,7 +1931,7 @@ export class AccessRule {
         {
             "name": "data",
             "baseName": "data",
-            "type": "AccessruleData"
+            "type": "AccessRuleData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1709,7 +1996,152 @@ export class AccessRules {
 }
 
 /**
-* A data object represents a single object in a datatype (data collection).
+* A collection is a collection of data objects, meaning a collection of similar objects.
+*/
+export class Collection {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The resource type, always Collection.
+    */
+    'kind'?: string;
+    'data'?: CollectionData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "CollectionData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Collection.attributeTypeMap;
+    }
+}
+
+/**
+* A list of collections.
+*/
+export class Collections {
+    /**
+    * Holds a list of links rfc1738 to other resources.
+    */
+    '_links'?: ListLinks;
+    /**
+    * The resource type, always List.
+    */
+    'kind'?: string;
+    /**
+    * Holds the number of items in the current list response.
+    */
+    'count'?: number;
+    /**
+    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
+    */
+    'total'?: number;
+    'data'?: Array<Collections>;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "ListLinks"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "count",
+            "baseName": "count",
+            "type": "number"
+        },
+        {
+            "name": "total",
+            "baseName": "total",
+            "type": "number"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<Collections>"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return Collections.attributeTypeMap;
+    }
+}
+
+/**
+* A data object represents a single object in a collection (data collection).
 */
 export class DataObject {
     '_links'?: Links;
@@ -1857,152 +2289,7 @@ export class DataObjects {
 }
 
 /**
-* A datatype is a collection of data objects, meaning a collection of similar objects.
-*/
-export class Datatype {
-    '_links'?: Links;
-    /**
-    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
-    */
-    'name'?: string;
-    /**
-    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
-    */
-    'id'?: string;
-    /**
-    * The version of the resource. A version gets increased once the resource have been modified.
-    */
-    'version'?: number;
-    /**
-    * ISO 8601 timestamp when the resource was created.
-    */
-    'created'?: string;
-    /**
-    * ISO 8601 timestamp when the resource was changed.
-    */
-    'changed'?: string;
-    /**
-    * Injected secrets in this resource.
-    */
-    'secrets'?: Array<SecretMount>;
-    /**
-    * The resource type, always DataType.
-    */
-    'kind'?: string;
-    'data'?: DatatypeData;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "_links",
-            "baseName": "_links",
-            "type": "Links"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string"
-        },
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string"
-        },
-        {
-            "name": "version",
-            "baseName": "version",
-            "type": "number"
-        },
-        {
-            "name": "created",
-            "baseName": "created",
-            "type": "string"
-        },
-        {
-            "name": "changed",
-            "baseName": "changed",
-            "type": "string"
-        },
-        {
-            "name": "secrets",
-            "baseName": "secrets",
-            "type": "Array<SecretMount>"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "DatatypeData"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Datatype.attributeTypeMap;
-    }
-}
-
-/**
-* A list of datatypes.
-*/
-export class Datatypes {
-    /**
-    * Holds a list of links rfc1738 to other resources.
-    */
-    '_links'?: ListLinks;
-    /**
-    * The resource type, always List.
-    */
-    'kind'?: string;
-    /**
-    * Holds the number of items in the current list response.
-    */
-    'count'?: number;
-    /**
-    * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
-    */
-    'total'?: number;
-    'data'?: Array<Datatypes>;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "_links",
-            "baseName": "_links",
-            "type": "ListLinks"
-        },
-        {
-            "name": "kind",
-            "baseName": "kind",
-            "type": "string"
-        },
-        {
-            "name": "count",
-            "baseName": "count",
-            "type": "number"
-        },
-        {
-            "name": "total",
-            "baseName": "total",
-            "type": "number"
-        },
-        {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Datatypes>"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return Datatypes.attributeTypeMap;
-    }
-}
-
-/**
-* An endpoint represents an external resource with objects. This may be a database, a file, a http service, ...
+* An endpoint represents an external resource to browse (proxy), import or export. This may be a database, a file, a http service, ...
 */
 export class Endpoint {
     '_links'?: Links;
@@ -2031,9 +2318,9 @@ export class Endpoint {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Endpoint.
+    * The type of endpoint.
     */
-    'kind'?: string;
+    'kind'?: Endpoint.KindEnum;
     'data'?: EndpointData;
 
     static discriminator: string | undefined = undefined;
@@ -2077,7 +2364,7 @@ export class Endpoint {
         {
             "name": "kind",
             "baseName": "kind",
-            "type": "string"
+            "type": "Endpoint.KindEnum"
         },
         {
             "name": "data",
@@ -2090,6 +2377,20 @@ export class Endpoint {
     }
 }
 
+export namespace Endpoint {
+    export enum KindEnum {
+        PdoEndpoint = <any> 'PdoEndpoint',
+        MysqlEndpoint = <any> 'MysqlEndpoint',
+        XmlEndpoint = <any> 'XmlEndpoint',
+        CsvEndpoint = <any> 'CsvEndpoint',
+        ImageEndpoint = <any> 'ImageEndpoint',
+        JsonEndpoint = <any> 'JsonEndpoint',
+        MongodbEndpoint = <any> 'MongodbEndpoint',
+        MoodleEndpoint = <any> 'MoodleEndpoint',
+        BalloonEndpoint = <any> 'BalloonEndpoint',
+        OdataRestEndpoint = <any> 'OdataRestEndpoint'
+    }
+}
 /**
 * An endpoint object is the actual object on an endpoint itself.
 */
@@ -2286,7 +2587,7 @@ export class Endpoints {
 }
 
 /**
-* A job is a synchronization job which declares when and what datatypes should be synchronized.
+* A job is a synchronization job which declares when and what collections should be synchronized.
 */
 export class Job {
     '_links'?: Links;
@@ -2576,9 +2877,9 @@ export class Logs {
 }
 
 /**
-* A mandator is a namespace to separate resources.
+* A namespace is a namespace to separate resources.
 */
-export class Mandator {
+export class Namespace {
     '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
@@ -2605,7 +2906,7 @@ export class Mandator {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Mandator.
+    * The resource type, always Namespace.
     */
     'kind'?: string;
 
@@ -2654,14 +2955,14 @@ export class Mandator {
         }    ];
 
     static getAttributeTypeMap() {
-        return Mandator.attributeTypeMap;
+        return Namespace.attributeTypeMap;
     }
 }
 
 /**
-* A list of mandators.
+* A list of namespaces.
 */
-export class Mandators {
+export class Namespaces {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
@@ -2678,7 +2979,7 @@ export class Mandators {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Mandator>;
+    'data'?: Array<Namespace>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2706,16 +3007,16 @@ export class Mandators {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Mandator>"
+            "type": "Array<Namespace>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Mandators.attributeTypeMap;
+        return Namespaces.attributeTypeMap;
     }
 }
 
 /**
-* An object relation represents a releationship between two data objects. A relationship may apply to objects of different datatypes and/or mandators.
+* An object relation represents a releationship between two data objects. A relationship may apply to objects of different collections and/or namespaces.
 */
 export class ObjectRelative {
     '_links'?: Links;
@@ -2744,10 +3045,10 @@ export class ObjectRelative {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Mandator.
+    * The resource type, always Namespace.
     */
     'kind'?: string;
-    'data'?: ObjectrelativeData;
+    'data'?: ObjectRelativeData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2795,7 +3096,7 @@ export class ObjectRelative {
         {
             "name": "data",
             "baseName": "data",
-            "type": "ObjectrelativeData"
+            "type": "ObjectRelativeData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -3354,9 +3655,9 @@ export class Workflows {
 }
 
 /**
-* LDAP (OpenLDAP, Microsoft AD and other LDAP compatible Server) endpoint
+* Balloon cloud server endpoint
 */
-export class LdapEndpoint {
+export class BalloonEndpoint {
     '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
@@ -3383,10 +3684,10 @@ export class LdapEndpoint {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Endpoint.
+    * The type of endpoint. Always BalloonEndpoint.
     */
     'kind'?: string;
-    'data'?: LdapendpointData;
+    'data'?: BalloonEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3434,11 +3735,367 @@ export class LdapEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "LdapendpointData"
+            "type": "BalloonEndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return BalloonEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* CSV data format endpoint
+*/
+export class CsvEndpoint {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The type of endpoint. Always CsvEndpoint.
+    */
+    'kind'?: string;
+    'data'?: CsvEndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "CsvEndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return CsvEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* JSON data format endpoint
+*/
+export class JsonEndpoint {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The type of endpoint. Always JsonEndpoint.
+    */
+    'kind'?: string;
+    'data'?: JsonEndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "JsonEndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return JsonEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* LDAP (OpenLDAP, Microsoft AD and other LDAP compatible Server) endpoint
+*/
+export class LdapEndpoint {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The type of endpoint. Always LdapEndpoint.
+    */
+    'kind'?: string;
+    'data'?: LdapEndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "LdapEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
         return LdapEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* MongoDB endpoint
+*/
+export class MongodbEndpoint {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The type of endpoint. Always MongodbEndpoint.
+    */
+    'kind'?: string;
+    'data'?: MongodbEndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "MongodbEndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return MongodbEndpoint.attributeTypeMap;
     }
 }
 
@@ -3472,10 +4129,10 @@ export class MysqlEndpoint {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Endpoint.
+    * The type of endpoint. Always MysqlEndpoint.
     */
     'kind'?: string;
-    'data'?: MysqlendpointData;
+    'data'?: MysqlEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3523,11 +4180,100 @@ export class MysqlEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "MysqlendpointData"
+            "type": "MysqlEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
         return MysqlEndpoint.attributeTypeMap;
+    }
+}
+
+/**
+* OData REST API endpoint (Compatible with Microsoft graph (Office365 and more) and other OData compatible api's)
+*/
+export class OdataRestEndpoint {
+    '_links'?: Links;
+    /**
+    * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
+    */
+    'name'?: string;
+    /**
+    * Unique 12-byte resource identifier. Note this is a MongoDB ObjectId. The name is the standard resource identifier, the id only useful to verify that a given resource was completely recreated. An ID is immutable and will be created on the server.
+    */
+    'id'?: string;
+    /**
+    * The version of the resource. A version gets increased once the resource have been modified.
+    */
+    'version'?: number;
+    /**
+    * ISO 8601 timestamp when the resource was created.
+    */
+    'created'?: string;
+    /**
+    * ISO 8601 timestamp when the resource was changed.
+    */
+    'changed'?: string;
+    /**
+    * Injected secrets in this resource.
+    */
+    'secrets'?: Array<SecretMount>;
+    /**
+    * The type of endpoint. Always OdataRestEndpoint.
+    */
+    'kind'?: string;
+    'data'?: OdataRestEndpointData;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "_links",
+            "baseName": "_links",
+            "type": "Links"
+        },
+        {
+            "name": "name",
+            "baseName": "name",
+            "type": "string"
+        },
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "string"
+        },
+        {
+            "name": "version",
+            "baseName": "version",
+            "type": "number"
+        },
+        {
+            "name": "created",
+            "baseName": "created",
+            "type": "string"
+        },
+        {
+            "name": "changed",
+            "baseName": "changed",
+            "type": "string"
+        },
+        {
+            "name": "secrets",
+            "baseName": "secrets",
+            "type": "Array<SecretMount>"
+        },
+        {
+            "name": "kind",
+            "baseName": "kind",
+            "type": "string"
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "OdataRestEndpointData"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return OdataRestEndpoint.attributeTypeMap;
     }
 }
 
@@ -3561,10 +4307,10 @@ export class PdoEndpoint {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Endpoint.
+    * The type of endpoint. Always PdoEndpoint.
     */
     'kind'?: string;
-    'data'?: PdoendpointData;
+    'data'?: PdoEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3612,7 +4358,7 @@ export class PdoEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "PdoendpointData"
+            "type": "PdoEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
@@ -3716,9 +4462,9 @@ export class Process {
 }
 
 /**
-* Propper REST API endpoint
+* XML data format endpoint
 */
-export class RestEndpoint {
+export class XmlEndpoint {
     '_links'?: Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
@@ -3745,10 +4491,10 @@ export class RestEndpoint {
     */
     'secrets'?: Array<SecretMount>;
     /**
-    * The resource type, always Endpoint.
+    * The type of endpoint. Always XmlEndpoint.
     */
     'kind'?: string;
-    'data'?: RestendpointData;
+    'data'?: XmlEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3796,64 +4542,76 @@ export class RestEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "RestendpointData"
+            "type": "XmlEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return RestEndpoint.attributeTypeMap;
+        return XmlEndpoint.attributeTypeMap;
     }
 }
 
 
 let enumsMap: {[index: string]: any} = {
-        "AccessruleData.VerbsEnum": AccessruleData.VerbsEnum,
-        "EndpointData.ModelClassEnum": EndpointData.ModelClassEnum,
+        "AccessRuleData.VerbsEnum": AccessRuleData.VerbsEnum,
+        "BalloonEndpointDataResource.AuthEnum": BalloonEndpointDataResource.AuthEnum,
         "EndpointData.TypeEnum": EndpointData.TypeEnum,
         "JobData.LogLevelEnum": JobData.LogLevelEnum,
-        "RestendpointDataResource.AuthEnum": RestendpointDataResource.AuthEnum,
+        "OdataRestEndpointDataResource.AuthEnum": OdataRestEndpointDataResource.AuthEnum,
+        "Storage.KindEnum": Storage.KindEnum,
         "WorkflowData.EnsureEnum": WorkflowData.EnsureEnum,
+        "Endpoint.KindEnum": Endpoint.KindEnum,
 }
 
 let typeMap: {[index: string]: any} = {
-    "AccessroleData": AccessroleData,
-    "AccessruleData": AccessruleData,
+    "AccessRoleData": AccessRoleData,
+    "AccessRuleData": AccessRuleData,
     "AttributeMap": AttributeMap,
-    "DatatypeData": DatatypeData,
+    "BalloonEndpointData": BalloonEndpointData,
+    "BalloonEndpointDataResource": BalloonEndpointDataResource,
+    "CollectionData": CollectionData,
+    "CsvEndpointData": CsvEndpointData,
+    "CsvEndpointDataResource": CsvEndpointDataResource,
     "EndpointData": EndpointData,
     "EndpointDataOptions": EndpointDataOptions,
     "JobData": JobData,
     "JobDataNotification": JobDataNotification,
     "JobDataOptions": JobDataOptions,
+    "JsonEndpointData": JsonEndpointData,
     "JsonPatch": JsonPatch,
-    "LdapendpointData": LdapendpointData,
-    "LdapendpointDataResource": LdapendpointDataResource,
+    "LdapEndpointData": LdapEndpointData,
+    "LdapEndpointDataResource": LdapEndpointDataResource,
     "Link": Link,
     "Links": Links,
     "List": List,
     "ListLinks": ListLinks,
     "LogData": LogData,
-    "MysqlendpointData": MysqlendpointData,
-    "MysqlendpointDataResource": MysqlendpointDataResource,
-    "ObjectrelativeData": ObjectrelativeData,
-    "PdoendpointData": PdoendpointData,
-    "PdoendpointDataResource": PdoendpointDataResource,
+    "MongodbEndpointData": MongodbEndpointData,
+    "MongodbEndpointDataResource": MongodbEndpointDataResource,
+    "MysqlEndpointData": MysqlEndpointData,
+    "MysqlEndpointDataResource": MysqlEndpointDataResource,
+    "ObjectRelativeData": ObjectRelativeData,
+    "OdataRestEndpointData": OdataRestEndpointData,
+    "OdataRestEndpointDataResource": OdataRestEndpointDataResource,
+    "OdataRestEndpointDataResourceBasic": OdataRestEndpointDataResourceBasic,
+    "OdataRestEndpointDataResourceOauth2": OdataRestEndpointDataResourceOauth2,
+    "PdoEndpointData": PdoEndpointData,
+    "PdoEndpointDataResource": PdoEndpointDataResource,
     "ProcessStatus": ProcessStatus,
     "Resource": Resource,
-    "RestendpointData": RestendpointData,
-    "RestendpointDataResource": RestendpointDataResource,
-    "RestendpointDataResourceBasic": RestendpointDataResourceBasic,
-    "RestendpointDataResourceOauth2": RestendpointDataResourceOauth2,
     "SecretMount": SecretMount,
+    "Storage": Storage,
     "UserData": UserData,
     "WorkflowData": WorkflowData,
+    "XmlEndpointData": XmlEndpointData,
+    "XmlEndpointDataResource": XmlEndpointDataResource,
     "AccessRole": AccessRole,
     "AccessRoles": AccessRoles,
     "AccessRule": AccessRule,
     "AccessRules": AccessRules,
+    "Collection": Collection,
+    "Collections": Collections,
     "DataObject": DataObject,
     "DataObjects": DataObjects,
-    "Datatype": Datatype,
-    "Datatypes": Datatypes,
     "Endpoint": Endpoint,
     "EndpointObject": EndpointObject,
     "EndpointObjects": EndpointObjects,
@@ -3862,8 +4620,8 @@ let typeMap: {[index: string]: any} = {
     "Jobs": Jobs,
     "Log": Log,
     "Logs": Logs,
-    "Mandator": Mandator,
-    "Mandators": Mandators,
+    "Namespace": Namespace,
+    "Namespaces": Namespaces,
     "ObjectRelative": ObjectRelative,
     "ObjectRelatives": ObjectRelatives,
     "Processes": Processes,
@@ -3873,11 +4631,16 @@ let typeMap: {[index: string]: any} = {
     "Users": Users,
     "Workflow": Workflow,
     "Workflows": Workflows,
+    "BalloonEndpoint": BalloonEndpoint,
+    "CsvEndpoint": CsvEndpoint,
+    "JsonEndpoint": JsonEndpoint,
     "LdapEndpoint": LdapEndpoint,
+    "MongodbEndpoint": MongodbEndpoint,
     "MysqlEndpoint": MysqlEndpoint,
+    "OdataRestEndpoint": OdataRestEndpoint,
     "PdoEndpoint": PdoEndpoint,
     "Process": Process,
-    "RestEndpoint": RestEndpoint,
+    "XmlEndpoint": XmlEndpoint,
 }
 
 export interface Authentication {
@@ -4900,6 +5663,462 @@ export class AccessRulesApi {
         });
     }
 }
+export enum CollectionsApiApiKeys {
+}
+
+export class CollectionsApi {
+    protected _basePath = defaultBasePath;
+    protected defaultHeaders : any = {};
+    protected _useQuerystring : boolean = false;
+
+    protected authentications = {
+        'default': <Authentication>new VoidAuth(),
+    }
+
+    constructor(basePath?: string);
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+    }
+
+    set useQuerystring(value: boolean) {
+        this._useQuerystring = value;
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+    public setDefaultAuthentication(auth: Authentication) {
+	this.authentications.default = auth;
+    }
+
+    public setApiKey(key: CollectionsApiApiKeys, value: string) {
+        (this.authentications as any)[CollectionsApiApiKeys[key]].apiKey = value;
+    }
+    /**
+     * 
+     * @summary Add collection
+     * @param namespace Namespace name
+     * @param data 
+     */
+    public addCollection (namespace: string, data?: Collection) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addCollection.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Collection")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("addCollection".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Collection");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Delete specific collection
+     * @param namespace Namespace name
+     * @param collection Collection
+     */
+    public deleteCollection (namespace: string, collection: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteCollection.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteCollection.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'DELETE',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("deleteCollection".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * A collection is collection of dataobjects of a specific type
+     * @summary Get specific collection
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param attributes Filter attributes
+     */
+    public getCollection (namespace: string, collection: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getCollection.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getCollection.');
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getCollection".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Collection");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * A collection is collection of data objects of a specific type
+     * @summary Get collections
+     * @param namespace Namespace name
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public getCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getCollections.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getCollections".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Collections;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Collections");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Create or replace collection
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param data 
+     */
+    public replaceCollection (namespace: string, collection: string, data?: Collection) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceCollection.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling replaceCollection.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Collection")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("replaceCollection".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Collection");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Update specific attributes of a collection
+     * @summary Patch collection as rfc6902 request
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param data Collection
+     */
+    public updateCollection (namespace: string, collection: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateCollection.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateCollection.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PATCH',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateCollection".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Collection");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+}
 export enum DataApiApiKeys {
 }
 
@@ -4946,27 +6165,27 @@ export class DataApi {
     }
     /**
      * 
-     * @summary Add a new object of a specifc datatype
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @summary Add a new object of a specifc collection
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param data 
      */
-    public addObject (mandator: string, datatype: string, data?: DataObject) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public addObject (namespace: string, collection: string, data?: DataObject) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling addObject.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addObject.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling addObject.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling addObject.');
         }
 
 
@@ -5014,28 +6233,28 @@ export class DataApi {
     /**
      * 
      * @summary Add new object relation to an object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param data 
      */
-    public addObjectRelative (mandator: string, datatype: string, object: string, data?: ObjectRelative) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public addObjectRelative (namespace: string, collection: string, object: string, data?: ObjectRelative) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling addObjectRelative.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addObjectRelative.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling addObjectRelative.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling addObjectRelative.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5088,27 +6307,27 @@ export class DataApi {
     /**
      * Delete a specific object
      * @summary Delete object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      */
-    public deleteObject (mandator: string, datatype: string, object: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public deleteObject (namespace: string, collection: string, object: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteObject.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteObject.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling deleteObject.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteObject.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5160,29 +6379,29 @@ export class DataApi {
     /**
      * 
      * @summary Delete object relation
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param relative Object ID
      */
-    public deleteObjectRelative (mandator: string, datatype: string, object: string, relative: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives/{relative}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public deleteObjectRelative (namespace: string, collection: string, object: string, relative: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
             .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteObjectRelative.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteObjectRelative.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling deleteObjectRelative.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteObjectRelative.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5238,8 +6457,8 @@ export class DataApi {
     /**
      * An endpoint is either of type source or destination and defines an import/export destination
      * @summary Get objects from endpoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -5247,23 +6466,23 @@ export class DataApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getEndpointObjects (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/objects'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getEndpointObjects (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/objects'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getEndpointObjects.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getEndpointObjects.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getEndpointObjects.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getEndpointObjects.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -5333,30 +6552,30 @@ export class DataApi {
         });
     }
     /**
-     * Get an object of a specific datatype
+     * Get an object of a specific collection
      * @summary Get specific object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param attributes Filter attributes
      */
-    public getObject (mandator: string, datatype: string, object: string, attributes?: Array<string>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getObject (namespace: string, collection: string, object: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObject.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObject.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObject.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObject.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5411,8 +6630,8 @@ export class DataApi {
     /**
      * Get the history of all modifications from a specific object
      * @summary Get object history
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -5420,23 +6639,23 @@ export class DataApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getObjectHistory (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/history'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getObjectHistory (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/history'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjectHistory.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectHistory.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjectHistory.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectHistory.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5508,29 +6727,29 @@ export class DataApi {
     /**
      * 
      * @summary Get single relative object of an object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param relative Object ID
      */
-    public getObjectRelative (mandator: string, datatype: string, object: string, relative: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives/{relative}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getObjectRelative (namespace: string, collection: string, object: string, relative: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
             .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjectRelative.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelative.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjectRelative.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectRelative.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5587,8 +6806,8 @@ export class DataApi {
     /**
      * Get all objects the object is related to
      * @summary Get relative objects of an object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -5596,23 +6815,23 @@ export class DataApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjectRelatives.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelatives.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjectRelatives.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectRelatives.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5682,32 +6901,32 @@ export class DataApi {
         });
     }
     /**
-     * A object is a data object from a specifc datatype
-     * @summary Get objects of a specific datatype
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * A object is a data object from a specifc collection
+     * @summary Get objects of a specific collection
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public getObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getObjects.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjects.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getObjects.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjects.');
         }
 
         if (query !== undefined) {
@@ -5774,29 +6993,29 @@ export class DataApi {
     /**
      * Replace all data attributes of an object (Or create one if not exists)
      * @summary Replace or create object
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data 
      */
-    public replaceObject (mandator: string, datatype: string, object: string, write?: boolean, data?: DataObject) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public replaceObject (namespace: string, collection: string, object: string, write?: boolean, data?: DataObject) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling replaceObject.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceObject.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling replaceObject.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling replaceObject.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5853,28 +7072,28 @@ export class DataApi {
     /**
      * Update specific attributes of an object
      * @summary Patch object as rfc6902 request
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param data Object
      */
-    public updateObject (mandator: string, datatype: string, object: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public updateObject (namespace: string, collection: string, object: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateObject.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateObject.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling updateObject.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateObject.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -5927,30 +7146,30 @@ export class DataApi {
     /**
      * 
      * @summary Update object relation
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param relative Object ID
      * @param data 
      */
-    public updateObjectRelative (mandator: string, datatype: string, object: string, relative: string, data?: ObjectRelative) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives/{relative}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public updateObjectRelative (namespace: string, collection: string, object: string, relative: string, data?: ObjectRelative) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
             .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateObjectRelative.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateObjectRelative.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling updateObjectRelative.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateObjectRelative.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -6006,25 +7225,25 @@ export class DataApi {
         });
     }
     /**
-     * Watch datatypes in realtime
-     * @summary Watch datatypes
-     * @param mandator Mandator name
+     * Watch collections in realtime
+     * @summary Watch collections
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+    public watchCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling watchDatatypes.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchCollections.');
         }
 
         if (query !== undefined) {
@@ -6069,7 +7288,7 @@ export class DataApi {
             }
         }
 
-        if("watchDatatypes".match('^watch[A-Z]')) {
+        if("watchCollections".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6090,30 +7309,30 @@ export class DataApi {
     /**
      * Watch updates in realtime
      * @summary Watch endpoints
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public watchEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling watchEndpoints.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchEndpoints.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling watchEndpoints.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchEndpoints.');
         }
 
         if (query !== undefined) {
@@ -6177,16 +7396,16 @@ export class DataApi {
         });
     }
     /**
-     * Watch mandators in realtime
-     * @summary Watch mandators
+     * Watch namespaces in realtime
+     * @summary Watch namespaces
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators';
+    public watchNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
@@ -6233,7 +7452,7 @@ export class DataApi {
             }
         }
 
-        if("watchMandators".match('^watch[A-Z]')) {
+        if("watchNamespaces".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6254,8 +7473,8 @@ export class DataApi {
     /**
      * Watch updates in realtime
      * @summary Watch object relatives
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param object Object ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -6263,23 +7482,23 @@ export class DataApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchObjectRelatives (mandator: string, datatype: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects/{object}/relatives'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public watchObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling watchObjectRelatives.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchObjectRelatives.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling watchObjectRelatives.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchObjectRelatives.');
         }
 
         // verify required parameter 'object' is not null or undefined
@@ -6350,30 +7569,30 @@ export class DataApi {
     /**
      * Watch updates in realtime
      * @summary Watch objects
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchObjects (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/objects'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public watchObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling watchObjects.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchObjects.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling watchObjects.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchObjects.');
         }
 
         if (query !== undefined) {
@@ -6439,8 +7658,8 @@ export class DataApi {
     /**
      * Watch updates in realtime
      * @summary Watch workflows
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -6448,23 +7667,23 @@ export class DataApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public watchWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling watchWorkflows.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchWorkflows.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling watchWorkflows.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchWorkflows.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -6523,462 +7742,6 @@ export class DataApi {
                 if (error) {
                     reject(error);
                 } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-}
-export enum DatatypesApiApiKeys {
-}
-
-export class DatatypesApi {
-    protected _basePath = defaultBasePath;
-    protected defaultHeaders : any = {};
-    protected _useQuerystring : boolean = false;
-
-    protected authentications = {
-        'default': <Authentication>new VoidAuth(),
-    }
-
-    constructor(basePath?: string);
-    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
-        if (password) {
-            if (basePath) {
-                this.basePath = basePath;
-            }
-        } else {
-            if (basePathOrUsername) {
-                this.basePath = basePathOrUsername
-            }
-        }
-    }
-
-    set useQuerystring(value: boolean) {
-        this._useQuerystring = value;
-    }
-
-    set basePath(basePath: string) {
-        this._basePath = basePath;
-    }
-
-    get basePath() {
-        return this._basePath;
-    }
-
-    public setDefaultAuthentication(auth: Authentication) {
-	this.authentications.default = auth;
-    }
-
-    public setApiKey(key: DatatypesApiApiKeys, value: string) {
-        (this.authentications as any)[DatatypesApiApiKeys[key]].apiKey = value;
-    }
-    /**
-     * 
-     * @summary Add datatype
-     * @param mandator Mandator name
-     * @param data 
-     */
-    public addDatatype (mandator: string, data?: Datatype) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling addDatatype.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "Datatype")
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("addDatatype".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Datatype;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Datatype");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Delete specific datatype
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     */
-    public deleteDatatype (mandator: string, datatype: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteDatatype.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling deleteDatatype.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'DELETE',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("deleteDatatype".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * A datatype is collection of dataobjects of a specific type
-     * @summary Get specific datatype
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     * @param attributes Filter attributes
-     */
-    public getDatatype (mandator: string, datatype: string, attributes?: Array<string>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getDatatype.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getDatatype.');
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getDatatype".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Datatype;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Datatype");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * A datatype is collection of data objects of a specific type
-     * @summary Get datatypes
-     * @param mandator Mandator name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public getDatatypes (mandator: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getDatatypes.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getDatatypes".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Datatypes;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Datatypes");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Create or replace datatype
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     * @param data 
-     */
-    public replaceDatatype (mandator: string, datatype: string, data?: Datatype) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling replaceDatatype.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling replaceDatatype.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "Datatype")
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("replaceDatatype".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Datatype;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Datatype");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Update specific attributes of a datatype
-     * @summary Patch datatype as rfc6902 request
-     * @param mandator Mandator name
-     * @param datatype Datatype
-     * @param data Datatype
-     */
-    public updateDatatype (mandator: string, datatype: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateDatatype.');
-        }
-
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling updateDatatype.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PATCH',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("updateDatatype".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Datatype;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Datatype");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7131,26 +7894,26 @@ export class EndpointsApi {
     /**
      * 
      * @summary Add Endpoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param data 
      */
-    public addEndpoint (mandator: string, datatype: string, data?: any) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public addEndpoint (namespace: string, collection: string, data?: any) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling addEndpoint.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addEndpoint.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling addEndpoint.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling addEndpoint.');
         }
 
 
@@ -7198,27 +7961,27 @@ export class EndpointsApi {
     /**
      * 
      * @summary Delete specific endpoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      */
-    public deleteEndpoint (mandator: string, datatype: string, endpoint: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public deleteEndpoint (namespace: string, collection: string, endpoint: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteEndpoint.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteEndpoint.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling deleteEndpoint.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteEndpoint.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -7269,28 +8032,28 @@ export class EndpointsApi {
     /**
      * An endpoint is either of type source or destination and defines an import/export destination
      * @summary Get specific endpoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param attributes Filter attributes
      */
-    public getEndpoint (mandator: string, datatype: string, endpoint: string, attributes?: Array<string>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getEndpoint (namespace: string, collection: string, endpoint: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getEndpoint.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getEndpoint.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getEndpoint.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getEndpoint.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -7346,30 +8109,30 @@ export class EndpointsApi {
     /**
      * An endpoint is either of type source or destination and defines an import/export destination
      * @summary Get endpoints
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getEndpoints (mandator: string, datatype: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)));
+    public getEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getEndpoints.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getEndpoints.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getEndpoints.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getEndpoints.');
         }
 
         if (query !== undefined) {
@@ -7436,28 +8199,28 @@ export class EndpointsApi {
     /**
      * 
      * @summary Create or replace endppoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param data 
      */
-    public replaceEndpoint (mandator: string, datatype: string, endpoint: string, data?: Endpoint) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public replaceEndpoint (namespace: string, collection: string, endpoint: string, data?: Endpoint) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling replaceEndpoint.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceEndpoint.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling replaceEndpoint.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling replaceEndpoint.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -7509,29 +8272,29 @@ export class EndpointsApi {
     }
     /**
      * Update specific attributes of a endpoint
-     * @summary Patch datatype as rfc6902 request
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @summary Patch collection as rfc6902 request
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
-     * @param data Datatype
+     * @param data Collection
      */
-    public updateEndpoint (mandator: string, datatype: string, endpoint: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public updateEndpoint (namespace: string, collection: string, endpoint: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateEndpoint.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateEndpoint.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling updateEndpoint.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateEndpoint.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -8785,10 +9548,10 @@ export class JobsApi {
         });
     }
 }
-export enum MandatorsApiApiKeys {
+export enum NamespacesApiApiKeys {
 }
 
-export class MandatorsApi {
+export class NamespacesApi {
     protected _basePath = defaultBasePath;
     protected defaultHeaders : any = {};
     protected _useQuerystring : boolean = false;
@@ -8826,16 +9589,16 @@ export class MandatorsApi {
 	this.authentications.default = auth;
     }
 
-    public setApiKey(key: MandatorsApiApiKeys, value: string) {
-        (this.authentications as any)[MandatorsApiApiKeys[key]].apiKey = value;
+    public setApiKey(key: NamespacesApiApiKeys, value: string) {
+        (this.authentications as any)[NamespacesApiApiKeys[key]].apiKey = value;
     }
     /**
      * 
-     * @summary Add mandator
+     * @summary Add namespace
      * @param data 
      */
-    public addMandator (data?: Mandator) : any {
-        const localVarPath = this.basePath + '/mandators';
+    public addNamespace (data?: Namespace) : any {
+        const localVarPath = this.basePath + '/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
@@ -8850,7 +9613,7 @@ export class MandatorsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Mandator")
+            body: ObjectSerializer.serialize(data, "Namespace")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -8863,16 +9626,16 @@ export class MandatorsApi {
             }
         }
 
-        if("addMandator".match('^watch[A-Z]')) {
+        if("addNamespace".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Mandator");
+                    body = ObjectSerializer.deserialize(body, "Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8884,19 +9647,19 @@ export class MandatorsApi {
     }
     /**
      * 
-     * @summary Delete specific mandator
-     * @param mandator Mandator name
+     * @summary Delete specific namespace
+     * @param namespace Namespace name
      */
-    public deleteMandator (mandator: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+    public deleteNamespace (namespace: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteMandator.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteNamespace.');
         }
 
 
@@ -8921,7 +9684,7 @@ export class MandatorsApi {
             }
         }
 
-        if("deleteMandator".match('^watch[A-Z]')) {
+        if("deleteNamespace".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8940,21 +9703,21 @@ export class MandatorsApi {
         });
     }
     /**
-     * A mandator is a logical group of datatypes
-     * @summary Get specific mandator
-     * @param mandator Mandator name
+     * A namespace is a logical group of collections
+     * @summary Get specific namespace
+     * @param namespace Namespace name
      * @param attributes Filter attributes
      */
-    public getMandator (mandator: string, attributes?: Array<string>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+    public getNamespace (namespace: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getMandator.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getNamespace.');
         }
 
         if (attributes !== undefined) {
@@ -8983,16 +9746,16 @@ export class MandatorsApi {
             }
         }
 
-        if("getMandator".match('^watch[A-Z]')) {
+        if("getNamespace".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Mandator");
+                    body = ObjectSerializer.deserialize(body, "Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9003,16 +9766,16 @@ export class MandatorsApi {
         });
     }
     /**
-     * A mandator is a logical group of datatypes
-     * @summary Get mandators
+     * A namespace is a logical group of collections
+     * @summary Get namespaces
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getMandators (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators';
+    public getNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
@@ -9059,16 +9822,16 @@ export class MandatorsApi {
             }
         }
 
-        if("getMandators".match('^watch[A-Z]')) {
+        if("getNamespaces".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Mandators;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Namespaces;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Mandators");
+                    body = ObjectSerializer.deserialize(body, "Namespaces");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9080,20 +9843,20 @@ export class MandatorsApi {
     }
     /**
      * 
-     * @summary Create or replace mandator
-     * @param mandator Mandator name
+     * @summary Create or replace namespace
+     * @param namespace Namespace name
      * @param data 
      */
-    public replaceMandator (mandator: string, data?: Mandator) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+    public replaceNamespace (namespace: string, data?: Namespace) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling replaceMandator.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceNamespace.');
         }
 
 
@@ -9106,7 +9869,7 @@ export class MandatorsApi {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Mandator")
+            body: ObjectSerializer.serialize(data, "Namespace")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -9119,16 +9882,16 @@ export class MandatorsApi {
             }
         }
 
-        if("replaceMandator".match('^watch[A-Z]')) {
+        if("replaceNamespace".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Mandator");
+                    body = ObjectSerializer.deserialize(body, "Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9139,21 +9902,21 @@ export class MandatorsApi {
         });
     }
     /**
-     * Update specific attributes of a mandator
-     * @summary Patch mandator as rfc6902 request
-     * @param mandator Mandator name
-     * @param data Mandator
+     * Update specific attributes of a namespace
+     * @summary Patch namespace as rfc6902 request
+     * @param namespace Namespace name
+     * @param data Namespace
      */
-    public updateMandator (mandator: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)));
+    public updateNamespace (namespace: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateMandator.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateNamespace.');
         }
 
 
@@ -9179,16 +9942,16 @@ export class MandatorsApi {
             }
         }
 
-        if("updateMandator".match('^watch[A-Z]')) {
+        if("updateNamespace".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Mandator;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Mandator");
+                    body = ObjectSerializer.deserialize(body, "Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10214,28 +10977,28 @@ export class WorkflowsApi {
     /**
      * 
      * @summary Add worfklow to endpoint
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param data 
      */
-    public addWorkflow (mandator: string, datatype: string, endpoint: string, data?: Workflow) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public addWorkflow (namespace: string, collection: string, endpoint: string, data?: Workflow) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling addWorkflow.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addWorkflow.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling addWorkflow.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling addWorkflow.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -10288,29 +11051,29 @@ export class WorkflowsApi {
     /**
      * 
      * @summary Delete specific workflow from
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param workflow Workflow name
      */
-    public deleteWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public deleteWorkflow (namespace: string, collection: string, endpoint: string, workflow: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)))
             .replace('{' + 'workflow' + '}', encodeURIComponent(String(workflow)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling deleteWorkflow.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteWorkflow.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling deleteWorkflow.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteWorkflow.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -10364,32 +11127,32 @@ export class WorkflowsApi {
         });
     }
     /**
-     * A workflow is an action how to import/export a datatype and with what attribute map
+     * A workflow is an action how to import/export a collection and with what attribute map
      * @summary Get specifc endpoint workflow
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param workflow Workflow name
      * @param attributes Filter attributes
      */
-    public getWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, attributes?: Array<string>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, attributes?: Array<string>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)))
             .replace('{' + 'workflow' + '}', encodeURIComponent(String(workflow)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getWorkflow.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getWorkflow.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getWorkflow.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getWorkflow.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -10448,10 +11211,10 @@ export class WorkflowsApi {
         });
     }
     /**
-     * A workflow is an action how to import/export a datatype and with what attribute map
+     * A workflow is an action how to import/export a collection and with what attribute map
      * @summary Get endpoint workflows
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -10459,23 +11222,23 @@ export class WorkflowsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getWorkflows (mandator: string, datatype: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public getWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling getWorkflows.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getWorkflows.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling getWorkflows.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getWorkflows.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -10547,30 +11310,30 @@ export class WorkflowsApi {
     /**
      * 
      * @summary Create or replace workflow
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param workflow Workflow name
      * @param data 
      */
-    public replaceWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Workflow) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public replaceWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: Workflow) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)))
             .replace('{' + 'workflow' + '}', encodeURIComponent(String(workflow)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling replaceWorkflow.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceWorkflow.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling replaceWorkflow.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling replaceWorkflow.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
@@ -10628,30 +11391,30 @@ export class WorkflowsApi {
     /**
      * Update specific attributes of a workflow
      * @summary Patch workflow as rfc6902 request
-     * @param mandator Mandator name
-     * @param datatype Datatype
+     * @param namespace Namespace name
+     * @param collection Collection
      * @param endpoint Endpoint name
      * @param workflow Workflow name
      * @param data Workflow
      */
-    public updateWorkflow (mandator: string, datatype: string, endpoint: string, workflow: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/mandators/{mandator}/datatypes/{datatype}/endpoints/{endpoint}/workflows/{workflow}'
-            .replace('{' + 'mandator' + '}', encodeURIComponent(String(mandator)))
-            .replace('{' + 'datatype' + '}', encodeURIComponent(String(datatype)))
+    public updateWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)))
             .replace('{' + 'workflow' + '}', encodeURIComponent(String(workflow)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
 
-        // verify required parameter 'mandator' is not null or undefined
-        if (mandator === null || mandator === undefined) {
-            throw new Error('Required parameter mandator was null or undefined when calling updateWorkflow.');
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateWorkflow.');
         }
 
-        // verify required parameter 'datatype' is not null or undefined
-        if (datatype === null || datatype === undefined) {
-            throw new Error('Required parameter datatype was null or undefined when calling updateWorkflow.');
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateWorkflow.');
         }
 
         // verify required parameter 'endpoint' is not null or undefined
