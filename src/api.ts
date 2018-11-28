@@ -262,6 +262,10 @@ export class BalloonEndpointDataResource {
     */
     'base_uri'?: string;
     /**
+    * Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html
+    */
+    'options'?: any;
+    /**
     * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
     */
     'auth'?: BalloonEndpointDataResource.AuthEnum;
@@ -275,6 +279,11 @@ export class BalloonEndpointDataResource {
             "name": "base_uri",
             "baseName": "base_uri",
             "type": "string"
+        },
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "any"
         },
         {
             "name": "auth",
@@ -1186,6 +1195,10 @@ export class OdataRestEndpointDataResource {
     */
     'base_uri'?: string;
     /**
+    * Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html
+    */
+    'options'?: any;
+    /**
     * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
     */
     'auth'?: OdataRestEndpointDataResource.AuthEnum;
@@ -1199,6 +1212,11 @@ export class OdataRestEndpointDataResource {
             "name": "base_uri",
             "baseName": "base_uri",
             "type": "string"
+        },
+        {
+            "name": "options",
+            "baseName": "options",
+            "type": "any"
         },
         {
             "name": "auth",
@@ -6118,6 +6136,88 @@ export class CollectionsApi {
             });
         });
     }
+    /**
+     * Watch collections in realtime
+     * @summary Watch collections
+     * @param namespace Namespace name
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchCollections.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchCollections".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
 }
 export enum DataApiApiKeys {
 }
@@ -7225,252 +7325,6 @@ export class DataApi {
         });
     }
     /**
-     * Watch collections in realtime
-     * @summary Watch collections
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchCollections.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchCollections".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch endpoints
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchEndpoints.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchEndpoints.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchEndpoints".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch namespaces in realtime
-     * @summary Watch namespaces
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchNamespaces".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
      * Watch updates in realtime
      * @summary Watch object relatives
      * @param namespace Namespace name
@@ -7638,102 +7492,6 @@ export class DataApi {
         }
 
         if("watchObjects".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch workflows
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param endpoint Endpoint name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchWorkflows.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchWorkflows.');
-        }
-
-        // verify required parameter 'endpoint' is not null or undefined
-        if (endpoint === null || endpoint === undefined) {
-            throw new Error('Required parameter endpoint was null or undefined when calling watchWorkflows.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchWorkflows".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8335,6 +8093,95 @@ export class EndpointsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Endpoint");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Watch updates in realtime
+     * @summary Watch endpoints
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchEndpoints.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchEndpoints.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchEndpoints".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9961,6 +9808,81 @@ export class NamespacesApi {
             });
         });
     }
+    /**
+     * Watch namespaces in realtime
+     * @summary Watch namespaces
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces';
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchNamespaces".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
 }
 export enum SecretsApiApiKeys {
 }
@@ -11460,6 +11382,102 @@ export class WorkflowsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Workflow");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Watch updates in realtime
+     * @summary Watch workflows
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param endpoint Endpoint name
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchWorkflows.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchWorkflows.');
+        }
+
+        // verify required parameter 'endpoint' is not null or undefined
+        if (endpoint === null || endpoint === undefined) {
+            throw new Error('Required parameter endpoint was null or undefined when calling watchWorkflows.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchWorkflows".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {

@@ -27,7 +27,7 @@ paths:
   /watch/namespaces:
     get:
       tags:
-      - "data"
+      - "namespaces"
       summary: "Watch namespaces"
       description: "Watch namespaces in realtime"
       operationId: "watchNamespaces"
@@ -241,7 +241,7 @@ paths:
   /watch/namespaces/{namespace}/collections:
     get:
       tags:
-      - "data"
+      - "collections"
       summary: "Watch collections"
       description: "Watch collections in realtime"
       operationId: "watchCollections"
@@ -494,7 +494,7 @@ paths:
   /watch/namespaces/{namespace}/collections/{collection}/endpoints:
     get:
       tags:
-      - "data"
+      - "endpoints"
       summary: "Watch endpoints"
       description: "Watch updates in realtime"
       operationId: "watchEndpoints"
@@ -782,7 +782,7 @@ paths:
   /watch/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows:
     get:
       tags:
-      - "data"
+      - "workflows"
       summary: "Watch workflows"
       description: "Watch updates in realtime"
       operationId: "watchWorkflows"
@@ -3868,6 +3868,9 @@ definitions:
                   base_uri:
                     description: "Base uri to resources (Like https://rest.api/v1/resources)."
                     type: string
+                  options:
+                    description: "Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html"
+                    type: object
                   auth:
                     description: "Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow."
                     type: string
@@ -3955,6 +3958,9 @@ definitions:
                   base_uri:
                     description: "Base uri to resources (Like https://rest.api/v2/users)."
                     type: string
+                  options:
+                    description: "Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html"
+                    type: object
                   auth:
                     description: "Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow."
                     type: string
