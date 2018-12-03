@@ -6219,10 +6219,10 @@ export class CollectionsApi {
         });
     }
 }
-export enum DataApiApiKeys {
+export enum DataObjectRelationsApiApiKeys {
 }
 
-export class DataApi {
+export class DataObjectRelationsApi {
     protected _basePath = defaultBasePath;
     protected defaultHeaders : any = {};
     protected _useQuerystring : boolean = false;
@@ -6260,75 +6260,8 @@ export class DataApi {
 	this.authentications.default = auth;
     }
 
-    public setApiKey(key: DataApiApiKeys, value: string) {
-        (this.authentications as any)[DataApiApiKeys[key]].apiKey = value;
-    }
-    /**
-     * 
-     * @summary Add a new object of a specifc collection
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param data 
-     */
-    public addObject (namespace: string, collection: string, data?: DataObject) : any {
-        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling addObject.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling addObject.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'POST',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "DataObject")
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("addObject".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: DataObject;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "DataObject");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
+    public setApiKey(key: DataObjectRelationsApiApiKeys, value: string) {
+        (this.authentications as any)[DataObjectRelationsApiApiKeys[key]].apiKey = value;
     }
     /**
      * 
@@ -6395,78 +6328,6 @@ export class DataApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "ObjectRelative");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Delete a specific object
-     * @summary Delete object
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     */
-    public deleteObject (namespace: string, collection: string, object: string) : any {
-        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling deleteObject.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling deleteObject.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling deleteObject.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'DELETE',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("deleteObject".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6545,6 +6406,543 @@ export class DataApi {
                 if (error) {
                     reject(error);
                 } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get single relative object of an object
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param relative Object ID
+     */
+    public getObjectRelative (namespace: string, collection: string, object: string, relative: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
+            .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelative.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectRelative.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling getObjectRelative.');
+        }
+
+        // verify required parameter 'relative' is not null or undefined
+        if (relative === null || relative === undefined) {
+            throw new Error('Required parameter relative was null or undefined when calling getObjectRelative.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getObjectRelative".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: ObjectRelative;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "ObjectRelative");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Get all objects the object is related to
+     * @summary Get relative objects of an object
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public getObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelatives.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectRelatives.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling getObjectRelatives.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("getObjectRelatives".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: ObjectRelatives;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "ObjectRelatives");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Update object relation
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param relative Object ID
+     * @param data 
+     */
+    public updateObjectRelative (namespace: string, collection: string, object: string, relative: string, data?: ObjectRelative) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
+            .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateObjectRelative.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling updateObjectRelative.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling updateObjectRelative.');
+        }
+
+        // verify required parameter 'relative' is not null or undefined
+        if (relative === null || relative === undefined) {
+            throw new Error('Required parameter relative was null or undefined when calling updateObjectRelative.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'PUT',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "ObjectRelative")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("updateObjectRelative".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: ObjectRelative;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "ObjectRelative");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Watch updates in realtime
+     * @summary Watch object relatives
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     */
+    public watchObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchObjectRelatives.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling watchObjectRelatives.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling watchObjectRelatives.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("watchObjectRelatives".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+}
+export enum DataObjectsApiApiKeys {
+}
+
+export class DataObjectsApi {
+    protected _basePath = defaultBasePath;
+    protected defaultHeaders : any = {};
+    protected _useQuerystring : boolean = false;
+
+    protected authentications = {
+        'default': <Authentication>new VoidAuth(),
+    }
+
+    constructor(basePath?: string);
+    constructor(basePathOrUsername: string, password?: string, basePath?: string) {
+        if (password) {
+            if (basePath) {
+                this.basePath = basePath;
+            }
+        } else {
+            if (basePathOrUsername) {
+                this.basePath = basePathOrUsername
+            }
+        }
+    }
+
+    set useQuerystring(value: boolean) {
+        this._useQuerystring = value;
+    }
+
+    set basePath(basePath: string) {
+        this._basePath = basePath;
+    }
+
+    get basePath() {
+        return this._basePath;
+    }
+
+    public setDefaultAuthentication(auth: Authentication) {
+	this.authentications.default = auth;
+    }
+
+    public setApiKey(key: DataObjectsApiApiKeys, value: string) {
+        (this.authentications as any)[DataObjectsApiApiKeys[key]].apiKey = value;
+    }
+    /**
+     * 
+     * @summary Add a new object of a specifc collection
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param data 
+     */
+    public addObject (namespace: string, collection: string, data?: DataObject) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addObject.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling addObject.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'POST',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+            body: ObjectSerializer.serialize(data, "DataObject")
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("addObject".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: DataObject;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "DataObject");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * Delete a specific object
+     * @summary Delete object
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     */
+    public deleteObject (namespace: string, collection: string, object: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteObject.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling deleteObject.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling deleteObject.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'DELETE',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if("deleteObject".match('^watch[A-Z]')) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6825,182 +7223,6 @@ export class DataApi {
         });
     }
     /**
-     * 
-     * @summary Get single relative object of an object
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     * @param relative Object ID
-     */
-    public getObjectRelative (namespace: string, collection: string, object: string, relative: string) : any {
-        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
-            .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelative.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling getObjectRelative.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling getObjectRelative.');
-        }
-
-        // verify required parameter 'relative' is not null or undefined
-        if (relative === null || relative === undefined) {
-            throw new Error('Required parameter relative was null or undefined when calling getObjectRelative.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getObjectRelative".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelative;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelative");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Get all objects the object is related to
-     * @summary Get relative objects of an object
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public getObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling getObjectRelatives.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling getObjectRelatives.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling getObjectRelatives.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("getObjectRelatives".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelatives;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelatives");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
      * A object is a data object from a specifc collection
      * @summary Get objects of a specific collection
      * @param namespace Namespace name
@@ -7234,183 +7456,6 @@ export class DataApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "DataObject");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Update object relation
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     * @param relative Object ID
-     * @param data 
-     */
-    public updateObjectRelative (namespace: string, collection: string, object: string, relative: string, data?: ObjectRelative) : any {
-        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives/{relative}'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
-            .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling updateObjectRelative.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling updateObjectRelative.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling updateObjectRelative.');
-        }
-
-        // verify required parameter 'relative' is not null or undefined
-        if (relative === null || relative === undefined) {
-            throw new Error('Required parameter relative was null or undefined when calling updateObjectRelative.');
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'PUT',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-            body: ObjectSerializer.serialize(data, "ObjectRelative")
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("updateObjectRelative".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelative;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelative");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch object relatives
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchObjectRelatives (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects/{object}/relatives'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchObjectRelatives.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchObjectRelatives.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling watchObjectRelatives.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchObjectRelatives".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
