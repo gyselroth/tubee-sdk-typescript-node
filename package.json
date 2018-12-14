@@ -2,7 +2,7 @@
   "name": "@gyselroth/tubee-sdk-node",
   "version": "0.0.20",
   "description": "The official tubee sdk for node with typescript support",
-  "main": "build/api.js",
+  "main": "build/sdk.js",
   "scripts": {
     "prebuild": "tsc",
     "start": "tsc && nodejs build/main.js",
