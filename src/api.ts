@@ -7603,7 +7603,7 @@ export class DefaultApi {
      * 
      * @summary Get api entrypoint
      */
-    public v1Root () : any {
+    public root () : any {
         const localVarPath = this.basePath + '/';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -7631,7 +7631,7 @@ export class DefaultApi {
             }
         }
 
-        if("v1Root".match('^watch[A-Z]')) {
+        if("root".match('^watch[A-Z]')) {
             return localVarRequest(localVarRequestOptions);
         }
 
