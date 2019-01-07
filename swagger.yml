@@ -3597,8 +3597,7 @@ definitions:
                 type: array
                 items:
                   type: string
-                default:
-                  - "*"
+                default: ["*"]
               filter:
                 description: "Data object filter."
                 type: object
