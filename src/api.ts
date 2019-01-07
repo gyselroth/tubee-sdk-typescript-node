@@ -495,10 +495,6 @@ export class EndpointDataOptions {
 export class JobData {
     'notification'?: JobDataNotification;
     /**
-    * A list of namespaces (name) the job should match. You may use a wildcard to specify all namespaces.
-    */
-    'namespaces'?: Array<string>;
-    /**
     * A list of collections (name) the job should match. You may use a wildcard to specify all collections.
     */
     'collections'?: Array<string>;
@@ -531,11 +527,6 @@ export class JobData {
             "name": "notification",
             "baseName": "notification",
             "type": "JobDataNotification"
-        },
-        {
-            "name": "namespaces",
-            "baseName": "namespaces",
-            "type": "Array<string>"
         },
         {
             "name": "collections",
@@ -755,13 +746,9 @@ export class LdapEndpointDataResource {
     */
     'binddn'?: string;
     /**
-    * Bind password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    * Bind password if required.
     */
     'bindpw'?: string;
-    /**
-    * Is true if a password has been set.
-    */
-    'has_password'?: boolean;
     /**
     * Specifies the base dn (Like dc=example,dc=net).
     */
@@ -792,11 +779,6 @@ export class LdapEndpointDataResource {
             "name": "bindpw",
             "baseName": "bindpw",
             "type": "string"
-        },
-        {
-            "name": "has_password",
-            "baseName": "has_password",
-            "type": "boolean"
         },
         {
             "name": "basedn",
@@ -1088,13 +1070,9 @@ export class MysqlEndpointDataResource {
     */
     'username'?: string;
     /**
-    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    * Password if required.
     */
     'passwd'?: string;
-    /**
-    * Is true if a password has been set.
-    */
-    'has_password'?: boolean;
     /**
     * Specifies the port number to attempt to connect to the MySQL server.
     */
@@ -1121,11 +1099,6 @@ export class MysqlEndpointDataResource {
             "name": "passwd",
             "baseName": "passwd",
             "type": "string"
-        },
-        {
-            "name": "has_password",
-            "baseName": "has_password",
-            "type": "boolean"
         },
         {
             "name": "port",
@@ -1254,13 +1227,9 @@ export class OdataRestEndpointDataResourceBasic {
     */
     'username'?: string;
     /**
-    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    * Password if required.
     */
     'password'?: string;
-    /**
-    * Is true if a password has been set.
-    */
-    'has_password'?: boolean;
 
     static discriminator: string | undefined = undefined;
 
@@ -1274,11 +1243,6 @@ export class OdataRestEndpointDataResourceBasic {
             "name": "password",
             "baseName": "password",
             "type": "string"
-        },
-        {
-            "name": "has_password",
-            "baseName": "has_password",
-            "type": "boolean"
         }    ];
 
     static getAttributeTypeMap() {
@@ -1366,13 +1330,9 @@ export class PdoEndpointDataResource {
     */
     'username'?: string;
     /**
-    * Password if required. Note the password gets encrypted on the server an can't be retrieved after it. If a password was set, has_password will be true.
+    * Password if required.
     */
     'passwd'?: string;
-    /**
-    * Is true if a password has been set.
-    */
-    'has_password'?: boolean;
     /**
     * Driver specific connection options.
     */
@@ -1395,11 +1355,6 @@ export class PdoEndpointDataResource {
             "name": "passwd",
             "baseName": "passwd",
             "type": "string"
-        },
-        {
-            "name": "has_password",
-            "baseName": "has_password",
-            "type": "boolean"
         },
         {
             "name": "options",
@@ -8284,13 +8239,20 @@ export class JobsApi {
     /**
      * 
      * @summary Create new job
+     * @param namespace Namespace name
      * @param data 
      */
-    public addJob (data?: Job) : any {
-        const localVarPath = this.basePath + '/jobs';
+    public addJob (namespace: string, data?: Job) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addJob.');
+        }
 
 
         let localVarUseFormData = false;
@@ -8337,13 +8299,20 @@ export class JobsApi {
     /**
      * 
      * @summary Trigger a new process
+     * @param namespace Namespace name
      * @param data 
      */
-    public addProcess (data?: Process) : any {
-        const localVarPath = this.basePath + '/processes';
+    public addProcess (namespace: string, data?: Process) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/processes'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addProcess.');
+        }
 
 
         let localVarUseFormData = false;
@@ -8390,14 +8359,21 @@ export class JobsApi {
     /**
      * 
      * @summary Delete job by id
+     * @param namespace Namespace name
      * @param job Job ID
      */
-    public deleteJob (job: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}'
+    public deleteJob (namespace: string, job: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteJob.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -8447,14 +8423,21 @@ export class JobsApi {
     /**
      * 
      * @summary Abort running process
+     * @param namespace Namespace name
      * @param process Process ID
      */
-    public deleteProcess (process: string) : any {
-        const localVarPath = this.basePath + '/processes/{process}'
+    public deleteProcess (namespace: string, process: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/processes/{process}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteProcess.');
+        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -8504,14 +8487,21 @@ export class JobsApi {
     /**
      * 
      * @summary Get job by id
+     * @param namespace Namespace name
      * @param job Job ID
      */
-    public getJob (job: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}'
+    public getJob (namespace: string, job: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getJob.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -8562,16 +8552,23 @@ export class JobsApi {
     /**
      * 
      * @summary Get a single job error
+     * @param namespace Namespace name
      * @param job Job ID
      * @param log Log id
      */
-    public getJobLog (job: string, log: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/logs/{log}'
+    public getJobLog (namespace: string, job: string, log: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}/logs/{log}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)))
             .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getJobLog.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -8627,6 +8624,7 @@ export class JobsApi {
     /**
      * 
      * @summary Get logs of a job
+     * @param namespace Namespace name
      * @param job Job ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -8634,12 +8632,18 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/jobs/{job}/logs'
+    public getJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getJobLogs.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -8710,17 +8714,24 @@ export class JobsApi {
     /**
      * A job is an asynchronous server process
      * @summary Get list of active queued jobs
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/jobs';
+    public getJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getJobs.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -8786,14 +8797,21 @@ export class JobsApi {
     /**
      * 
      * @summary Get a single process of a job
+     * @param namespace Namespace name
      * @param process Process ID
      */
-    public getProcess (process: string) : any {
-        const localVarPath = this.basePath + '/processes/{process}'
+    public getProcess (namespace: string, process: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/processes/{process}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getProcess.');
+        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -8844,16 +8862,23 @@ export class JobsApi {
     /**
      * 
      * @summary Get a single process log
+     * @param namespace Namespace name
      * @param process Process ID
      * @param log Log id
      */
-    public getProcessLog (process: string, log: string) : any {
-        const localVarPath = this.basePath + '/process/{process}/logs/{log}'
+    public getProcessLog (namespace: string, process: string, log: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/process/{process}/logs/{log}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)))
             .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getProcessLog.');
+        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -8909,6 +8934,7 @@ export class JobsApi {
     /**
      * 
      * @summary Get logs of a process
+     * @param namespace Namespace name
      * @param process Process ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -8916,12 +8942,18 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/processes/{process}/logs'
+    public getProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/processes/{process}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getProcessLogs.');
+        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -8992,17 +9024,24 @@ export class JobsApi {
     /**
      * 
      * @summary Get all processes
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public getProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/processes';
+    public getProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/processes'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getProcesses.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -9068,15 +9107,22 @@ export class JobsApi {
     /**
      * Update specific attributes of a job
      * @summary Patch job as rfc6902 request
+     * @param namespace Namespace name
      * @param job Job ID
      * @param data Object
      */
-    public updateJob (job: string, data?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/jobs/{job}'
+    public updateJob (namespace: string, job: string, data?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateJob.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -9128,6 +9174,7 @@ export class JobsApi {
     /**
      * 
      * @summary Watch log stream
+     * @param namespace Namespace name
      * @param job Job ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -9135,12 +9182,18 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchJobLogs (job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/jobs/{job}/logs'
+    public watchJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/jobs/{job}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchJobLogs.');
+        }
 
         // verify required parameter 'job' is not null or undefined
         if (job === null || job === undefined) {
@@ -9210,17 +9263,24 @@ export class JobsApi {
     /**
      * A job is an asynchronous server process
      * @summary Get realtime updates
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchJobs (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/jobs';
+    public watchJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/jobs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchJobs.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -9285,6 +9345,7 @@ export class JobsApi {
     /**
      * 
      * @summary Watch log stream
+     * @param namespace Namespace name
      * @param process Process ID
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
@@ -9292,12 +9353,18 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchProcessLogs (process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/processes/{process}/logs'
+    public watchProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/processes/{process}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchProcessLogs.');
+        }
 
         // verify required parameter 'process' is not null or undefined
         if (process === null || process === undefined) {
@@ -9367,17 +9434,24 @@ export class JobsApi {
     /**
      * 
      * @summary Watch job processes
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchProcesses (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/processes';
+    public watchProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/processes'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchProcesses.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
