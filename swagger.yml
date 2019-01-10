@@ -1274,63 +1274,6 @@ paths:
           description: "Resource does not exists"
         403:
           description: "Access denied"
-  /watch/namespaces/{namespace}/collections/{collection}/objects/{object}/relations:
-    get:
-      tags:
-      - "dataObjects"
-      summary: "Watch object relatives"
-      description: "Watch updates in realtime"
-      operationId: "watchObjectRelations"
-      produces:
-      - "application/json;stream=watch"
-      parameters:
-      - in: "path"
-        name: "namespace"
-        description: "Namespace name"
-        required: true
-        type: "string"
-      - in: "path"
-        name: "collection"
-        description: "Collection"
-        required: true
-        type: "string"
-      - in: "path"
-        name: "object"
-        description: "Object ID"
-        required: true
-        type: "string"
-      - in: "query"
-        name: "query"
-        description: "Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\"name\": {$regex: 'foo.*'}})."
-        required: false
-        type: "string"
-      - in: "query"
-        name: "attributes"
-        description: "Filter attributes"
-        required: false
-        type: "array"
-        items:
-          type: "string"
-      - in: "query"
-        name: "offset"
-        description: "Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset]."
-        required: false
-        type: "number"
-      - in: "query"
-        name: "limit"
-        description: "Objects limit, per default 20 objects will get returned"
-        required: false
-        type: "number"
-      - in: "query"
-        name: "sort"
-        description: "Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\"name\": -1})."
-        required: false
-        type: "string"
-      responses:
-        200:
-          description: "List of objects"
-        403:
-          description: "Access denied"
   /namespaces/{namespace}/collections/{collection}/objects/{object}/relations:
     get:
       tags:
@@ -1353,7 +1296,7 @@ paths:
         type: "string"
       - in: "path"
         name: "object"
-        description: "Object ID"
+        description: "Object name"
         required: true
         type: "string"
       - in: "query"
@@ -1413,12 +1356,12 @@ paths:
         type: "string"
       - in: "path"
         name: "object"
-        description: "Object ID"
+        description: "Object name"
         required: true
         type: "string"
       - in: "path"
-        name: "relative"
-        description: "Object ID"
+        name: "relation"
+        description: "Relation name"
         required: true
         type: "string"
       responses:
@@ -3551,7 +3494,19 @@ definitions:
             default: "Secret"
           data:
             description: "The secrets data. You may specify multiple keys. Important: You need to base64 encode the values!"
-            type: "object"
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                secret:
+                  description: "The name of the secret."
+                  type: "string"
+                key:
+                  description: "The key name from the secret."
+                  type: "string"
+                to:
+                  description: "The injection destination within this resource. You may delimit by using '. For example: data.resource.password"
+                  type: "string"  
   Users:
     description: "A list of users."
     allOf:
@@ -3894,10 +3849,8 @@ definitions:
                 type: "object"
                 properties:
                   identifier:
-                    description: "A list of attributes which gets used to uniquely identify an object on the endpoint."
-                    type: "array"
-                    items:
-                      type: string
+                    description: "Endpoint resource identifier."
+                    type: "string"
                   import:
                     description: "A list of attributes which gets used to uniquely identify an object on the endpoint."
                     type: "array"
@@ -4404,3 +4357,18 @@ definitions:
                 description: "Optional context context data which describes the relationship."
                 type: "object"
                 default: {}
+              relation:
+                description: "Holds the relationship between two objects. You may create cross collection and cross namespace object relationships."
+                type: "array"
+                items:
+                  type: object
+                  properties:
+                    namespace:
+                      description: "Name of the objects namespace"
+                      type: "string"                 
+                    collection:
+                      description: "Name of the objects collection"
+                      type: "string"                 
+                    object:
+                      description: "Name of the object"
+                      type: "string"                 

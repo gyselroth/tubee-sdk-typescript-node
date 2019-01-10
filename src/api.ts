@@ -438,9 +438,9 @@ export namespace EndpointData {
 }
 export class EndpointDataOptions {
     /**
-    * A list of attributes which gets used to uniquely identify an object on the endpoint.
+    * Endpoint resource identifier.
     */
-    'identifier'?: Array<string>;
+    'identifier'?: string;
     /**
     * A list of attributes which gets used to uniquely identify an object on the endpoint.
     */
@@ -464,7 +464,7 @@ export class EndpointDataOptions {
         {
             "name": "identifier",
             "baseName": "identifier",
-            "type": "Array<string>"
+            "type": "string"
         },
         {
             "name": "import",
@@ -1121,6 +1121,10 @@ export class ObjectRelationData {
     * Optional context context data which describes the relationship.
     */
     'context'?: any;
+    /**
+    * Holds the relationship between two objects. You may create cross collection and cross namespace object relationships.
+    */
+    'relation'?: Array<ObjectRelationDataRelation>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1129,10 +1133,53 @@ export class ObjectRelationData {
             "name": "context",
             "baseName": "context",
             "type": "any"
+        },
+        {
+            "name": "relation",
+            "baseName": "relation",
+            "type": "Array<ObjectRelationDataRelation>"
         }    ];
 
     static getAttributeTypeMap() {
         return ObjectRelationData.attributeTypeMap;
+    }
+}
+
+export class ObjectRelationDataRelation {
+    /**
+    * Name of the objects namespace
+    */
+    'namespace'?: string;
+    /**
+    * Name of the objects collection
+    */
+    'collection'?: string;
+    /**
+    * Name of the object
+    */
+    'object'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "namespace",
+            "baseName": "namespace",
+            "type": "string"
+        },
+        {
+            "name": "collection",
+            "baseName": "collection",
+            "type": "string"
+        },
+        {
+            "name": "object",
+            "baseName": "object",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return ObjectRelationDataRelation.attributeTypeMap;
     }
 }
 
@@ -1452,6 +1499,44 @@ export class Resource {
 
     static getAttributeTypeMap() {
         return Resource.attributeTypeMap;
+    }
+}
+
+export class SecretData {
+    /**
+    * The name of the secret.
+    */
+    'secret'?: string;
+    /**
+    * The key name from the secret.
+    */
+    'key'?: string;
+    /**
+    * The injection destination within this resource. You may delimit by using '. For example: data.resource.password
+    */
+    'to'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "secret",
+            "baseName": "secret",
+            "type": "string"
+        },
+        {
+            "name": "key",
+            "baseName": "key",
+            "type": "string"
+        },
+        {
+            "name": "to",
+            "baseName": "to",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return SecretData.attributeTypeMap;
     }
 }
 
@@ -3311,7 +3396,7 @@ export class Secret {
     /**
     * The secrets data. You may specify multiple keys. Important: You need to base64 encode the values!
     */
-    'data'?: any;
+    'data'?: Array<SecretData>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3359,7 +3444,7 @@ export class Secret {
         {
             "name": "data",
             "baseName": "data",
-            "type": "any"
+            "type": "Array<SecretData>"
         }    ];
 
     static getAttributeTypeMap() {
@@ -4747,6 +4832,7 @@ let typeMap: {[index: string]: any} = {
     "MysqlEndpointData": MysqlEndpointData,
     "MysqlEndpointDataResource": MysqlEndpointDataResource,
     "ObjectRelationData": ObjectRelationData,
+    "ObjectRelationDataRelation": ObjectRelationDataRelation,
     "OdataRestEndpointData": OdataRestEndpointData,
     "OdataRestEndpointDataResource": OdataRestEndpointDataResource,
     "OdataRestEndpointDataResourceBasic": OdataRestEndpointDataResourceBasic,
@@ -4755,6 +4841,7 @@ let typeMap: {[index: string]: any} = {
     "PdoEndpointDataResource": PdoEndpointDataResource,
     "ProcessStatus": ProcessStatus,
     "Resource": Resource,
+    "SecretData": SecretData,
     "SecretMount": SecretMount,
     "Storage": Storage,
     "UcsEndpointData": UcsEndpointData,
@@ -7255,15 +7342,15 @@ export class DataObjectsApi {
      * @summary Get single relative object of an object
      * @param namespace Namespace name
      * @param collection Collection
-     * @param object Object ID
-     * @param relative Object ID
+     * @param object Object name
+     * @param relation Relation name
      */
-    public getObjectRelation (namespace: string, collection: string, object: string, relative: string) : any {
+    public getObjectRelation (namespace: string, collection: string, object: string, relation: string) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relations/{relation}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
             .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
-            .replace('{' + 'relative' + '}', encodeURIComponent(String(relative)));
+            .replace('{' + 'relation' + '}', encodeURIComponent(String(relation)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
@@ -7283,9 +7370,9 @@ export class DataObjectsApi {
             throw new Error('Required parameter object was null or undefined when calling getObjectRelation.');
         }
 
-        // verify required parameter 'relative' is not null or undefined
-        if (relative === null || relative === undefined) {
-            throw new Error('Required parameter relative was null or undefined when calling getObjectRelation.');
+        // verify required parameter 'relation' is not null or undefined
+        if (relation === null || relation === undefined) {
+            throw new Error('Required parameter relation was null or undefined when calling getObjectRelation.');
         }
 
 
@@ -7334,7 +7421,7 @@ export class DataObjectsApi {
      * @summary Get relative objects of an object
      * @param namespace Namespace name
      * @param collection Collection
-     * @param object Object ID
+     * @param object Object name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
@@ -7660,102 +7747,6 @@ export class DataObjectsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "DataObject");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch object relatives
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param object Object ID
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchObjectRelations (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects/{object}/relations'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchObjectRelations.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchObjectRelations.');
-        }
-
-        // verify required parameter 'object' is not null or undefined
-        if (object === null || object === undefined) {
-            throw new Error('Required parameter object was null or undefined when calling watchObjectRelations.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchObjectRelations".match('^watch[A-Z]')) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
