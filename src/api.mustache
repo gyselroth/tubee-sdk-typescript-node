@@ -1,5 +1,6 @@
 {{>licenseInfo}}
 import localVarRequest = require('request');
+export {localVarRequest};
 import http = require('http');
 {{^supportsES6}}
 import Promise = require('bluebird');
@@ -447,7 +448,7 @@ export class {{classname}} {
             }
         }
 
-        if("{{nickname}}".match('^watch[A-Z]')) {
+        if("{{nickname}}".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 

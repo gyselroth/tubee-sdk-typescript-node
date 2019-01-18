@@ -11,6 +11,7 @@
  */
 
 import localVarRequest = require('request');
+export {localVarRequest};
 import http = require('http');
 import Promise = require('bluebird');
 
@@ -495,21 +496,17 @@ export class EndpointDataOptions {
 export class JobData {
     'notification'?: JobDataNotification;
     /**
-    * A list of collections (name) the job should match. You may use a wildcard to specify all collections.
+    * A list of collections (name) the job should match. You may use a wildcard to specify all collections. Each element may contain either a single collection name or a list of collections. A list will be processed in parallel while single collections get synchronized syncronely
     */
     'collections'?: Array<string>;
     /**
-    * A list of endoints (name) the job should match. You may use a wildcard to specify all endpoints.
+    * A list of endoints (name) the job should match. You may use a wildcard to specify all endpoints. Each element may contain either a single endpoint name or a list of endpoints. A list will be processed in parallel while single endpoints get synchronized syncronely.
     */
     'endpoints'?: Array<string>;
     /**
     * Data object filter.
     */
     'filter'?: any;
-    /**
-    * If enabled the server tries to splitt the job into multiple parallel processes.
-    */
-    'loadbalance'?: boolean;
     /**
     * If enabled the server does ignores any sync errors and continue with the process.
     */
@@ -542,11 +539,6 @@ export class JobData {
             "name": "filter",
             "baseName": "filter",
             "type": "any"
-        },
-        {
-            "name": "loadbalance",
-            "baseName": "loadbalance",
-            "type": "boolean"
         },
         {
             "name": "ignore",
@@ -5020,7 +5012,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("addAccessRole".match('^watch[A-Z]')) {
+        if("addAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5078,7 +5070,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("deleteAccessRole".match('^watch[A-Z]')) {
+        if("deleteAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5135,7 +5127,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("getAccessRole".match('^watch[A-Z]')) {
+        if("getAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5162,8 +5154,9 @@ export class AccessRolesApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5189,6 +5182,10 @@ export class AccessRolesApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -5211,7 +5208,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("getAccessRoles".match('^watch[A-Z]')) {
+        if("getAccessRoles".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5271,7 +5268,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("replaceAccessRole".match('^watch[A-Z]')) {
+        if("replaceAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5331,7 +5328,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("updateAccessRole".match('^watch[A-Z]')) {
+        if("updateAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5407,7 +5404,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("watchAccessRoles".match('^watch[A-Z]')) {
+        if("watchAccessRoles".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5504,7 +5501,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("addAccessRule".match('^watch[A-Z]')) {
+        if("addAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5562,7 +5559,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("deleteAccessRule".match('^watch[A-Z]')) {
+        if("deleteAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5619,7 +5616,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("getAccessRule".match('^watch[A-Z]')) {
+        if("getAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5646,8 +5643,9 @@ export class AccessRulesApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5673,6 +5671,10 @@ export class AccessRulesApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -5695,7 +5697,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("getAccessRules".match('^watch[A-Z]')) {
+        if("getAccessRules".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5755,7 +5757,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("replaceAccessRule".match('^watch[A-Z]')) {
+        if("replaceAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5815,7 +5817,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("updateAccessRule".match('^watch[A-Z]')) {
+        if("updateAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5891,7 +5893,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("watchAccessRules".match('^watch[A-Z]')) {
+        if("watchAccessRules".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5995,7 +5997,7 @@ export class CollectionsApi {
             }
         }
 
-        if("addCollection".match('^watch[A-Z]')) {
+        if("addCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6060,7 +6062,7 @@ export class CollectionsApi {
             }
         }
 
-        if("deleteCollection".match('^watch[A-Z]')) {
+        if("deleteCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6129,7 +6131,7 @@ export class CollectionsApi {
             }
         }
 
-        if("getCollection".match('^watch[A-Z]')) {
+        if("getCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6157,8 +6159,9 @@ export class CollectionsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -6190,6 +6193,10 @@ export class CollectionsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -6212,7 +6219,7 @@ export class CollectionsApi {
             }
         }
 
-        if("getCollections".match('^watch[A-Z]')) {
+        if("getCollections".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6279,7 +6286,7 @@ export class CollectionsApi {
             }
         }
 
-        if("replaceCollection".match('^watch[A-Z]')) {
+        if("replaceCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6346,7 +6353,7 @@ export class CollectionsApi {
             }
         }
 
-        if("updateCollection".match('^watch[A-Z]')) {
+        if("updateCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6429,7 +6436,7 @@ export class CollectionsApi {
             }
         }
 
-        if("watchCollections".match('^watch[A-Z]')) {
+        if("watchCollections".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6533,7 +6540,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("addRelation".match('^watch[A-Z]')) {
+        if("addRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6598,7 +6605,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("deleteObjectRelation".match('^watch[A-Z]')) {
+        if("deleteObjectRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6662,7 +6669,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("getRelation".match('^watch[A-Z]')) {
+        if("getRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6690,8 +6697,9 @@ export class DataObjectRelationsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getRelations (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getRelations (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/relations'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -6723,6 +6731,10 @@ export class DataObjectRelationsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -6745,7 +6757,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("getRelations".match('^watch[A-Z]')) {
+        if("getRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6812,7 +6824,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("replaceRelation".match('^watch[A-Z]')) {
+        if("replaceRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6879,7 +6891,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("updateRelation".match('^watch[A-Z]')) {
+        if("updateRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6962,7 +6974,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("watchRelations".match('^watch[A-Z]')) {
+        if("watchRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7073,7 +7085,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("addObject".match('^watch[A-Z]')) {
+        if("addObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7145,7 +7157,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("deleteObject".match('^watch[A-Z]')) {
+        if("deleteObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7222,7 +7234,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObject".match('^watch[A-Z]')) {
+        if("getObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7251,8 +7263,9 @@ export class DataObjectsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getObjectHistory (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getObjectHistory (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/history'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -7296,6 +7309,10 @@ export class DataObjectsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7318,7 +7335,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectHistory".match('^watch[A-Z]')) {
+        if("getObjectHistory".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7397,7 +7414,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectRelation".match('^watch[A-Z]')) {
+        if("getObjectRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7427,8 +7444,9 @@ export class DataObjectsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getObjectRelations (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getObjectRelations (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relations'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -7472,6 +7490,10 @@ export class DataObjectsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7494,7 +7516,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectRelations".match('^watch[A-Z]')) {
+        if("getObjectRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7523,8 +7545,9 @@ export class DataObjectsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -7562,6 +7585,10 @@ export class DataObjectsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7584,7 +7611,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjects".match('^watch[A-Z]')) {
+        if("getObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7663,7 +7690,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("replaceObject".match('^watch[A-Z]')) {
+        if("replaceObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7737,7 +7764,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("updateObject".match('^watch[A-Z]')) {
+        if("updateObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7827,7 +7854,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("watchObjects".match('^watch[A-Z]')) {
+        if("watchObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7922,7 +7949,7 @@ export class DefaultApi {
             }
         }
 
-        if("root".match('^watch[A-Z]')) {
+        if("root".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8063,7 +8090,7 @@ export class EndpointObjectsApi {
             }
         }
 
-        if("getEndpointObjects".match('^watch[A-Z]')) {
+        if("getEndpointObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8175,7 +8202,7 @@ export class EndpointsApi {
             }
         }
 
-        if("addEndpoint".match('^watch[A-Z]')) {
+        if("addEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8247,7 +8274,7 @@ export class EndpointsApi {
             }
         }
 
-        if("deleteEndpoint".match('^watch[A-Z]')) {
+        if("deleteEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8323,7 +8350,7 @@ export class EndpointsApi {
             }
         }
 
-        if("getEndpoint".match('^watch[A-Z]')) {
+        if("getEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8352,8 +8379,9 @@ export class EndpointsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -8391,6 +8419,10 @@ export class EndpointsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -8413,7 +8445,7 @@ export class EndpointsApi {
             }
         }
 
-        if("getEndpoints".match('^watch[A-Z]')) {
+        if("getEndpoints".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8487,7 +8519,7 @@ export class EndpointsApi {
             }
         }
 
-        if("replaceEndpoint".match('^watch[A-Z]')) {
+        if("replaceEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8561,7 +8593,7 @@ export class EndpointsApi {
             }
         }
 
-        if("updateEndpoint".match('^watch[A-Z]')) {
+        if("updateEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8651,7 +8683,7 @@ export class EndpointsApi {
             }
         }
 
-        if("watchEndpoints".match('^watch[A-Z]')) {
+        if("watchEndpoints".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8755,7 +8787,7 @@ export class JobsApi {
             }
         }
 
-        if("addJob".match('^watch[A-Z]')) {
+        if("addJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8815,7 +8847,7 @@ export class JobsApi {
             }
         }
 
-        if("addProcess".match('^watch[A-Z]')) {
+        if("addProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8880,7 +8912,7 @@ export class JobsApi {
             }
         }
 
-        if("deleteJob".match('^watch[A-Z]')) {
+        if("deleteJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8944,7 +8976,7 @@ export class JobsApi {
             }
         }
 
-        if("deleteProcess".match('^watch[A-Z]')) {
+        if("deleteProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9008,7 +9040,7 @@ export class JobsApi {
             }
         }
 
-        if("getJob".match('^watch[A-Z]')) {
+        if("getJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9080,7 +9112,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobLog".match('^watch[A-Z]')) {
+        if("getJobLog".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9109,8 +9141,9 @@ export class JobsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}/logs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
@@ -9148,6 +9181,10 @@ export class JobsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9170,7 +9207,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobLogs".match('^watch[A-Z]')) {
+        if("getJobLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9198,8 +9235,9 @@ export class JobsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/jobs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -9231,6 +9269,10 @@ export class JobsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9253,7 +9295,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobs".match('^watch[A-Z]')) {
+        if("getJobs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9318,7 +9360,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcess".match('^watch[A-Z]')) {
+        if("getProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9390,7 +9432,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcessLog".match('^watch[A-Z]')) {
+        if("getProcessLog".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9419,8 +9461,9 @@ export class JobsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/processes/{process}/logs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
@@ -9458,6 +9501,10 @@ export class JobsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9480,7 +9527,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcessLogs".match('^watch[A-Z]')) {
+        if("getProcessLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9508,8 +9555,9 @@ export class JobsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/processes'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -9541,6 +9589,10 @@ export class JobsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9563,7 +9615,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcesses".match('^watch[A-Z]')) {
+        if("getProcesses".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9630,7 +9682,7 @@ export class JobsApi {
             }
         }
 
-        if("updateJob".match('^watch[A-Z]')) {
+        if("updateJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9720,7 +9772,7 @@ export class JobsApi {
             }
         }
 
-        if("watchJobLogs".match('^watch[A-Z]')) {
+        if("watchJobLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9802,7 +9854,7 @@ export class JobsApi {
             }
         }
 
-        if("watchJobs".match('^watch[A-Z]')) {
+        if("watchJobs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9891,7 +9943,7 @@ export class JobsApi {
             }
         }
 
-        if("watchProcessLogs".match('^watch[A-Z]')) {
+        if("watchProcessLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9973,7 +10025,7 @@ export class JobsApi {
             }
         }
 
-        if("watchProcesses".match('^watch[A-Z]')) {
+        if("watchProcesses".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10070,7 +10122,7 @@ export class NamespacesApi {
             }
         }
 
-        if("addNamespace".match('^watch[A-Z]')) {
+        if("addNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10128,7 +10180,7 @@ export class NamespacesApi {
             }
         }
 
-        if("deleteNamespace".match('^watch[A-Z]')) {
+        if("deleteNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10190,7 +10242,7 @@ export class NamespacesApi {
             }
         }
 
-        if("getNamespace".match('^watch[A-Z]')) {
+        if("getNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10217,8 +10269,9 @@ export class NamespacesApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -10244,6 +10297,10 @@ export class NamespacesApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -10266,7 +10323,7 @@ export class NamespacesApi {
             }
         }
 
-        if("getNamespaces".match('^watch[A-Z]')) {
+        if("getNamespaces".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10326,7 +10383,7 @@ export class NamespacesApi {
             }
         }
 
-        if("replaceNamespace".match('^watch[A-Z]')) {
+        if("replaceNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10386,7 +10443,7 @@ export class NamespacesApi {
             }
         }
 
-        if("updateNamespace".match('^watch[A-Z]')) {
+        if("updateNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10462,7 +10519,7 @@ export class NamespacesApi {
             }
         }
 
-        if("watchNamespaces".match('^watch[A-Z]')) {
+        if("watchNamespaces".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10528,13 +10585,20 @@ export class SecretsApi {
     /**
      * 
      * @summary Create a new secret
+     * @param namespace Namespace name
      * @param data 
      */
-    public addSecret (data?: Secret) : any {
-        const localVarPath = this.basePath + '/secrets';
+    public addSecret (namespace: string, data?: Secret) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling addSecret.');
+        }
 
 
         let localVarUseFormData = false;
@@ -10559,7 +10623,7 @@ export class SecretsApi {
             }
         }
 
-        if("addSecret".match('^watch[A-Z]')) {
+        if("addSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10581,14 +10645,21 @@ export class SecretsApi {
     /**
      * 
      * @summary Delete secret by name
+     * @param namespace Namespace name
      * @param secret secret name
      */
-    public deleteSecret (secret: string) : any {
-        const localVarPath = this.basePath + '/secrets/{secret}'
+    public deleteSecret (namespace: string, secret: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets/{secret}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling deleteSecret.');
+        }
 
         // verify required parameter 'secret' is not null or undefined
         if (secret === null || secret === undefined) {
@@ -10617,7 +10688,7 @@ export class SecretsApi {
             }
         }
 
-        if("deleteSecret".match('^watch[A-Z]')) {
+        if("deleteSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10638,14 +10709,21 @@ export class SecretsApi {
     /**
      * 
      * @summary Get secret by name
+     * @param namespace Namespace name
      * @param secret secret name
      */
-    public getSecret (secret: string) : any {
-        const localVarPath = this.basePath + '/secrets/{secret}'
+    public getSecret (namespace: string, secret: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets/{secret}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getSecret.');
+        }
 
         // verify required parameter 'secret' is not null or undefined
         if (secret === null || secret === undefined) {
@@ -10674,7 +10752,7 @@ export class SecretsApi {
             }
         }
 
-        if("getSecret".match('^watch[A-Z]')) {
+        if("getSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10694,19 +10772,27 @@ export class SecretsApi {
         });
     }
     /**
-     * An secret defines what role is granted access to what resource
+     * An secret holds secret data which should not get exposed and is specially encrypted on the server. A secret can be injected into other resources.
      * @summary Get secrets
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getSecrets (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/secrets';
+    public getSecrets (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getSecrets.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -10726,6 +10812,10 @@ export class SecretsApi {
 
         if (sort !== undefined) {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
 
@@ -10750,7 +10840,7 @@ export class SecretsApi {
             }
         }
 
-        if("getSecrets".match('^watch[A-Z]')) {
+        if("getSecrets".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10772,15 +10862,22 @@ export class SecretsApi {
     /**
      * 
      * @summary Create or replace an secret
+     * @param namespace Namespace name
      * @param secret secret name
      * @param data 
      */
-    public replaceSecret (secret: string, data?: Secret) : any {
-        const localVarPath = this.basePath + '/secrets/{secret}'
+    public replaceSecret (namespace: string, secret: string, data?: Secret) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets/{secret}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling replaceSecret.');
+        }
 
         // verify required parameter 'secret' is not null or undefined
         if (secret === null || secret === undefined) {
@@ -10810,7 +10907,7 @@ export class SecretsApi {
             }
         }
 
-        if("replaceSecret".match('^watch[A-Z]')) {
+        if("replaceSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10832,15 +10929,22 @@ export class SecretsApi {
     /**
      * 
      * @summary Patch secret as rfc6902 request
+     * @param namespace Namespace name
      * @param secret secret name
      * @param job secret json patch
      */
-    public updateSecret (secret: string, job?: Array<JsonPatch>) : any {
-        const localVarPath = this.basePath + '/secrets/{secret}'
+    public updateSecret (namespace: string, secret: string, job?: Array<JsonPatch>) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/secrets/{secret}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling updateSecret.');
+        }
 
         // verify required parameter 'secret' is not null or undefined
         if (secret === null || secret === undefined) {
@@ -10870,7 +10974,7 @@ export class SecretsApi {
             }
         }
 
-        if("updateSecret".match('^watch[A-Z]')) {
+        if("updateSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10892,17 +10996,24 @@ export class SecretsApi {
     /**
      * Watch updates in realtime
      * @summary Watch secrets
+     * @param namespace Namespace name
      * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
      * @param attributes Filter attributes
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      */
-    public watchSecrets (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/secrets';
+    public watchSecrets (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/secrets'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
         let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling watchSecrets.');
+        }
 
         if (query !== undefined) {
             localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
@@ -10946,7 +11057,7 @@ export class SecretsApi {
             }
         }
 
-        if("watchSecrets".match('^watch[A-Z]')) {
+        if("watchSecrets".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11043,7 +11154,7 @@ export class UsersApi {
             }
         }
 
-        if("addUser".match('^watch[A-Z]')) {
+        if("addUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11101,7 +11212,7 @@ export class UsersApi {
             }
         }
 
-        if("deleteUser".match('^watch[A-Z]')) {
+        if("deleteUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11158,7 +11269,7 @@ export class UsersApi {
             }
         }
 
-        if("getUser".match('^watch[A-Z]')) {
+        if("getUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11185,8 +11296,9 @@ export class UsersApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/users';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -11212,6 +11324,10 @@ export class UsersApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -11234,7 +11350,7 @@ export class UsersApi {
             }
         }
 
-        if("getUsers".match('^watch[A-Z]')) {
+        if("getUsers".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11294,7 +11410,7 @@ export class UsersApi {
             }
         }
 
-        if("replaceUser".match('^watch[A-Z]')) {
+        if("replaceUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11354,7 +11470,7 @@ export class UsersApi {
             }
         }
 
-        if("updateUser".match('^watch[A-Z]')) {
+        if("updateUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11430,7 +11546,7 @@ export class UsersApi {
             }
         }
 
-        if("watchUsers".match('^watch[A-Z]')) {
+        if("watchUsers".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11548,7 +11664,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("addWorkflow".match('^watch[A-Z]')) {
+        if("addWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11627,7 +11743,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("deleteWorkflow".match('^watch[A-Z]')) {
+        if("deleteWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11710,7 +11826,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("getWorkflow".match('^watch[A-Z]')) {
+        if("getWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11740,8 +11856,9 @@ export class WorkflowsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      */
-    public getWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -11785,6 +11902,10 @@ export class WorkflowsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -11807,7 +11928,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("getWorkflows".match('^watch[A-Z]')) {
+        if("getWorkflows".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11888,7 +12009,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("replaceWorkflow".match('^watch[A-Z]')) {
+        if("replaceWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11969,7 +12090,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("updateWorkflow".match('^watch[A-Z]')) {
+        if("updateWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -12066,7 +12187,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("watchWorkflows".match('^watch[A-Z]')) {
+        if("watchWorkflows".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
