@@ -5012,7 +5012,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("addAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5070,7 +5070,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("deleteAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5127,7 +5127,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("getAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5155,8 +5155,9 @@ export class AccessRolesApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5186,6 +5187,10 @@ export class AccessRolesApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -5208,7 +5213,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("getAccessRoles".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5268,7 +5273,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("replaceAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5328,7 +5333,7 @@ export class AccessRolesApi {
             }
         }
 
-        if("updateAccessRole".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5338,81 +5343,6 @@ export class AccessRolesApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "AccessRole");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch access roles
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchAccessRoles (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/access-roles';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchAccessRoles".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5501,7 +5431,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("addAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5559,7 +5489,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("deleteAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5616,7 +5546,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("getAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5644,8 +5574,9 @@ export class AccessRulesApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5675,6 +5606,10 @@ export class AccessRulesApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -5697,7 +5632,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("getAccessRules".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5757,7 +5692,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("replaceAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5817,7 +5752,7 @@ export class AccessRulesApi {
             }
         }
 
-        if("updateAccessRule".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -5827,81 +5762,6 @@ export class AccessRulesApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "AccessRule");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch access rules
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchAccessRules (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/access-rules';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchAccessRules".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5997,7 +5857,7 @@ export class CollectionsApi {
             }
         }
 
-        if("addCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6062,7 +5922,7 @@ export class CollectionsApi {
             }
         }
 
-        if("deleteCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6131,7 +5991,7 @@ export class CollectionsApi {
             }
         }
 
-        if("getCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6151,6 +6011,178 @@ export class CollectionsApi {
         });
     }
     /**
+     * 
+     * @summary Get a single collection log
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param log Log id
+     */
+    public getCollectionLog (namespace: string, collection: string, log: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/logs/{log}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getCollectionLog.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getCollectionLog.');
+        }
+
+        // verify required parameter 'log' is not null or undefined
+        if (log === null || log === undefined) {
+            throw new Error('Required parameter log was null or undefined when calling getCollectionLog.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get logs of a collection
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
+     */
+    public getCollectionLogs (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getCollectionLogs.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getCollectionLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
      * A collection is collection of data objects of a specific type
      * @summary Get collections
      * @param namespace Namespace name
@@ -6160,8 +6192,9 @@ export class CollectionsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -6197,6 +6230,10 @@ export class CollectionsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -6219,7 +6256,7 @@ export class CollectionsApi {
             }
         }
 
-        if("getCollections".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6286,7 +6323,7 @@ export class CollectionsApi {
             }
         }
 
-        if("replaceCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6353,7 +6390,7 @@ export class CollectionsApi {
             }
         }
 
-        if("updateCollection".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6363,88 +6400,6 @@ export class CollectionsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Collection");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch collections in realtime
-     * @summary Watch collections
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchCollections (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchCollections.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchCollections".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6540,7 +6495,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("addRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6605,7 +6560,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("deleteObjectRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6669,7 +6624,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("getRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6698,8 +6653,9 @@ export class DataObjectRelationsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getRelations (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getRelations (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/relations'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -6735,6 +6691,10 @@ export class DataObjectRelationsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -6757,7 +6717,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("getRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6824,7 +6784,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("replaceRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6891,7 +6851,7 @@ export class DataObjectRelationsApi {
             }
         }
 
-        if("updateRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -6901,88 +6861,6 @@ export class DataObjectRelationsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "ObjectRelation");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch data object relations in realtime
-     * @summary Watch data object relations in realtime
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchRelations (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/relations'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchRelations.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7085,7 +6963,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("addObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7157,7 +7035,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("deleteObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7234,7 +7112,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7264,8 +7142,9 @@ export class DataObjectsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getObjectHistory (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getObjectHistory (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/history'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -7313,6 +7192,10 @@ export class DataObjectsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7335,7 +7218,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectHistory".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7345,6 +7228,192 @@ export class DataObjectsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "DataObjects");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get a single object log
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param log Log id
+     */
+    public getObjectLog (namespace: string, collection: string, object: string, log: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/logs/{log}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)))
+            .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectLog.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectLog.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling getObjectLog.');
+        }
+
+        // verify required parameter 'log' is not null or undefined
+        if (log === null || log === undefined) {
+            throw new Error('Required parameter log was null or undefined when calling getObjectLog.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get logs of an object
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param object Object ID
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
+     */
+    public getObjectLogs (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'object' + '}', encodeURIComponent(String(object)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getObjectLogs.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getObjectLogs.');
+        }
+
+        // verify required parameter 'object' is not null or undefined
+        if (object === null || object === undefined) {
+            throw new Error('Required parameter object was null or undefined when calling getObjectLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7414,7 +7483,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectRelation".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7445,8 +7514,9 @@ export class DataObjectsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getObjectRelations (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getObjectRelations (namespace: string, collection: string, object: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects/{object}/relations'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -7494,6 +7564,10 @@ export class DataObjectsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7516,7 +7590,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjectRelations".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7546,8 +7620,9 @@ export class DataObjectsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/objects'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -7589,6 +7664,10 @@ export class DataObjectsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -7611,7 +7690,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("getObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7690,7 +7769,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("replaceObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7764,7 +7843,7 @@ export class DataObjectsApi {
             }
         }
 
-        if("updateObject".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -7774,95 +7853,6 @@ export class DataObjectsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "DataObject");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch objects
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchObjects (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/objects'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchObjects.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchObjects.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7949,7 +7939,7 @@ export class DefaultApi {
             }
         }
 
-        if("root".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8023,8 +8013,9 @@ export class EndpointObjectsApi {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getEndpointObjects (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
+    public getEndpointObjects (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/objects'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -8068,6 +8059,10 @@ export class EndpointObjectsApi {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -8090,7 +8085,7 @@ export class EndpointObjectsApi {
             }
         }
 
-        if("getEndpointObjects".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8202,7 +8197,7 @@ export class EndpointsApi {
             }
         }
 
-        if("addEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8274,7 +8269,7 @@ export class EndpointsApi {
             }
         }
 
-        if("deleteEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8350,7 +8345,7 @@ export class EndpointsApi {
             }
         }
 
-        if("getEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8360,6 +8355,192 @@ export class EndpointsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Endpoint");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get a single endpoint log
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param endpoint Endpoint
+     * @param log Log id
+     */
+    public getEndpointLog (namespace: string, collection: string, endpoint: string, log: string) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/logs/{log}'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)))
+            .replace('{' + 'log' + '}', encodeURIComponent(String(log)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getEndpointLog.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getEndpointLog.');
+        }
+
+        // verify required parameter 'endpoint' is not null or undefined
+        if (endpoint === null || endpoint === undefined) {
+            throw new Error('Required parameter endpoint was null or undefined when calling getEndpointLog.');
+        }
+
+        // verify required parameter 'log' is not null or undefined
+        if (log === null || log === undefined) {
+            throw new Error('Required parameter log was null or undefined when calling getEndpointLog.');
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
+                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
+                        resolve({ response: response, body: body });
+                    } else {
+                        reject({ response: response, body: body });
+                    }
+                }
+            });
+        });
+    }
+    /**
+     * 
+     * @summary Get logs of an endpoint
+     * @param namespace Namespace name
+     * @param collection Collection
+     * @param endpoint Endpoint
+     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
+     * @param attributes Filter attributes
+     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
+     * @param limit Objects limit, per default 20 objects will get returned
+     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
+     */
+    public getEndpointLogs (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
+        const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/logs'
+            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
+            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
+            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
+        let localVarQueryParameters: any = {};
+        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
+        let localVarFormParams: any = {};
+
+        // verify required parameter 'namespace' is not null or undefined
+        if (namespace === null || namespace === undefined) {
+            throw new Error('Required parameter namespace was null or undefined when calling getEndpointLogs.');
+        }
+
+        // verify required parameter 'collection' is not null or undefined
+        if (collection === null || collection === undefined) {
+            throw new Error('Required parameter collection was null or undefined when calling getEndpointLogs.');
+        }
+
+        // verify required parameter 'endpoint' is not null or undefined
+        if (endpoint === null || endpoint === undefined) {
+            throw new Error('Required parameter endpoint was null or undefined when calling getEndpointLogs.');
+        }
+
+        if (query !== undefined) {
+            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
+        }
+
+        if (attributes !== undefined) {
+            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
+        }
+
+        if (offset !== undefined) {
+            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
+        }
+
+        if (limit !== undefined) {
+            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
+        }
+
+        if (sort !== undefined) {
+            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
+        }
+
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
+
+        let localVarUseFormData = false;
+
+        let localVarRequestOptions: localVarRequest.Options = {
+            method: 'GET',
+            qs: localVarQueryParameters,
+            headers: localVarHeaderParams,
+            uri: localVarPath,
+            useQuerystring: this._useQuerystring,
+            json: true,
+        };
+
+        this.authentications.default.applyToRequest(localVarRequestOptions);
+
+        if (Object.keys(localVarFormParams).length) {
+            if (localVarUseFormData) {
+                (<any>localVarRequestOptions).formData = localVarFormParams;
+            } else {
+                localVarRequestOptions.form = localVarFormParams;
+            }
+        }
+
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+            return localVarRequest(localVarRequestOptions);
+        }
+
+        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+            localVarRequest(localVarRequestOptions, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    body = ObjectSerializer.deserialize(body, "Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8380,8 +8561,9 @@ export class EndpointsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -8423,6 +8605,10 @@ export class EndpointsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -8445,7 +8631,7 @@ export class EndpointsApi {
             }
         }
 
-        if("getEndpoints".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8519,7 +8705,7 @@ export class EndpointsApi {
             }
         }
 
-        if("replaceEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8593,7 +8779,7 @@ export class EndpointsApi {
             }
         }
 
-        if("updateEndpoint".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8603,95 +8789,6 @@ export class EndpointsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Endpoint");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch endpoints
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchEndpoints (namespace: string, collection: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchEndpoints.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchEndpoints.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchEndpoints".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8787,7 +8884,7 @@ export class JobsApi {
             }
         }
 
-        if("addJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8847,7 +8944,7 @@ export class JobsApi {
             }
         }
 
-        if("addProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8912,7 +9009,7 @@ export class JobsApi {
             }
         }
 
-        if("deleteJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -8976,7 +9073,7 @@ export class JobsApi {
             }
         }
 
-        if("deleteProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9040,7 +9137,7 @@ export class JobsApi {
             }
         }
 
-        if("getJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9112,7 +9209,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobLog".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9142,8 +9239,9 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/jobs/{job}/logs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
@@ -9185,6 +9283,10 @@ export class JobsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9207,7 +9309,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9236,8 +9338,9 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/jobs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -9273,6 +9376,10 @@ export class JobsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9295,7 +9402,7 @@ export class JobsApi {
             }
         }
 
-        if("getJobs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9360,7 +9467,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcess".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9432,7 +9539,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcessLog".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9462,8 +9569,9 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/processes/{process}/logs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
@@ -9505,6 +9613,10 @@ export class JobsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9527,7 +9639,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcessLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9556,8 +9668,9 @@ export class JobsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/processes'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -9593,6 +9706,10 @@ export class JobsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -9615,7 +9732,7 @@ export class JobsApi {
             }
         }
 
-        if("getProcesses".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9682,7 +9799,7 @@ export class JobsApi {
             }
         }
 
-        if("updateJob".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -9692,348 +9809,6 @@ export class JobsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Job");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Watch log stream
-     * @param namespace Namespace name
-     * @param job Job ID
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchJobLogs (namespace: string, job: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/jobs/{job}/logs'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchJobLogs.');
-        }
-
-        // verify required parameter 'job' is not null or undefined
-        if (job === null || job === undefined) {
-            throw new Error('Required parameter job was null or undefined when calling watchJobLogs.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchJobLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * A job is an asynchronous server process
-     * @summary Get realtime updates
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchJobs (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/jobs'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchJobs.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchJobs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Watch log stream
-     * @param namespace Namespace name
-     * @param process Process ID
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchProcessLogs (namespace: string, process: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/processes/{process}/logs'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'process' + '}', encodeURIComponent(String(process)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchProcessLogs.');
-        }
-
-        // verify required parameter 'process' is not null or undefined
-        if (process === null || process === undefined) {
-            throw new Error('Required parameter process was null or undefined when calling watchProcessLogs.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchProcessLogs".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * 
-     * @summary Watch job processes
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchProcesses (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/processes'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchProcesses.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchProcesses".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10122,7 +9897,7 @@ export class NamespacesApi {
             }
         }
 
-        if("addNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10180,7 +9955,7 @@ export class NamespacesApi {
             }
         }
 
-        if("deleteNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10242,7 +10017,7 @@ export class NamespacesApi {
             }
         }
 
-        if("getNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10270,8 +10045,9 @@ export class NamespacesApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -10301,6 +10077,10 @@ export class NamespacesApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -10323,7 +10103,7 @@ export class NamespacesApi {
             }
         }
 
-        if("getNamespaces".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10383,7 +10163,7 @@ export class NamespacesApi {
             }
         }
 
-        if("replaceNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10443,7 +10223,7 @@ export class NamespacesApi {
             }
         }
 
-        if("updateNamespace".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10453,81 +10233,6 @@ export class NamespacesApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Namespace");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch namespaces in realtime
-     * @summary Watch namespaces
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchNamespaces (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchNamespaces".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10623,7 +10328,7 @@ export class SecretsApi {
             }
         }
 
-        if("addSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10688,7 +10393,7 @@ export class SecretsApi {
             }
         }
 
-        if("deleteSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10752,7 +10457,7 @@ export class SecretsApi {
             }
         }
 
-        if("getSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10781,8 +10486,9 @@ export class SecretsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getSecrets (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getSecrets (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/secrets'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -10818,6 +10524,10 @@ export class SecretsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -10840,7 +10550,7 @@ export class SecretsApi {
             }
         }
 
-        if("getSecrets".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10907,7 +10617,7 @@ export class SecretsApi {
             }
         }
 
-        if("replaceSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10974,7 +10684,7 @@ export class SecretsApi {
             }
         }
 
-        if("updateSecret".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -10984,88 +10694,6 @@ export class SecretsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Secret");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch secrets
-     * @param namespace Namespace name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchSecrets (namespace: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/secrets'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchSecrets.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchSecrets".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -11154,7 +10782,7 @@ export class UsersApi {
             }
         }
 
-        if("addUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11212,7 +10840,7 @@ export class UsersApi {
             }
         }
 
-        if("deleteUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11269,7 +10897,7 @@ export class UsersApi {
             }
         }
 
-        if("getUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11297,8 +10925,9 @@ export class UsersApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/users';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -11328,6 +10957,10 @@ export class UsersApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -11350,7 +10983,7 @@ export class UsersApi {
             }
         }
 
-        if("getUsers".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11410,7 +11043,7 @@ export class UsersApi {
             }
         }
 
-        if("replaceUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11470,7 +11103,7 @@ export class UsersApi {
             }
         }
 
-        if("updateUser".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11480,81 +11113,6 @@ export class UsersApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "User");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch users
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchUsers (query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/users';
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchUsers".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -11664,7 +11222,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("addWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11743,7 +11301,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("deleteWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11826,7 +11384,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("getWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -11857,8 +11415,9 @@ export class WorkflowsApi {
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
      * @param stream Stream resources. There is no limit by default.
+     * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean) : any {
+    public getWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -11906,6 +11465,10 @@ export class WorkflowsApi {
             localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
+        if (watch !== undefined) {
+            localVarQueryParameters['watch'] = ObjectSerializer.serialize(watch, "boolean");
+        }
+
 
         let localVarUseFormData = false;
 
@@ -11928,7 +11491,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("getWorkflows".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -12009,7 +11572,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("replaceWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -12090,7 +11653,7 @@ export class WorkflowsApi {
             }
         }
 
-        if("updateWorkflow".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
@@ -12100,102 +11663,6 @@ export class WorkflowsApi {
                     reject(error);
                 } else {
                     body = ObjectSerializer.deserialize(body, "Workflow");
-                    if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
-                        resolve({ response: response, body: body });
-                    } else {
-                        reject({ response: response, body: body });
-                    }
-                }
-            });
-        });
-    }
-    /**
-     * Watch updates in realtime
-     * @summary Watch workflows
-     * @param namespace Namespace name
-     * @param collection Collection
-     * @param endpoint Endpoint name
-     * @param query Specify a MongoDB based resource query (https://docs.mongodb.com/manual/tutorial/query-documents) using JSON (For example: {\&quot;name\&quot;: {$regex: &#39;foo.*&#39;}}).
-     * @param attributes Filter attributes
-     * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
-     * @param limit Objects limit, per default 20 objects will get returned
-     * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
-     */
-    public watchWorkflows (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string) : any {
-        const localVarPath = this.basePath + '/watch/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
-            .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
-            .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
-            .replace('{' + 'endpoint' + '}', encodeURIComponent(String(endpoint)));
-        let localVarQueryParameters: any = {};
-        let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
-        let localVarFormParams: any = {};
-
-        // verify required parameter 'namespace' is not null or undefined
-        if (namespace === null || namespace === undefined) {
-            throw new Error('Required parameter namespace was null or undefined when calling watchWorkflows.');
-        }
-
-        // verify required parameter 'collection' is not null or undefined
-        if (collection === null || collection === undefined) {
-            throw new Error('Required parameter collection was null or undefined when calling watchWorkflows.');
-        }
-
-        // verify required parameter 'endpoint' is not null or undefined
-        if (endpoint === null || endpoint === undefined) {
-            throw new Error('Required parameter endpoint was null or undefined when calling watchWorkflows.');
-        }
-
-        if (query !== undefined) {
-            localVarQueryParameters['query'] = ObjectSerializer.serialize(query, "string");
-        }
-
-        if (attributes !== undefined) {
-            localVarQueryParameters['attributes'] = ObjectSerializer.serialize(attributes, "Array<string>");
-        }
-
-        if (offset !== undefined) {
-            localVarQueryParameters['offset'] = ObjectSerializer.serialize(offset, "number");
-        }
-
-        if (limit !== undefined) {
-            localVarQueryParameters['limit'] = ObjectSerializer.serialize(limit, "number");
-        }
-
-        if (sort !== undefined) {
-            localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
-        }
-
-
-        let localVarUseFormData = false;
-
-        let localVarRequestOptions: localVarRequest.Options = {
-            method: 'GET',
-            qs: localVarQueryParameters,
-            headers: localVarHeaderParams,
-            uri: localVarPath,
-            useQuerystring: this._useQuerystring,
-            json: true,
-        };
-
-        this.authentications.default.applyToRequest(localVarRequestOptions);
-
-        if (Object.keys(localVarFormParams).length) {
-            if (localVarUseFormData) {
-                (<any>localVarRequestOptions).formData = localVarFormParams;
-            } else {
-                localVarRequestOptions.form = localVarFormParams;
-            }
-        }
-
-        if("watchWorkflows".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
-            return localVarRequest(localVarRequestOptions);
-        }
-
-        return new Promise<{ response: http.ClientResponse; body?: any;  }>((resolve, reject) => {
-            localVarRequest(localVarRequestOptions, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {

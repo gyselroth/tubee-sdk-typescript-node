@@ -448,7 +448,7 @@ export class {{classname}} {
             }
         }
 
-        if("{{nickname}}".match('^watch[A-Z]') || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
+        if(localVarQueryParameters['watch'] && localVarQueryParameters['watch'] === true || localVarQueryParameters['stream'] && localVarQueryParameters['stream'] === true) {
             return localVarRequest(localVarRequestOptions);
         }
 
