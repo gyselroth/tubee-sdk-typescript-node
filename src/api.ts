@@ -238,7 +238,7 @@ export class AttributeMap {
 }
 
 export class BalloonEndpointData {
-    'resource'?: BalloonEndpointDataResource;
+    'resource': BalloonEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -261,7 +261,7 @@ export class BalloonEndpointDataResource {
     /**
     * Base uri to resources (Like https://rest.api/v2/users).
     */
-    'base_uri'?: string;
+    'base_uri': string;
     /**
     * Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html
     */
@@ -271,7 +271,7 @@ export class BalloonEndpointDataResource {
     */
     'auth'?: BalloonEndpointDataResource.AuthEnum;
     'basic'?: OdataRestEndpointDataResourceBasic;
-    'oauth2'?: OdataRestEndpointDataResourceOauth2;
+    'oauth2'?: BalloonEndpointDataResourceOauth2;
 
     static discriminator: string | undefined = undefined;
 
@@ -299,7 +299,7 @@ export class BalloonEndpointDataResource {
         {
             "name": "oauth2",
             "baseName": "oauth2",
-            "type": "OdataRestEndpointDataResourceOauth2"
+            "type": "BalloonEndpointDataResourceOauth2"
         }    ];
 
     static getAttributeTypeMap() {
@@ -313,6 +313,47 @@ export namespace BalloonEndpointDataResource {
         Oauth2 = <any> 'oauth2'
     }
 }
+/**
+* Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
+*/
+export class BalloonEndpointDataResourceOauth2 {
+    /**
+    * URI to token endpoint.
+    */
+    'token_uri'?: string;
+    /**
+    * OAuth2 client_id.
+    */
+    'client_id'?: string;
+    /**
+    * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
+    */
+    'client_secret'?: string;
+
+    static discriminator: string | undefined = undefined;
+
+    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            "name": "token_uri",
+            "baseName": "token_uri",
+            "type": "string"
+        },
+        {
+            "name": "client_id",
+            "baseName": "client_id",
+            "type": "string"
+        },
+        {
+            "name": "client_secret",
+            "baseName": "client_secret",
+            "type": "string"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return BalloonEndpointDataResourceOauth2.attributeTypeMap;
+    }
+}
+
 export class CollectionData {
     'schema'?: any;
 
@@ -1290,7 +1331,7 @@ export class OdataRestEndpointDataResourceOauth2 {
     /**
     * URI to token endpoint.
     */
-    'token_uri'?: string;
+    'token_endpoint'?: string;
     /**
     * OAuth2 client_id.
     */
@@ -1299,13 +1340,17 @@ export class OdataRestEndpointDataResourceOauth2 {
     * OAuth2 client_secret. Note the client_secret gets encrypted on the server an can't be retrieved after it.
     */
     'client_secret'?: string;
+    /**
+    * OAuth2 scopes
+    */
+    'scope'?: string;
 
     static discriminator: string | undefined = undefined;
 
     static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            "name": "token_uri",
-            "baseName": "token_uri",
+            "name": "token_endpoint",
+            "baseName": "token_endpoint",
             "type": "string"
         },
         {
@@ -1316,6 +1361,11 @@ export class OdataRestEndpointDataResourceOauth2 {
         {
             "name": "client_secret",
             "baseName": "client_secret",
+            "type": "string"
+        },
+        {
+            "name": "scope",
+            "baseName": "scope",
             "type": "string"
         }    ];
 
@@ -1491,44 +1541,6 @@ export class Resource {
 
     static getAttributeTypeMap() {
         return Resource.attributeTypeMap;
-    }
-}
-
-export class SecretData {
-    /**
-    * The name of the secret.
-    */
-    'secret'?: string;
-    /**
-    * The key name from the secret.
-    */
-    'key'?: string;
-    /**
-    * The injection destination within this resource. You may delimit by using '. For example: data.resource.password
-    */
-    'to'?: string;
-
-    static discriminator: string | undefined = undefined;
-
-    static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-        {
-            "name": "secret",
-            "baseName": "secret",
-            "type": "string"
-        },
-        {
-            "name": "key",
-            "baseName": "key",
-            "type": "string"
-        },
-        {
-            "name": "to",
-            "baseName": "to",
-            "type": "string"
-        }    ];
-
-    static getAttributeTypeMap() {
-        return SecretData.attributeTypeMap;
     }
 }
 
@@ -3388,7 +3400,7 @@ export class Secret {
     /**
     * The secrets data. You may specify multiple keys. Important: You need to base64 encode the values!
     */
-    'data'?: Array<SecretData>;
+    'data'?: any;
 
     static discriminator: string | undefined = undefined;
 
@@ -3436,7 +3448,7 @@ export class Secret {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<SecretData>"
+            "type": "any"
         }    ];
 
     static getAttributeTypeMap() {
@@ -3822,8 +3834,8 @@ export class BalloonEndpoint {
     /**
     * The type of endpoint. Always BalloonEndpoint.
     */
-    'kind'?: string;
-    'data'?: BalloonEndpointData;
+    'kind': string;
+    'data': BalloonEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4802,6 +4814,7 @@ let typeMap: {[index: string]: any} = {
     "AttributeMap": AttributeMap,
     "BalloonEndpointData": BalloonEndpointData,
     "BalloonEndpointDataResource": BalloonEndpointDataResource,
+    "BalloonEndpointDataResourceOauth2": BalloonEndpointDataResourceOauth2,
     "CollectionData": CollectionData,
     "CsvEndpointData": CsvEndpointData,
     "CsvEndpointDataResource": CsvEndpointDataResource,
@@ -4833,7 +4846,6 @@ let typeMap: {[index: string]: any} = {
     "PdoEndpointDataResource": PdoEndpointDataResource,
     "ProcessStatus": ProcessStatus,
     "Resource": Resource,
-    "SecretData": SecretData,
     "SecretMount": SecretMount,
     "Storage": Storage,
     "UcsEndpointData": UcsEndpointData,
