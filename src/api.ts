@@ -7426,9 +7426,10 @@ export class V1Api {
      * @param offset Objects offset, per default it starts from 0. You may also request a negative offset which will return results from the end [total - offset].
      * @param limit Objects limit, per default 20 objects will get returned
      * @param sort Specify a MongoDB sort operation (https://docs.mongodb.com/manual/reference/method/cursor.sort/) using JSON (For example: {\&quot;name\&quot;: -1}).
+     * @param stream Stream resources. There is no limit by default.
      * @param watch Watch resources. By default a stream and useful to retrieve UPDATE, DELETE and ADD updates.
      */
-    public getEndpointObjects (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, watch?: boolean) : any {
+    public getEndpointObjects (namespace: string, collection: string, endpoint: string, query?: string, attributes?: Array<string>, offset?: number, limit?: number, sort?: string, stream?: boolean, watch?: boolean) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/objects'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -7470,6 +7471,10 @@ export class V1Api {
 
         if (sort !== undefined) {
             localVarQueryParameters['sort'] = ObjectSerializer.serialize(sort, "string");
+        }
+
+        if (stream !== undefined) {
+            localVarQueryParameters['stream'] = ObjectSerializer.serialize(stream, "boolean");
         }
 
         if (watch !== undefined) {
