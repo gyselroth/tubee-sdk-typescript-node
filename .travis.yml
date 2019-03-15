@@ -1,23 +1,25 @@
 lang: java
 before_install: 
-script:
 - git clone https://github.com/swagger-api/swagger-codegen.git
 - cd swagger-codegen
 - mvn clean install
 - cd ..
+script:
 - wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml
+- wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/openapi.yml
 - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar
   generate -i swagger.yml -l typescript-node --http-user-agent "tubee typescript-node
   sdk" -t src -o src --reserved-words-mappings=import=import,class=class -D modelPropertyNaming=original
 - npm install
-- npm run build
+- npm run build  
 after_success:
-- git config --global user.email "travis@travis-ci.org"
+- current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
+- new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
+- sed s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
+- git config --global user.email "sahli@gyselroth.com"
 - git config --global user.name "Travis CI"
 - git add src/*.ts; git add src/*.yml
 - git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-- git remote add origin-pages https://${GH_TOKEN}@github.com/gyselroth/tubee-sdk-typescript-node.git
-  > /dev/null 2>&1
 - git push --quiet --set-upstream master master
 env:
   global: 
