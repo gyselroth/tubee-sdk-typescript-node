@@ -5,8 +5,8 @@ before_install:
 - mvn clean install
 - cd ..
 script:
-- wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/swagger.yml
-- wget https://raw.githubusercontent.com/gyselroth/tubee/dev/src/lib/Rest/v1/openapi.yml
+- wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/swagger.yml
+- wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/openapi.yml
 - java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar
   generate -i swagger.yml -l typescript-node --http-user-agent "tubee typescript-node
   sdk" -t src -o src --reserved-words-mappings=import=import,class=class -D modelPropertyNaming=original

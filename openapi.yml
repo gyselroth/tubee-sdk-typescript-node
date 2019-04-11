@@ -4031,6 +4031,7 @@ components:
                 filter: []
                 ignore: true
                 simulate: false
+                active: false
                 log_level: error
                 options:
                   at: 0
@@ -4086,6 +4087,10 @@ components:
                     continue with the process.
                   type: boolean
                   default: true
+                active:
+                  description: If true the job gets queued and executed. By default jobs are disabled initially.
+                  type: boolean
+                  default: false
                 simulate:
                   description: Dry run mode. Job runs normally but does not do any changes.
                   type: boolean
@@ -4654,6 +4659,16 @@ components:
                           type: string
                           nullable: true
                           default: null
+                options:
+                  type: object
+                  default:
+                    identifier: id
+                  properties:
+                    identifier:
+                      nullable: true
+                      default: id
+                      description: Endpoint resource identifier.
+                      type: string
     ImageEndpoint:
       description: Images (Files)
       allOf:
@@ -4796,6 +4811,16 @@ components:
                       type: object
                       default:
                         {}
+                options:
+                  type: object
+                  default:
+                    identifier: _id
+                  properties:
+                    identifier:
+                      nullable: true
+                      default: _id
+                      description: Endpoint resource identifier.
+                      type: string
     BalloonEndpoint:
       description: Balloon cloud server endpoint
       allOf:
@@ -4888,6 +4913,16 @@ components:
                           nullable: true
                           default: null
                           type: string
+                options:
+                  type: object
+                  default:
+                    identifier: id
+                  properties:
+                    identifier:
+                      nullable: true
+                      default: id
+                      description: Endpoint resource identifier.
+                      type: string
     CsvEndpoint:
       description: CSV data format endpoint
       allOf:
@@ -5166,7 +5201,11 @@ components:
           - array
           - binary
         skip:
-          description: "If tru the attribute does not get stored in the resource object itself. This might be useful if an attribute meant only be used to create resource relations."
+          description: "If true the attribute does not get stored in the resource object itself. This might be useful if an attribute meant to be only to create resource relations."
+          type: boolean
+          default: false
+        writeonly:
+          description: "If true the attribute gets only written intially. Some endpoints might not deliver some attributes like passwords."
           type: boolean
           default: false
         map:
@@ -5192,6 +5231,11 @@ components:
               - exists
               - last
               - absent
+            context:
+              type: array
+              default: []
+              items:
+                type: string
         required:
           description: "Attribute must exists."
           type: boolean
