@@ -1,6 +1,6 @@
 {
   "name": "@gyselroth/tubee-sdk-node",
-  "version": "0.0.31",
+  "version": "1.0.0-beta1",
   "description": "The official tubee sdk for node with typescript support",
   "main": "build/api.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "start": "tsc && nodejs build/main.js",
     "build": "tsc && jest --coverage",
     "test": "jest --coverage",
+    "codegen": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i swagger.yml -l typescript-node --http-user-agent 'tubee typescript-node sdk' -t src -o src --reserved-words-mappings=import=import,class=class -D modelPropertyNaming=original",
     "coveralls": "coveralls < coverage/lcov.info"
   },
   "repository": {
@@ -25,18 +26,18 @@
     "url": "https://github.com/gyselroth/tubee-sdk-typescript-node/issues"
   },
   "dependencies": {
-    "@types/bluebird": "*",
-    "@types/request": "*",
-    "bluebird": "^3.5.2",
+    "@types/bluebird": "^3.5.26",
+    "@types/request": "^2.48.1",
+    "bluebird": "^3.5.4",
     "http": "0.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "@types/node": "^8.0.0",
-    "typescript": "^2.9.2",
+    "@types/node": "^8.10.48",
+    "coveralls": "^3.0.3",
     "jest": "^23.0.1",
     "ts-jest": "^22.4.6",
-    "coveralls": "^3.0.1"
+    "typescript": "^2.9.2"
   },
   "jest": {
     "transform": {

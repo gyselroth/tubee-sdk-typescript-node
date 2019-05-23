@@ -545,13 +545,17 @@ export class JobData {
     */
     'endpoints'?: Array<string>;
     /**
-    * Data object filter.
+    * Data object filter (JSON encoded).
     */
-    'filter'?: any;
+    'filter'?: string;
     /**
     * If enabled the server does ignores any sync errors and continue with the process.
     */
     'ignore'?: boolean;
+    /**
+    * Simulate sync (Do not apply any changes)
+    */
+    'simulate'?: boolean;
     /**
     * You may change the log level which gets applied during a sync job. Note that a log level too verbose has a big impact on the sync performance.
     */
@@ -579,11 +583,16 @@ export class JobData {
         {
             "name": "filter",
             "baseName": "filter",
-            "type": "any"
+            "type": "string"
         },
         {
             "name": "ignore",
             "baseName": "ignore",
+            "type": "boolean"
+        },
+        {
+            "name": "simulate",
+            "baseName": "simulate",
             "type": "boolean"
         },
         {
