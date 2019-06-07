@@ -18,14 +18,16 @@ npm install --save @gyselroth/tubee-sdk-node
 ### Example request
 
 ```javascript
-const { v1, auth } = require('@gyselroth/tubee-sdk-node');
+const { CoreV1Api, HttpBasicAuth} = require('@gyselroth/tubee-sdk-node');
 
 var server = 'https://localhost:8090';
-var client = new v1.NamespacesApi(server + '/api/v1');
-var basic = new auth.basic('admin', 'admin');
-client.setDefaultAuthentication(basic);
+var sdk = new CoreV1Api(server);
+var basic = new HttpBasicAuth();
+basic.username = 'admin';
+basic.password = 'admin';
+sdk.setDefaultAuthentication(basic);
 
-client.getNamespaces().then((response) => {
+sdk.getNamespaces().then((response) => {
   console.log(response.body);
 }).catch((error) => {
   console.log(error);
