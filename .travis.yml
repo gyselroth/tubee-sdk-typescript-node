@@ -5,11 +5,8 @@ before_install:
 - mvn clean install
 - cd ..
 script:
-- wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/swagger.yml
-- wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/openapi.yml
-- npm run codegen
 - npm install
-- npm run build  
+- npm run full-build
 after_success:
 - current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
 - new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')

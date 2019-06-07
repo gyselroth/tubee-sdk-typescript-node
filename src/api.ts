@@ -139,7 +139,7 @@ class ObjectSerializer {
     }
 }
 
-export class AccessRoleData {
+export class CoreV1AccessRoleData {
     /**
     * A list of user identifiers which the access role should match. It is also possible to specify a wildcard to match all identifiers.
     */
@@ -155,11 +155,11 @@ export class AccessRoleData {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRoleData.attributeTypeMap;
+        return CoreV1AccessRoleData.attributeTypeMap;
     }
 }
 
-export class AccessRuleData {
+export class CoreV1AccessRuleData {
     /**
     * A list of access-role names to match the given rule.
     */
@@ -167,7 +167,7 @@ export class AccessRuleData {
     /**
     * List of allowed HTTP rfc7231 verbs, you may also specify a wildcard to match all verbs.
     */
-    'verbs'?: Array<AccessRuleData.VerbsEnum>;
+    'verbs'?: Array<CoreV1AccessRuleData.VerbsEnum>;
     /**
     * A list of selectors to match resources, for example namespace, collection, endpoint, ...
     */
@@ -188,7 +188,7 @@ export class AccessRuleData {
         {
             "name": "verbs",
             "baseName": "verbs",
-            "type": "Array<AccessRuleData.VerbsEnum>"
+            "type": "Array<CoreV1AccessRuleData.VerbsEnum>"
         },
         {
             "name": "selectors",
@@ -202,11 +202,11 @@ export class AccessRuleData {
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRuleData.attributeTypeMap;
+        return CoreV1AccessRuleData.attributeTypeMap;
     }
 }
 
-export namespace AccessRuleData {
+export namespace CoreV1AccessRuleData {
     export enum VerbsEnum {
         Star = <any> '*',
         GET = <any> 'GET',
@@ -217,7 +217,7 @@ export namespace AccessRuleData {
         HEAD = <any> 'HEAD'
     }
 }
-export class AttributeMap {
+export class CoreV1AttributeMap {
     /**
     * Attribute map
     */
@@ -233,12 +233,12 @@ export class AttributeMap {
         }    ];
 
     static getAttributeTypeMap() {
-        return AttributeMap.attributeTypeMap;
+        return CoreV1AttributeMap.attributeTypeMap;
     }
 }
 
-export class BalloonEndpointData {
-    'resource': BalloonEndpointDataResource;
+export class CoreV1BalloonEndpointData {
+    'resource': CoreV1BalloonEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -246,18 +246,18 @@ export class BalloonEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "BalloonEndpointDataResource"
+            "type": "CoreV1BalloonEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return BalloonEndpointData.attributeTypeMap;
+        return CoreV1BalloonEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class BalloonEndpointDataResource {
+export class CoreV1BalloonEndpointDataResource {
     /**
     * Base uri to resources (Like https://rest.api/v2/users).
     */
@@ -269,9 +269,9 @@ export class BalloonEndpointDataResource {
     /**
     * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
     */
-    'auth'?: BalloonEndpointDataResource.AuthEnum;
-    'basic'?: OdataRestEndpointDataResourceBasic;
-    'oauth2'?: BalloonEndpointDataResourceOauth2;
+    'auth'?: CoreV1BalloonEndpointDataResource.AuthEnum;
+    'basic'?: CoreV1OdataRestEndpointDataResourceBasic;
+    'oauth2'?: CoreV1BalloonEndpointDataResourceOauth2;
 
     static discriminator: string | undefined = undefined;
 
@@ -289,25 +289,25 @@ export class BalloonEndpointDataResource {
         {
             "name": "auth",
             "baseName": "auth",
-            "type": "BalloonEndpointDataResource.AuthEnum"
+            "type": "CoreV1BalloonEndpointDataResource.AuthEnum"
         },
         {
             "name": "basic",
             "baseName": "basic",
-            "type": "OdataRestEndpointDataResourceBasic"
+            "type": "CoreV1OdataRestEndpointDataResourceBasic"
         },
         {
             "name": "oauth2",
             "baseName": "oauth2",
-            "type": "BalloonEndpointDataResourceOauth2"
+            "type": "CoreV1BalloonEndpointDataResourceOauth2"
         }    ];
 
     static getAttributeTypeMap() {
-        return BalloonEndpointDataResource.attributeTypeMap;
+        return CoreV1BalloonEndpointDataResource.attributeTypeMap;
     }
 }
 
-export namespace BalloonEndpointDataResource {
+export namespace CoreV1BalloonEndpointDataResource {
     export enum AuthEnum {
         Basic = <any> 'basic',
         Oauth2 = <any> 'oauth2'
@@ -316,7 +316,7 @@ export namespace BalloonEndpointDataResource {
 /**
 * Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
 */
-export class BalloonEndpointDataResourceOauth2 {
+export class CoreV1BalloonEndpointDataResourceOauth2 {
     /**
     * URI to token endpoint.
     */
@@ -350,11 +350,11 @@ export class BalloonEndpointDataResourceOauth2 {
         }    ];
 
     static getAttributeTypeMap() {
-        return BalloonEndpointDataResourceOauth2.attributeTypeMap;
+        return CoreV1BalloonEndpointDataResourceOauth2.attributeTypeMap;
     }
 }
 
-export class CollectionData {
+export class CoreV1CollectionData {
     'schema'?: any;
 
     static discriminator: string | undefined = undefined;
@@ -367,17 +367,17 @@ export class CollectionData {
         }    ];
 
     static getAttributeTypeMap() {
-        return CollectionData.attributeTypeMap;
+        return CoreV1CollectionData.attributeTypeMap;
     }
 }
 
-export class CsvEndpointData {
-    'storage'?: Storage;
+export class CoreV1CsvEndpointData {
+    'storage'?: CoreV1Storage;
     /**
     * File uri or pattern, depends what storage you have choosen.
     */
     'file'?: string;
-    'resource'?: CsvEndpointDataResource;
+    'resource'?: CoreV1CsvEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -385,7 +385,7 @@ export class CsvEndpointData {
         {
             "name": "storage",
             "baseName": "storage",
-            "type": "Storage"
+            "type": "CoreV1Storage"
         },
         {
             "name": "file",
@@ -395,18 +395,18 @@ export class CsvEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "CsvEndpointDataResource"
+            "type": "CoreV1CsvEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return CsvEndpointData.attributeTypeMap;
+        return CoreV1CsvEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * CSV parse options.
 */
-export class CsvEndpointDataResource {
+export class CoreV1CsvEndpointDataResource {
     /**
     * Field delimiter.
     */
@@ -440,16 +440,16 @@ export class CsvEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return CsvEndpointDataResource.attributeTypeMap;
+        return CoreV1CsvEndpointDataResource.attributeTypeMap;
     }
 }
 
-export class EndpointData {
+export class CoreV1EndpointData {
     /**
     * Specify the type of the endpoint.
     */
-    'type'?: EndpointData.TypeEnum;
-    'options'?: EndpointDataOptions;
+    'type'?: CoreV1EndpointData.TypeEnum;
+    'options'?: CoreV1EndpointDataOptions;
 
     static discriminator: string | undefined = undefined;
 
@@ -457,20 +457,20 @@ export class EndpointData {
         {
             "name": "type",
             "baseName": "type",
-            "type": "EndpointData.TypeEnum"
+            "type": "CoreV1EndpointData.TypeEnum"
         },
         {
             "name": "options",
             "baseName": "options",
-            "type": "EndpointDataOptions"
+            "type": "CoreV1EndpointDataOptions"
         }    ];
 
     static getAttributeTypeMap() {
-        return EndpointData.attributeTypeMap;
+        return CoreV1EndpointData.attributeTypeMap;
     }
 }
 
-export namespace EndpointData {
+export namespace CoreV1EndpointData {
     export enum TypeEnum {
         Browse = <any> 'browse',
         Source = <any> 'source',
@@ -478,7 +478,7 @@ export namespace EndpointData {
         Bidirectional = <any> 'bidirectional'
     }
 }
-export class EndpointDataOptions {
+export class CoreV1EndpointDataOptions {
     /**
     * Endpoint resource identifier.
     */
@@ -530,12 +530,12 @@ export class EndpointDataOptions {
         }    ];
 
     static getAttributeTypeMap() {
-        return EndpointDataOptions.attributeTypeMap;
+        return CoreV1EndpointDataOptions.attributeTypeMap;
     }
 }
 
-export class JobData {
-    'notification'?: JobDataNotification;
+export class CoreV1JobData {
+    'notification'?: CoreV1JobDataNotification;
     /**
     * A list of collections (name) the job should match. You may use a wildcard to specify all collections. Each element may contain either a single collection name or a list of collections. A list will be processed in parallel while single collections get synchronized syncronely
     */
@@ -559,8 +559,8 @@ export class JobData {
     /**
     * You may change the log level which gets applied during a sync job. Note that a log level too verbose has a big impact on the sync performance.
     */
-    'log_level'?: JobData.LogLevelEnum;
-    'options'?: JobDataOptions;
+    'log_level'?: CoreV1JobData.LogLevelEnum;
+    'options'?: CoreV1JobDataOptions;
 
     static discriminator: string | undefined = undefined;
 
@@ -568,7 +568,7 @@ export class JobData {
         {
             "name": "notification",
             "baseName": "notification",
-            "type": "JobDataNotification"
+            "type": "CoreV1JobDataNotification"
         },
         {
             "name": "collections",
@@ -598,20 +598,20 @@ export class JobData {
         {
             "name": "log_level",
             "baseName": "log_level",
-            "type": "JobData.LogLevelEnum"
+            "type": "CoreV1JobData.LogLevelEnum"
         },
         {
             "name": "options",
             "baseName": "options",
-            "type": "JobDataOptions"
+            "type": "CoreV1JobDataOptions"
         }    ];
 
     static getAttributeTypeMap() {
-        return JobData.attributeTypeMap;
+        return CoreV1JobData.attributeTypeMap;
     }
 }
 
-export namespace JobData {
+export namespace CoreV1JobData {
     export enum LogLevelEnum {
         Emerg = <any> 'emerg',
         Error = <any> 'error',
@@ -621,7 +621,7 @@ export namespace JobData {
         Debug = <any> 'debug'
     }
 }
-export class JobDataNotification {
+export class CoreV1JobDataNotification {
     /**
     * You may enable mail notification for a given job.
     */
@@ -646,14 +646,14 @@ export class JobDataNotification {
         }    ];
 
     static getAttributeTypeMap() {
-        return JobDataNotification.attributeTypeMap;
+        return CoreV1JobDataNotification.attributeTypeMap;
     }
 }
 
 /**
 * Holds options about when a job should start and with what interval.
 */
-export class JobDataOptions {
+export class CoreV1JobDataOptions {
     /**
     * Holds a unix timestamp at what time the job should be executed.
     */
@@ -696,12 +696,12 @@ export class JobDataOptions {
         }    ];
 
     static getAttributeTypeMap() {
-        return JobDataOptions.attributeTypeMap;
+        return CoreV1JobDataOptions.attributeTypeMap;
     }
 }
 
-export class JsonEndpointData {
-    'storage'?: Storage;
+export class CoreV1JsonEndpointData {
+    'storage'?: CoreV1Storage;
     /**
     * File uri or pattern, depends what storage you have choosen.
     */
@@ -713,7 +713,7 @@ export class JsonEndpointData {
         {
             "name": "storage",
             "baseName": "storage",
-            "type": "Storage"
+            "type": "CoreV1Storage"
         },
         {
             "name": "file",
@@ -722,14 +722,14 @@ export class JsonEndpointData {
         }    ];
 
     static getAttributeTypeMap() {
-        return JsonEndpointData.attributeTypeMap;
+        return CoreV1JsonEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * A JSON Patch according rfc6902.
 */
-export class JsonPatch {
+export class CoreV1JsonPatch {
     'op'?: string;
     'path'?: string;
     'value'?: string;
@@ -754,12 +754,12 @@ export class JsonPatch {
         }    ];
 
     static getAttributeTypeMap() {
-        return JsonPatch.attributeTypeMap;
+        return CoreV1JsonPatch.attributeTypeMap;
     }
 }
 
-export class LdapEndpointData {
-    'resource'?: LdapEndpointDataResource;
+export class CoreV1LdapEndpointData {
+    'resource'?: CoreV1LdapEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -767,18 +767,18 @@ export class LdapEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "LdapEndpointDataResource"
+            "type": "CoreV1LdapEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return LdapEndpointData.attributeTypeMap;
+        return CoreV1LdapEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class LdapEndpointDataResource {
+export class CoreV1LdapEndpointDataResource {
     /**
     * A full LDAP URI of the form ldap://hostname:port or ldaps://hostname:port for SSL encryption.
     */
@@ -839,11 +839,11 @@ export class LdapEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return LdapEndpointDataResource.attributeTypeMap;
+        return CoreV1LdapEndpointDataResource.attributeTypeMap;
     }
 }
 
-export class Link {
+export class CoreV1Link {
     'href'?: string;
 
     static discriminator: string | undefined = undefined;
@@ -856,15 +856,15 @@ export class Link {
         }    ];
 
     static getAttributeTypeMap() {
-        return Link.attributeTypeMap;
+        return CoreV1Link.attributeTypeMap;
     }
 }
 
 /**
 * Contains resource links (URL) to other resources.
 */
-export class Links {
-    'self'?: Link;
+export class CoreV1Links {
+    'self'?: CoreV1Link;
 
     static discriminator: string | undefined = undefined;
 
@@ -872,19 +872,19 @@ export class Links {
         {
             "name": "self",
             "baseName": "self",
-            "type": "Link"
+            "type": "CoreV1Link"
         }    ];
 
     static getAttributeTypeMap() {
-        return Links.attributeTypeMap;
+        return CoreV1Links.attributeTypeMap;
     }
 }
 
-export class List {
+export class CoreV1List {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -904,7 +904,7 @@ export class List {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -923,14 +923,14 @@ export class List {
         }    ];
 
     static getAttributeTypeMap() {
-        return List.attributeTypeMap;
+        return CoreV1List.attributeTypeMap;
     }
 }
 
-export class ListLinks {
-    'self'?: Link;
-    'prev'?: Link;
-    'next'?: Link;
+export class CoreV1ListLinks {
+    'self'?: CoreV1Link;
+    'prev'?: CoreV1Link;
+    'next'?: CoreV1Link;
 
     static discriminator: string | undefined = undefined;
 
@@ -938,25 +938,25 @@ export class ListLinks {
         {
             "name": "self",
             "baseName": "self",
-            "type": "Link"
+            "type": "CoreV1Link"
         },
         {
             "name": "prev",
             "baseName": "prev",
-            "type": "Link"
+            "type": "CoreV1Link"
         },
         {
             "name": "next",
             "baseName": "next",
-            "type": "Link"
+            "type": "CoreV1Link"
         }    ];
 
     static getAttributeTypeMap() {
-        return ListLinks.attributeTypeMap;
+        return CoreV1ListLinks.attributeTypeMap;
     }
 }
 
-export class LogData {
+export class CoreV1LogData {
     'level'?: number;
     'level_name'?: string;
     /**
@@ -1002,16 +1002,16 @@ export class LogData {
         }    ];
 
     static getAttributeTypeMap() {
-        return LogData.attributeTypeMap;
+        return CoreV1LogData.attributeTypeMap;
     }
 }
 
-export class MongodbEndpointData {
+export class CoreV1MongodbEndpointData {
     /**
     * The name of the MongoDB collection where the data is located at.
     */
     'collection'?: string;
-    'resource'?: MongodbEndpointDataResource;
+    'resource'?: CoreV1MongodbEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1024,18 +1024,18 @@ export class MongodbEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "MongodbEndpointDataResource"
+            "type": "CoreV1MongodbEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return MongodbEndpointData.attributeTypeMap;
+        return CoreV1MongodbEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class MongodbEndpointDataResource {
+export class CoreV1MongodbEndpointDataResource {
     /**
     * MongoDB connection uri
     */
@@ -1069,16 +1069,16 @@ export class MongodbEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return MongodbEndpointDataResource.attributeTypeMap;
+        return CoreV1MongodbEndpointDataResource.attributeTypeMap;
     }
 }
 
-export class MysqlEndpointData {
+export class CoreV1MysqlEndpointData {
     /**
     * Table or view
     */
     'table'?: string;
-    'resource'?: MysqlEndpointDataResource;
+    'resource'?: CoreV1MysqlEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1091,18 +1091,18 @@ export class MysqlEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "MysqlEndpointDataResource"
+            "type": "CoreV1MysqlEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return MysqlEndpointData.attributeTypeMap;
+        return CoreV1MysqlEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class MysqlEndpointDataResource {
+export class CoreV1MysqlEndpointDataResource {
     /**
     * MySQL Server (Or compatible MySQL fork like MariaDB).
     */
@@ -1154,11 +1154,11 @@ export class MysqlEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return MysqlEndpointDataResource.attributeTypeMap;
+        return CoreV1MysqlEndpointDataResource.attributeTypeMap;
     }
 }
 
-export class ObjectRelationData {
+export class CoreV1ObjectRelationData {
     /**
     * Optional context context data which describes the relationship.
     */
@@ -1166,7 +1166,7 @@ export class ObjectRelationData {
     /**
     * Holds the relationship between two objects. You may create cross collection and cross namespace object relationships.
     */
-    'relation'?: Array<ObjectRelationDataRelation>;
+    'relation'?: Array<CoreV1ObjectRelationDataRelation>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1179,15 +1179,15 @@ export class ObjectRelationData {
         {
             "name": "relation",
             "baseName": "relation",
-            "type": "Array<ObjectRelationDataRelation>"
+            "type": "Array<CoreV1ObjectRelationDataRelation>"
         }    ];
 
     static getAttributeTypeMap() {
-        return ObjectRelationData.attributeTypeMap;
+        return CoreV1ObjectRelationData.attributeTypeMap;
     }
 }
 
-export class ObjectRelationDataRelation {
+export class CoreV1ObjectRelationDataRelation {
     /**
     * Name of the objects namespace
     */
@@ -1221,12 +1221,12 @@ export class ObjectRelationDataRelation {
         }    ];
 
     static getAttributeTypeMap() {
-        return ObjectRelationDataRelation.attributeTypeMap;
+        return CoreV1ObjectRelationDataRelation.attributeTypeMap;
     }
 }
 
-export class OdataRestEndpointData {
-    'resource'?: OdataRestEndpointDataResource;
+export class CoreV1OdataRestEndpointData {
+    'resource'?: CoreV1OdataRestEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1234,18 +1234,18 @@ export class OdataRestEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "OdataRestEndpointDataResource"
+            "type": "CoreV1OdataRestEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return OdataRestEndpointData.attributeTypeMap;
+        return CoreV1OdataRestEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class OdataRestEndpointDataResource {
+export class CoreV1OdataRestEndpointDataResource {
     /**
     * Base uri to resources (Like https://rest.api/v1/resources).
     */
@@ -1257,9 +1257,9 @@ export class OdataRestEndpointDataResource {
     /**
     * Authentication adapter, either of none, http basic authentication or oauth2 using client_credentials flow.
     */
-    'auth'?: OdataRestEndpointDataResource.AuthEnum;
-    'basic'?: OdataRestEndpointDataResourceBasic;
-    'oauth2'?: OdataRestEndpointDataResourceOauth2;
+    'auth'?: CoreV1OdataRestEndpointDataResource.AuthEnum;
+    'basic'?: CoreV1OdataRestEndpointDataResourceBasic;
+    'oauth2'?: CoreV1OdataRestEndpointDataResourceOauth2;
 
     static discriminator: string | undefined = undefined;
 
@@ -1277,25 +1277,25 @@ export class OdataRestEndpointDataResource {
         {
             "name": "auth",
             "baseName": "auth",
-            "type": "OdataRestEndpointDataResource.AuthEnum"
+            "type": "CoreV1OdataRestEndpointDataResource.AuthEnum"
         },
         {
             "name": "basic",
             "baseName": "basic",
-            "type": "OdataRestEndpointDataResourceBasic"
+            "type": "CoreV1OdataRestEndpointDataResourceBasic"
         },
         {
             "name": "oauth2",
             "baseName": "oauth2",
-            "type": "OdataRestEndpointDataResourceOauth2"
+            "type": "CoreV1OdataRestEndpointDataResourceOauth2"
         }    ];
 
     static getAttributeTypeMap() {
-        return OdataRestEndpointDataResource.attributeTypeMap;
+        return CoreV1OdataRestEndpointDataResource.attributeTypeMap;
     }
 }
 
-export namespace OdataRestEndpointDataResource {
+export namespace CoreV1OdataRestEndpointDataResource {
     export enum AuthEnum {
         Basic = <any> 'basic',
         Oauth2 = <any> 'oauth2'
@@ -1304,7 +1304,7 @@ export namespace OdataRestEndpointDataResource {
 /**
 * HTTP Basic authentication. auth must be set to basic if this adapter should be used.
 */
-export class OdataRestEndpointDataResourceBasic {
+export class CoreV1OdataRestEndpointDataResourceBasic {
     /**
     * Basic authentication username.
     */
@@ -1329,14 +1329,14 @@ export class OdataRestEndpointDataResourceBasic {
         }    ];
 
     static getAttributeTypeMap() {
-        return OdataRestEndpointDataResourceBasic.attributeTypeMap;
+        return CoreV1OdataRestEndpointDataResourceBasic.attributeTypeMap;
     }
 }
 
 /**
 * Oauth2 client credentials flow. auth must be set to oauth2 if this adapter should be used.
 */
-export class OdataRestEndpointDataResourceOauth2 {
+export class CoreV1OdataRestEndpointDataResourceOauth2 {
     /**
     * URI to token endpoint.
     */
@@ -1379,16 +1379,16 @@ export class OdataRestEndpointDataResourceOauth2 {
         }    ];
 
     static getAttributeTypeMap() {
-        return OdataRestEndpointDataResourceOauth2.attributeTypeMap;
+        return CoreV1OdataRestEndpointDataResourceOauth2.attributeTypeMap;
     }
 }
 
-export class PdoEndpointData {
+export class CoreV1PdoEndpointData {
     /**
     * Table or view
     */
     'table'?: string;
-    'resource'?: PdoEndpointDataResource;
+    'resource'?: CoreV1PdoEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1401,18 +1401,18 @@ export class PdoEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "PdoEndpointDataResource"
+            "type": "CoreV1PdoEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return PdoEndpointData.attributeTypeMap;
+        return CoreV1PdoEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class PdoEndpointDataResource {
+export class CoreV1PdoEndpointDataResource {
     /**
     * Data source name (DSN).
     */
@@ -1455,14 +1455,14 @@ export class PdoEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return PdoEndpointDataResource.attributeTypeMap;
+        return CoreV1PdoEndpointDataResource.attributeTypeMap;
     }
 }
 
 /**
 * Holds the status of this resource. Note that status is immutable.
 */
-export class ProcessStatus {
+export class CoreV1ProcessStatus {
     /**
     * The result code of the process.
     */
@@ -1478,12 +1478,12 @@ export class ProcessStatus {
         }    ];
 
     static getAttributeTypeMap() {
-        return ProcessStatus.attributeTypeMap;
+        return CoreV1ProcessStatus.attributeTypeMap;
     }
 }
 
-export class Resource {
-    '_links'?: Links;
+export class CoreV1Resource {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -1507,7 +1507,7 @@ export class Resource {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1515,7 +1515,7 @@ export class Resource {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -1545,15 +1545,15 @@ export class Resource {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Resource.attributeTypeMap;
+        return CoreV1Resource.attributeTypeMap;
     }
 }
 
-export class SecretMount {
+export class CoreV1SecretMount {
     /**
     * The name of the secret from which the key's value should be injected.
     */
@@ -1587,18 +1587,18 @@ export class SecretMount {
         }    ];
 
     static getAttributeTypeMap() {
-        return SecretMount.attributeTypeMap;
+        return CoreV1SecretMount.attributeTypeMap;
     }
 }
 
 /**
 * The storage defines where data can be fetched.
 */
-export class Storage {
+export class CoreV1Storage {
     /**
     * The kind of storage where data shall be fetched.
     */
-    'kind'?: Storage.KindEnum;
+    'kind'?: CoreV1Storage.KindEnum;
 
     static discriminator: string | undefined = undefined;
 
@@ -1606,15 +1606,15 @@ export class Storage {
         {
             "name": "kind",
             "baseName": "kind",
-            "type": "Storage.KindEnum"
+            "type": "CoreV1Storage.KindEnum"
         }    ];
 
     static getAttributeTypeMap() {
-        return Storage.attributeTypeMap;
+        return CoreV1Storage.attributeTypeMap;
     }
 }
 
-export namespace Storage {
+export namespace CoreV1Storage {
     export enum KindEnum {
         Stream = <any> 'Stream',
         LocalFilesystem = <any> 'LocalFilesystem',
@@ -1622,8 +1622,8 @@ export namespace Storage {
         Balloon = <any> 'Balloon'
     }
 }
-export class UcsEndpointData {
-    'resource'?: UcsEndpointDataResource;
+export class CoreV1UcsEndpointData {
+    'resource'?: CoreV1UcsEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1631,18 +1631,18 @@ export class UcsEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "UcsEndpointDataResource"
+            "type": "CoreV1UcsEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return UcsEndpointData.attributeTypeMap;
+        return CoreV1UcsEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * Holds the relevant options of how to connect to the endpoint.
 */
-export class UcsEndpointDataResource {
+export class CoreV1UcsEndpointDataResource {
     /**
     * Base uri to univention server (usually including /univention) (Like https://master/univention).
     */
@@ -1655,7 +1655,7 @@ export class UcsEndpointDataResource {
     * Advanced request options, see http://docs.guzzlephp.org/en/stable/request-options.html
     */
     'request_options'?: any;
-    'auth'?: OdataRestEndpointDataResourceBasic;
+    'auth'?: CoreV1OdataRestEndpointDataResourceBasic;
 
     static discriminator: string | undefined = undefined;
 
@@ -1678,18 +1678,18 @@ export class UcsEndpointDataResource {
         {
             "name": "auth",
             "baseName": "auth",
-            "type": "OdataRestEndpointDataResourceBasic"
+            "type": "CoreV1OdataRestEndpointDataResourceBasic"
         }    ];
 
     static getAttributeTypeMap() {
-        return UcsEndpointDataResource.attributeTypeMap;
+        return CoreV1UcsEndpointDataResource.attributeTypeMap;
     }
 }
 
 /**
 * The user information.
 */
-export class UserData {
+export class CoreV1UserData {
     /**
     * The users password. Gets hashed on the server and can not be retrieved after.
     */
@@ -1705,16 +1705,16 @@ export class UserData {
         }    ];
 
     static getAttributeTypeMap() {
-        return UserData.attributeTypeMap;
+        return CoreV1UserData.attributeTypeMap;
     }
 }
 
-export class WorkflowData {
+export class CoreV1WorkflowData {
     /**
     * The priority defines in what order multiple workflows get executed. 0 (Default) is the highest priority.
     */
     'priority'?: number;
-    'ensure'?: WorkflowData.EnsureEnum;
+    'ensure'?: CoreV1WorkflowData.EnsureEnum;
     /**
     * Holds a scripted condition if a given workflow gets matched and executed.
     */
@@ -1735,7 +1735,7 @@ export class WorkflowData {
         {
             "name": "ensure",
             "baseName": "ensure",
-            "type": "WorkflowData.EnsureEnum"
+            "type": "CoreV1WorkflowData.EnsureEnum"
         },
         {
             "name": "condition",
@@ -1749,11 +1749,11 @@ export class WorkflowData {
         }    ];
 
     static getAttributeTypeMap() {
-        return WorkflowData.attributeTypeMap;
+        return CoreV1WorkflowData.attributeTypeMap;
     }
 }
 
-export namespace WorkflowData {
+export namespace CoreV1WorkflowData {
     export enum EnsureEnum {
         Last = <any> 'last',
         Exists = <any> 'exists',
@@ -1761,13 +1761,13 @@ export namespace WorkflowData {
         Merge = <any> 'merge'
     }
 }
-export class XmlEndpointData {
-    'storage'?: Storage;
+export class CoreV1XmlEndpointData {
+    'storage'?: CoreV1Storage;
     /**
     * File uri or pattern, depends what storage you have choosen.
     */
     'file'?: string;
-    'resource'?: XmlEndpointDataResource;
+    'resource'?: CoreV1XmlEndpointDataResource;
 
     static discriminator: string | undefined = undefined;
 
@@ -1775,7 +1775,7 @@ export class XmlEndpointData {
         {
             "name": "storage",
             "baseName": "storage",
-            "type": "Storage"
+            "type": "CoreV1Storage"
         },
         {
             "name": "file",
@@ -1785,18 +1785,18 @@ export class XmlEndpointData {
         {
             "name": "resource",
             "baseName": "resource",
-            "type": "XmlEndpointDataResource"
+            "type": "CoreV1XmlEndpointDataResource"
         }    ];
 
     static getAttributeTypeMap() {
-        return XmlEndpointData.attributeTypeMap;
+        return CoreV1XmlEndpointData.attributeTypeMap;
     }
 }
 
 /**
 * CSV parse options.
 */
-export class XmlEndpointDataResource {
+export class CoreV1XmlEndpointDataResource {
     /**
     * The name of the root element.
     */
@@ -1839,15 +1839,15 @@ export class XmlEndpointDataResource {
         }    ];
 
     static getAttributeTypeMap() {
-        return XmlEndpointDataResource.attributeTypeMap;
+        return CoreV1XmlEndpointDataResource.attributeTypeMap;
     }
 }
 
 /**
 * An access role is defined list which matches authenticated user identifiers.
 */
-export class AccessRole {
-    '_links'?: Links;
+export class CoreV1AccessRole {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -1871,12 +1871,12 @@ export class AccessRole {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always AccessRole.
     */
     'kind'?: string;
-    'data'?: AccessRoleData;
+    'data'?: CoreV1AccessRoleData;
 
     static discriminator: string | undefined = undefined;
 
@@ -1884,7 +1884,7 @@ export class AccessRole {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -1914,7 +1914,7 @@ export class AccessRole {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -1924,22 +1924,22 @@ export class AccessRole {
         {
             "name": "data",
             "baseName": "data",
-            "type": "AccessRoleData"
+            "type": "CoreV1AccessRoleData"
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRole.attributeTypeMap;
+        return CoreV1AccessRole.attributeTypeMap;
     }
 }
 
 /**
 * A list of access roles.
 */
-export class AccessRoles {
+export class CoreV1AccessRoles {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -1952,7 +1952,7 @@ export class AccessRoles {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<AccessRole>;
+    'data'?: Array<CoreV1AccessRole>;
 
     static discriminator: string | undefined = undefined;
 
@@ -1960,7 +1960,7 @@ export class AccessRoles {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -1980,19 +1980,19 @@ export class AccessRoles {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<AccessRole>"
+            "type": "Array<CoreV1AccessRole>"
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRoles.attributeTypeMap;
+        return CoreV1AccessRoles.attributeTypeMap;
     }
 }
 
 /**
 * An access rule allows to specify what access roles can access which resources.
 */
-export class AccessRule {
-    '_links'?: Links;
+export class CoreV1AccessRule {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2016,12 +2016,12 @@ export class AccessRule {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always AccessRule.
     */
     'kind'?: string;
-    'data'?: AccessRuleData;
+    'data'?: CoreV1AccessRuleData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2029,7 +2029,7 @@ export class AccessRule {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2059,7 +2059,7 @@ export class AccessRule {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -2069,22 +2069,22 @@ export class AccessRule {
         {
             "name": "data",
             "baseName": "data",
-            "type": "AccessRuleData"
+            "type": "CoreV1AccessRuleData"
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRule.attributeTypeMap;
+        return CoreV1AccessRule.attributeTypeMap;
     }
 }
 
 /**
 * A list of access rules.
 */
-export class AccessRules {
+export class CoreV1AccessRules {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2097,7 +2097,7 @@ export class AccessRules {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<AccessRule>;
+    'data'?: Array<CoreV1AccessRule>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2105,7 +2105,7 @@ export class AccessRules {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2125,19 +2125,19 @@ export class AccessRules {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<AccessRule>"
+            "type": "Array<CoreV1AccessRule>"
         }    ];
 
     static getAttributeTypeMap() {
-        return AccessRules.attributeTypeMap;
+        return CoreV1AccessRules.attributeTypeMap;
     }
 }
 
 /**
 * A collection is a collection of data objects, meaning a collection of similar objects.
 */
-export class Collection {
-    '_links'?: Links;
+export class CoreV1Collection {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2161,7 +2161,7 @@ export class Collection {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Collection.
     */
@@ -2170,7 +2170,7 @@ export class Collection {
     * The resource namespace
     */
     'namespace'?: string;
-    'data'?: CollectionData;
+    'data'?: CoreV1CollectionData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2178,7 +2178,7 @@ export class Collection {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2208,7 +2208,7 @@ export class Collection {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -2223,22 +2223,22 @@ export class Collection {
         {
             "name": "data",
             "baseName": "data",
-            "type": "CollectionData"
+            "type": "CoreV1CollectionData"
         }    ];
 
     static getAttributeTypeMap() {
-        return Collection.attributeTypeMap;
+        return CoreV1Collection.attributeTypeMap;
     }
 }
 
 /**
 * A list of collections.
 */
-export class Collections {
+export class CoreV1Collections {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2251,7 +2251,7 @@ export class Collections {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Collections>;
+    'data'?: Array<CoreV1Collections>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2259,7 +2259,7 @@ export class Collections {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2279,19 +2279,19 @@ export class Collections {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Collections>"
+            "type": "Array<CoreV1Collections>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Collections.attributeTypeMap;
+        return CoreV1Collections.attributeTypeMap;
     }
 }
 
 /**
 * A data object represents a single object in a collection (data collection).
 */
-export class DataObject {
-    '_links'?: Links;
+export class CoreV1DataObject {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2315,7 +2315,7 @@ export class DataObject {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always DataObject.
     */
@@ -2331,7 +2331,7 @@ export class DataObject {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2361,7 +2361,7 @@ export class DataObject {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -2375,18 +2375,18 @@ export class DataObject {
         }    ];
 
     static getAttributeTypeMap() {
-        return DataObject.attributeTypeMap;
+        return CoreV1DataObject.attributeTypeMap;
     }
 }
 
 /**
 * List of data objects.
 */
-export class DataObjects {
+export class CoreV1DataObjects {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2399,7 +2399,7 @@ export class DataObjects {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<DataObject>;
+    'data'?: Array<CoreV1DataObject>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2407,7 +2407,7 @@ export class DataObjects {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2427,19 +2427,19 @@ export class DataObjects {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<DataObject>"
+            "type": "Array<CoreV1DataObject>"
         }    ];
 
     static getAttributeTypeMap() {
-        return DataObjects.attributeTypeMap;
+        return CoreV1DataObjects.attributeTypeMap;
     }
 }
 
 /**
 * An endpoint represents an external resource to browse (proxy), import or export. This may be a database, a file, a http service, ...
 */
-export class Endpoint {
-    '_links'?: Links;
+export class CoreV1Endpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2463,12 +2463,12 @@ export class Endpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint.
     */
-    'kind'?: Endpoint.KindEnum;
-    'data'?: EndpointData;
+    'kind'?: CoreV1Endpoint.KindEnum;
+    'data'?: CoreV1EndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2476,7 +2476,7 @@ export class Endpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2506,25 +2506,25 @@ export class Endpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
             "baseName": "kind",
-            "type": "Endpoint.KindEnum"
+            "type": "CoreV1Endpoint.KindEnum"
         },
         {
             "name": "data",
             "baseName": "data",
-            "type": "EndpointData"
+            "type": "CoreV1EndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return Endpoint.attributeTypeMap;
+        return CoreV1Endpoint.attributeTypeMap;
     }
 }
 
-export namespace Endpoint {
+export namespace CoreV1Endpoint {
     export enum KindEnum {
         PdoEndpoint = <any> 'PdoEndpoint',
         MysqlEndpoint = <any> 'MysqlEndpoint',
@@ -2542,8 +2542,8 @@ export namespace Endpoint {
 /**
 * An endpoint object is the actual object on an endpoint itself.
 */
-export class EndpointObject {
-    '_links'?: Links;
+export class CoreV1EndpointObject {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2567,7 +2567,7 @@ export class EndpointObject {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * Attributes
     */
@@ -2579,7 +2579,7 @@ export class EndpointObject {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2609,7 +2609,7 @@ export class EndpointObject {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "data",
@@ -2618,18 +2618,18 @@ export class EndpointObject {
         }    ];
 
     static getAttributeTypeMap() {
-        return EndpointObject.attributeTypeMap;
+        return CoreV1EndpointObject.attributeTypeMap;
     }
 }
 
 /**
 * A list of endpoint objects.
 */
-export class EndpointObjects {
+export class CoreV1EndpointObjects {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always EndpointObject.
     */
@@ -2642,7 +2642,7 @@ export class EndpointObjects {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<EndpointObject>;
+    'data'?: Array<CoreV1EndpointObject>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2650,7 +2650,7 @@ export class EndpointObjects {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2670,22 +2670,22 @@ export class EndpointObjects {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<EndpointObject>"
+            "type": "Array<CoreV1EndpointObject>"
         }    ];
 
     static getAttributeTypeMap() {
-        return EndpointObjects.attributeTypeMap;
+        return CoreV1EndpointObjects.attributeTypeMap;
     }
 }
 
 /**
 * A list of endpoints.
 */
-export class Endpoints {
+export class CoreV1Endpoints {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2698,7 +2698,7 @@ export class Endpoints {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Endpoint>;
+    'data'?: Array<CoreV1Endpoint>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2706,7 +2706,7 @@ export class Endpoints {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2726,19 +2726,19 @@ export class Endpoints {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Endpoint>"
+            "type": "Array<CoreV1Endpoint>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Endpoints.attributeTypeMap;
+        return CoreV1Endpoints.attributeTypeMap;
     }
 }
 
 /**
 * A job is a synchronization job which declares when and what collections should be synchronized.
 */
-export class Job {
-    '_links'?: Links;
+export class CoreV1Job {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2762,7 +2762,7 @@ export class Job {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Job.
     */
@@ -2771,7 +2771,7 @@ export class Job {
     * The resource namespace
     */
     'namespace'?: string;
-    'data'?: JobData;
+    'data'?: CoreV1JobData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2779,7 +2779,7 @@ export class Job {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2809,7 +2809,7 @@ export class Job {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -2824,22 +2824,22 @@ export class Job {
         {
             "name": "data",
             "baseName": "data",
-            "type": "JobData"
+            "type": "CoreV1JobData"
         }    ];
 
     static getAttributeTypeMap() {
-        return Job.attributeTypeMap;
+        return CoreV1Job.attributeTypeMap;
     }
 }
 
 /**
 * A list of jobs.
 */
-export class Jobs {
+export class CoreV1Jobs {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2852,7 +2852,7 @@ export class Jobs {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Job>;
+    'data'?: Array<CoreV1Job>;
 
     static discriminator: string | undefined = undefined;
 
@@ -2860,7 +2860,7 @@ export class Jobs {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -2880,19 +2880,19 @@ export class Jobs {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Job>"
+            "type": "Array<CoreV1Job>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Jobs.attributeTypeMap;
+        return CoreV1Jobs.attributeTypeMap;
     }
 }
 
 /**
 * A log messagage from a process.
 */
-export class Log {
-    '_links'?: Links;
+export class CoreV1Log {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -2916,12 +2916,12 @@ export class Log {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Log.
     */
     'kind'?: string;
-    'data'?: LogData;
+    'data'?: CoreV1LogData;
 
     static discriminator: string | undefined = undefined;
 
@@ -2929,7 +2929,7 @@ export class Log {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -2959,7 +2959,7 @@ export class Log {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -2969,22 +2969,22 @@ export class Log {
         {
             "name": "data",
             "baseName": "data",
-            "type": "LogData"
+            "type": "CoreV1LogData"
         }    ];
 
     static getAttributeTypeMap() {
-        return Log.attributeTypeMap;
+        return CoreV1Log.attributeTypeMap;
     }
 }
 
 /**
 * A list of logs.
 */
-export class Logs {
+export class CoreV1Logs {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -2997,7 +2997,7 @@ export class Logs {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Log>;
+    'data'?: Array<CoreV1Log>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3005,7 +3005,7 @@ export class Logs {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3025,19 +3025,19 @@ export class Logs {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Log>"
+            "type": "Array<CoreV1Log>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Logs.attributeTypeMap;
+        return CoreV1Logs.attributeTypeMap;
     }
 }
 
 /**
 * A namespace is a namespace to separate resources.
 */
-export class Namespace {
-    '_links'?: Links;
+export class CoreV1Namespace {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3061,7 +3061,7 @@ export class Namespace {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Namespace.
     */
@@ -3073,7 +3073,7 @@ export class Namespace {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3103,7 +3103,7 @@ export class Namespace {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3112,18 +3112,18 @@ export class Namespace {
         }    ];
 
     static getAttributeTypeMap() {
-        return Namespace.attributeTypeMap;
+        return CoreV1Namespace.attributeTypeMap;
     }
 }
 
 /**
 * A list of namespaces.
 */
-export class Namespaces {
+export class CoreV1Namespaces {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3136,7 +3136,7 @@ export class Namespaces {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Namespace>;
+    'data'?: Array<CoreV1Namespace>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3144,7 +3144,7 @@ export class Namespaces {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3164,19 +3164,19 @@ export class Namespaces {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Namespace>"
+            "type": "Array<CoreV1Namespace>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Namespaces.attributeTypeMap;
+        return CoreV1Namespaces.attributeTypeMap;
     }
 }
 
 /**
 * An object relation represents a releationship between two data objects. A relationship may apply to objects of different collections and/or namespaces.
 */
-export class ObjectRelation {
-    '_links'?: Links;
+export class CoreV1ObjectRelation {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3200,12 +3200,12 @@ export class ObjectRelation {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always DataObjectRelation.
     */
     'kind'?: string;
-    'data'?: ObjectRelationData;
+    'data'?: CoreV1ObjectRelationData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3213,7 +3213,7 @@ export class ObjectRelation {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3243,7 +3243,7 @@ export class ObjectRelation {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3253,22 +3253,22 @@ export class ObjectRelation {
         {
             "name": "data",
             "baseName": "data",
-            "type": "ObjectRelationData"
+            "type": "CoreV1ObjectRelationData"
         }    ];
 
     static getAttributeTypeMap() {
-        return ObjectRelation.attributeTypeMap;
+        return CoreV1ObjectRelation.attributeTypeMap;
     }
 }
 
 /**
 * A list of relations.
 */
-export class ObjectRelations {
+export class CoreV1ObjectRelations {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3281,7 +3281,7 @@ export class ObjectRelations {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<ObjectRelation>;
+    'data'?: Array<CoreV1ObjectRelation>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3289,7 +3289,7 @@ export class ObjectRelations {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3309,22 +3309,22 @@ export class ObjectRelations {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<ObjectRelation>"
+            "type": "Array<CoreV1ObjectRelation>"
         }    ];
 
     static getAttributeTypeMap() {
-        return ObjectRelations.attributeTypeMap;
+        return CoreV1ObjectRelations.attributeTypeMap;
     }
 }
 
 /**
 * A list of processes.
 */
-export class Processes {
+export class CoreV1Processes {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3337,7 +3337,7 @@ export class Processes {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Process>;
+    'data'?: Array<CoreV1Process>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3345,7 +3345,7 @@ export class Processes {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3365,19 +3365,19 @@ export class Processes {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Process>"
+            "type": "Array<CoreV1Process>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Processes.attributeTypeMap;
+        return CoreV1Processes.attributeTypeMap;
     }
 }
 
 /**
 * A secret is sensitive information which can be injected into another resource. A secret gets specially encrypted on the server and is always base64 encoded.
 */
-export class Secret {
-    '_links'?: Links;
+export class CoreV1Secret {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3401,7 +3401,7 @@ export class Secret {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Secret.
     */
@@ -3417,7 +3417,7 @@ export class Secret {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3447,7 +3447,7 @@ export class Secret {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3461,18 +3461,18 @@ export class Secret {
         }    ];
 
     static getAttributeTypeMap() {
-        return Secret.attributeTypeMap;
+        return CoreV1Secret.attributeTypeMap;
     }
 }
 
 /**
 * A list of secrets.
 */
-export class Secrets {
+export class CoreV1Secrets {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3485,7 +3485,7 @@ export class Secrets {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Secret>;
+    'data'?: Array<CoreV1Secret>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3493,7 +3493,7 @@ export class Secrets {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3513,19 +3513,19 @@ export class Secrets {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Secret>"
+            "type": "Array<CoreV1Secret>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Secrets.attributeTypeMap;
+        return CoreV1Secrets.attributeTypeMap;
     }
 }
 
 /**
 * A local tubee user.
 */
-export class User {
-    '_links'?: Links;
+export class CoreV1User {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3549,12 +3549,12 @@ export class User {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always User.
     */
     'kind'?: string;
-    'data'?: UserData;
+    'data'?: CoreV1UserData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3562,7 +3562,7 @@ export class User {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3592,7 +3592,7 @@ export class User {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3602,22 +3602,22 @@ export class User {
         {
             "name": "data",
             "baseName": "data",
-            "type": "UserData"
+            "type": "CoreV1UserData"
         }    ];
 
     static getAttributeTypeMap() {
-        return User.attributeTypeMap;
+        return CoreV1User.attributeTypeMap;
     }
 }
 
 /**
 * A list of users.
 */
-export class Users {
+export class CoreV1Users {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3630,7 +3630,7 @@ export class Users {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<User>;
+    'data'?: Array<CoreV1User>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3638,7 +3638,7 @@ export class Users {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3658,19 +3658,19 @@ export class Users {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<User>"
+            "type": "Array<CoreV1User>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Users.attributeTypeMap;
+        return CoreV1Users.attributeTypeMap;
     }
 }
 
 /**
 * A workflow gets used if an endpoint gets imported or exported. A workflow defines if and what object and also if and what attributes of an object should be written to or from an endpoint.
 */
-export class Workflow {
-    '_links'?: Links;
+export class CoreV1Workflow {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3694,12 +3694,12 @@ export class Workflow {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Workflow.
     */
     'kind'?: string;
-    'data'?: WorkflowData;
+    'data'?: CoreV1WorkflowData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3707,7 +3707,7 @@ export class Workflow {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3737,7 +3737,7 @@ export class Workflow {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3747,22 +3747,22 @@ export class Workflow {
         {
             "name": "data",
             "baseName": "data",
-            "type": "WorkflowData"
+            "type": "CoreV1WorkflowData"
         }    ];
 
     static getAttributeTypeMap() {
-        return Workflow.attributeTypeMap;
+        return CoreV1Workflow.attributeTypeMap;
     }
 }
 
 /**
 * A list of workflows.
 */
-export class Workflows {
+export class CoreV1Workflows {
     /**
     * Holds a list of links rfc1738 to other resources.
     */
-    '_links'?: ListLinks;
+    '_links'?: CoreV1ListLinks;
     /**
     * The resource type, always List.
     */
@@ -3775,7 +3775,7 @@ export class Workflows {
     * Holds the number of total available items on the server. Note that a List resource is always paged. You need to traverse with offset and limit to request further resources in the list.
     */
     'total'?: number;
-    'data'?: Array<Workflow>;
+    'data'?: Array<CoreV1Workflow>;
 
     static discriminator: string | undefined = undefined;
 
@@ -3783,7 +3783,7 @@ export class Workflows {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "ListLinks"
+            "type": "CoreV1ListLinks"
         },
         {
             "name": "kind",
@@ -3803,19 +3803,19 @@ export class Workflows {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Workflow>"
+            "type": "Array<CoreV1Workflow>"
         }    ];
 
     static getAttributeTypeMap() {
-        return Workflows.attributeTypeMap;
+        return CoreV1Workflows.attributeTypeMap;
     }
 }
 
 /**
 * Balloon cloud server endpoint
 */
-export class BalloonEndpoint {
-    '_links'?: Links;
+export class CoreV1BalloonEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3839,12 +3839,12 @@ export class BalloonEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always BalloonEndpoint.
     */
     'kind': string;
-    'data': BalloonEndpointData;
+    'data': CoreV1BalloonEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3852,7 +3852,7 @@ export class BalloonEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3882,7 +3882,7 @@ export class BalloonEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3892,19 +3892,19 @@ export class BalloonEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "BalloonEndpointData"
+            "type": "CoreV1BalloonEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return BalloonEndpoint.attributeTypeMap;
+        return CoreV1BalloonEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * CSV data format endpoint
 */
-export class CsvEndpoint {
-    '_links'?: Links;
+export class CoreV1CsvEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -3928,12 +3928,12 @@ export class CsvEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always CsvEndpoint.
     */
     'kind'?: string;
-    'data'?: CsvEndpointData;
+    'data'?: CoreV1CsvEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -3941,7 +3941,7 @@ export class CsvEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -3971,7 +3971,7 @@ export class CsvEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -3981,19 +3981,19 @@ export class CsvEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "CsvEndpointData"
+            "type": "CoreV1CsvEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return CsvEndpoint.attributeTypeMap;
+        return CoreV1CsvEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * JSON data format endpoint
 */
-export class JsonEndpoint {
-    '_links'?: Links;
+export class CoreV1JsonEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4017,12 +4017,12 @@ export class JsonEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always JsonEndpoint.
     */
     'kind'?: string;
-    'data'?: JsonEndpointData;
+    'data'?: CoreV1JsonEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4030,7 +4030,7 @@ export class JsonEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4060,7 +4060,7 @@ export class JsonEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4070,19 +4070,19 @@ export class JsonEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "JsonEndpointData"
+            "type": "CoreV1JsonEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return JsonEndpoint.attributeTypeMap;
+        return CoreV1JsonEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * LDAP (OpenLDAP, Microsoft AD and other LDAP compatible Server) endpoint
 */
-export class LdapEndpoint {
-    '_links'?: Links;
+export class CoreV1LdapEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4106,12 +4106,12 @@ export class LdapEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always LdapEndpoint.
     */
     'kind'?: string;
-    'data'?: LdapEndpointData;
+    'data'?: CoreV1LdapEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4119,7 +4119,7 @@ export class LdapEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4149,7 +4149,7 @@ export class LdapEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4159,19 +4159,19 @@ export class LdapEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "LdapEndpointData"
+            "type": "CoreV1LdapEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return LdapEndpoint.attributeTypeMap;
+        return CoreV1LdapEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * MongoDB endpoint
 */
-export class MongodbEndpoint {
-    '_links'?: Links;
+export class CoreV1MongodbEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4195,12 +4195,12 @@ export class MongodbEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always MongodbEndpoint.
     */
     'kind'?: string;
-    'data'?: MongodbEndpointData;
+    'data'?: CoreV1MongodbEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4208,7 +4208,7 @@ export class MongodbEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4238,7 +4238,7 @@ export class MongodbEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4248,19 +4248,19 @@ export class MongodbEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "MongodbEndpointData"
+            "type": "CoreV1MongodbEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return MongodbEndpoint.attributeTypeMap;
+        return CoreV1MongodbEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * MySQL/MariaDB (and other MySQL forks) endpoint
 */
-export class MysqlEndpoint {
-    '_links'?: Links;
+export class CoreV1MysqlEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4284,12 +4284,12 @@ export class MysqlEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always MysqlEndpoint.
     */
     'kind'?: string;
-    'data'?: MysqlEndpointData;
+    'data'?: CoreV1MysqlEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4297,7 +4297,7 @@ export class MysqlEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4327,7 +4327,7 @@ export class MysqlEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4337,19 +4337,19 @@ export class MysqlEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "MysqlEndpointData"
+            "type": "CoreV1MysqlEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return MysqlEndpoint.attributeTypeMap;
+        return CoreV1MysqlEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * OData REST API endpoint (Compatible with Microsoft graph (Office365 and more) and other OData compatible api's)
 */
-export class OdataRestEndpoint {
-    '_links'?: Links;
+export class CoreV1OdataRestEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4373,12 +4373,12 @@ export class OdataRestEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always OdataRestEndpoint.
     */
     'kind'?: string;
-    'data'?: OdataRestEndpointData;
+    'data'?: CoreV1OdataRestEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4386,7 +4386,7 @@ export class OdataRestEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4416,7 +4416,7 @@ export class OdataRestEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4426,19 +4426,19 @@ export class OdataRestEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "OdataRestEndpointData"
+            "type": "CoreV1OdataRestEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return OdataRestEndpoint.attributeTypeMap;
+        return CoreV1OdataRestEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * Pdo endpoint
 */
-export class PdoEndpoint {
-    '_links'?: Links;
+export class CoreV1PdoEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4462,12 +4462,12 @@ export class PdoEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always PdoEndpoint.
     */
     'kind'?: string;
-    'data'?: PdoEndpointData;
+    'data'?: CoreV1PdoEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4475,7 +4475,7 @@ export class PdoEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4505,7 +4505,7 @@ export class PdoEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4515,19 +4515,19 @@ export class PdoEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "PdoEndpointData"
+            "type": "CoreV1PdoEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return PdoEndpoint.attributeTypeMap;
+        return CoreV1PdoEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * A process is a sub resource of a job. Each process represents one job execution.
 */
-export class Process {
-    '_links'?: Links;
+export class CoreV1Process {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4551,7 +4551,7 @@ export class Process {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The resource type, always Process.
     */
@@ -4560,8 +4560,8 @@ export class Process {
     * The resource namespace
     */
     'namespace'?: string;
-    'data'?: JobData;
-    'status'?: ProcessStatus;
+    'data'?: CoreV1JobData;
+    'status'?: CoreV1ProcessStatus;
 
     static discriminator: string | undefined = undefined;
 
@@ -4569,7 +4569,7 @@ export class Process {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4599,7 +4599,7 @@ export class Process {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4614,24 +4614,24 @@ export class Process {
         {
             "name": "data",
             "baseName": "data",
-            "type": "JobData"
+            "type": "CoreV1JobData"
         },
         {
             "name": "status",
             "baseName": "status",
-            "type": "ProcessStatus"
+            "type": "CoreV1ProcessStatus"
         }    ];
 
     static getAttributeTypeMap() {
-        return Process.attributeTypeMap;
+        return CoreV1Process.attributeTypeMap;
     }
 }
 
 /**
 * UCS endpoint (Univention Corporate Server, https://www.univention.com/products/ucs)
 */
-export class UcsEndpoint {
-    '_links'?: Links;
+export class CoreV1UcsEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4655,12 +4655,12 @@ export class UcsEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always UcsEndpoint.
     */
     'kind'?: string;
-    'data'?: UcsEndpointData;
+    'data'?: CoreV1UcsEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4668,7 +4668,7 @@ export class UcsEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4698,7 +4698,7 @@ export class UcsEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4708,19 +4708,19 @@ export class UcsEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "UcsEndpointData"
+            "type": "CoreV1UcsEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return UcsEndpoint.attributeTypeMap;
+        return CoreV1UcsEndpoint.attributeTypeMap;
     }
 }
 
 /**
 * XML data format endpoint
 */
-export class XmlEndpoint {
-    '_links'?: Links;
+export class CoreV1XmlEndpoint {
+    '_links'?: CoreV1Links;
     /**
     * Resource identifier. Note that the name is immutable once created on the server and must be unique in its own resource context.
     */
@@ -4744,12 +4744,12 @@ export class XmlEndpoint {
     /**
     * Injected secrets in this resource.
     */
-    'secrets'?: Array<SecretMount>;
+    'secrets'?: Array<CoreV1SecretMount>;
     /**
     * The type of endpoint. Always XmlEndpoint.
     */
     'kind'?: string;
-    'data'?: XmlEndpointData;
+    'data'?: CoreV1XmlEndpointData;
 
     static discriminator: string | undefined = undefined;
 
@@ -4757,7 +4757,7 @@ export class XmlEndpoint {
         {
             "name": "_links",
             "baseName": "_links",
-            "type": "Links"
+            "type": "CoreV1Links"
         },
         {
             "name": "name",
@@ -4787,7 +4787,7 @@ export class XmlEndpoint {
         {
             "name": "secrets",
             "baseName": "secrets",
-            "type": "Array<SecretMount>"
+            "type": "Array<CoreV1SecretMount>"
         },
         {
             "name": "kind",
@@ -4797,110 +4797,110 @@ export class XmlEndpoint {
         {
             "name": "data",
             "baseName": "data",
-            "type": "XmlEndpointData"
+            "type": "CoreV1XmlEndpointData"
         }    ];
 
     static getAttributeTypeMap() {
-        return XmlEndpoint.attributeTypeMap;
+        return CoreV1XmlEndpoint.attributeTypeMap;
     }
 }
 
 
 let enumsMap: {[index: string]: any} = {
-        "AccessRuleData.VerbsEnum": AccessRuleData.VerbsEnum,
-        "BalloonEndpointDataResource.AuthEnum": BalloonEndpointDataResource.AuthEnum,
-        "EndpointData.TypeEnum": EndpointData.TypeEnum,
-        "JobData.LogLevelEnum": JobData.LogLevelEnum,
-        "OdataRestEndpointDataResource.AuthEnum": OdataRestEndpointDataResource.AuthEnum,
-        "Storage.KindEnum": Storage.KindEnum,
-        "WorkflowData.EnsureEnum": WorkflowData.EnsureEnum,
-        "Endpoint.KindEnum": Endpoint.KindEnum,
+        "CoreV1AccessRuleData.VerbsEnum": CoreV1AccessRuleData.VerbsEnum,
+        "CoreV1BalloonEndpointDataResource.AuthEnum": CoreV1BalloonEndpointDataResource.AuthEnum,
+        "CoreV1EndpointData.TypeEnum": CoreV1EndpointData.TypeEnum,
+        "CoreV1JobData.LogLevelEnum": CoreV1JobData.LogLevelEnum,
+        "CoreV1OdataRestEndpointDataResource.AuthEnum": CoreV1OdataRestEndpointDataResource.AuthEnum,
+        "CoreV1Storage.KindEnum": CoreV1Storage.KindEnum,
+        "CoreV1WorkflowData.EnsureEnum": CoreV1WorkflowData.EnsureEnum,
+        "CoreV1Endpoint.KindEnum": CoreV1Endpoint.KindEnum,
 }
 
 let typeMap: {[index: string]: any} = {
-    "AccessRoleData": AccessRoleData,
-    "AccessRuleData": AccessRuleData,
-    "AttributeMap": AttributeMap,
-    "BalloonEndpointData": BalloonEndpointData,
-    "BalloonEndpointDataResource": BalloonEndpointDataResource,
-    "BalloonEndpointDataResourceOauth2": BalloonEndpointDataResourceOauth2,
-    "CollectionData": CollectionData,
-    "CsvEndpointData": CsvEndpointData,
-    "CsvEndpointDataResource": CsvEndpointDataResource,
-    "EndpointData": EndpointData,
-    "EndpointDataOptions": EndpointDataOptions,
-    "JobData": JobData,
-    "JobDataNotification": JobDataNotification,
-    "JobDataOptions": JobDataOptions,
-    "JsonEndpointData": JsonEndpointData,
-    "JsonPatch": JsonPatch,
-    "LdapEndpointData": LdapEndpointData,
-    "LdapEndpointDataResource": LdapEndpointDataResource,
-    "Link": Link,
-    "Links": Links,
-    "List": List,
-    "ListLinks": ListLinks,
-    "LogData": LogData,
-    "MongodbEndpointData": MongodbEndpointData,
-    "MongodbEndpointDataResource": MongodbEndpointDataResource,
-    "MysqlEndpointData": MysqlEndpointData,
-    "MysqlEndpointDataResource": MysqlEndpointDataResource,
-    "ObjectRelationData": ObjectRelationData,
-    "ObjectRelationDataRelation": ObjectRelationDataRelation,
-    "OdataRestEndpointData": OdataRestEndpointData,
-    "OdataRestEndpointDataResource": OdataRestEndpointDataResource,
-    "OdataRestEndpointDataResourceBasic": OdataRestEndpointDataResourceBasic,
-    "OdataRestEndpointDataResourceOauth2": OdataRestEndpointDataResourceOauth2,
-    "PdoEndpointData": PdoEndpointData,
-    "PdoEndpointDataResource": PdoEndpointDataResource,
-    "ProcessStatus": ProcessStatus,
-    "Resource": Resource,
-    "SecretMount": SecretMount,
-    "Storage": Storage,
-    "UcsEndpointData": UcsEndpointData,
-    "UcsEndpointDataResource": UcsEndpointDataResource,
-    "UserData": UserData,
-    "WorkflowData": WorkflowData,
-    "XmlEndpointData": XmlEndpointData,
-    "XmlEndpointDataResource": XmlEndpointDataResource,
-    "AccessRole": AccessRole,
-    "AccessRoles": AccessRoles,
-    "AccessRule": AccessRule,
-    "AccessRules": AccessRules,
-    "Collection": Collection,
-    "Collections": Collections,
-    "DataObject": DataObject,
-    "DataObjects": DataObjects,
-    "Endpoint": Endpoint,
-    "EndpointObject": EndpointObject,
-    "EndpointObjects": EndpointObjects,
-    "Endpoints": Endpoints,
-    "Job": Job,
-    "Jobs": Jobs,
-    "Log": Log,
-    "Logs": Logs,
-    "Namespace": Namespace,
-    "Namespaces": Namespaces,
-    "ObjectRelation": ObjectRelation,
-    "ObjectRelations": ObjectRelations,
-    "Processes": Processes,
-    "Secret": Secret,
-    "Secrets": Secrets,
-    "User": User,
-    "Users": Users,
-    "Workflow": Workflow,
-    "Workflows": Workflows,
-    "BalloonEndpoint": BalloonEndpoint,
-    "CsvEndpoint": CsvEndpoint,
-    "JsonEndpoint": JsonEndpoint,
-    "LdapEndpoint": LdapEndpoint,
-    "MongodbEndpoint": MongodbEndpoint,
-    "MysqlEndpoint": MysqlEndpoint,
-    "OdataRestEndpoint": OdataRestEndpoint,
-    "PdoEndpoint": PdoEndpoint,
-    "Process": Process,
-    "UcsEndpoint": UcsEndpoint,
-    "XmlEndpoint": XmlEndpoint,
+    "CoreV1AccessRoleData": CoreV1AccessRoleData,
+    "CoreV1AccessRuleData": CoreV1AccessRuleData,
+    "CoreV1AttributeMap": CoreV1AttributeMap,
+    "CoreV1BalloonEndpointData": CoreV1BalloonEndpointData,
+    "CoreV1BalloonEndpointDataResource": CoreV1BalloonEndpointDataResource,
+    "CoreV1BalloonEndpointDataResourceOauth2": CoreV1BalloonEndpointDataResourceOauth2,
+    "CoreV1CollectionData": CoreV1CollectionData,
+    "CoreV1CsvEndpointData": CoreV1CsvEndpointData,
+    "CoreV1CsvEndpointDataResource": CoreV1CsvEndpointDataResource,
+    "CoreV1EndpointData": CoreV1EndpointData,
+    "CoreV1EndpointDataOptions": CoreV1EndpointDataOptions,
+    "CoreV1JobData": CoreV1JobData,
+    "CoreV1JobDataNotification": CoreV1JobDataNotification,
+    "CoreV1JobDataOptions": CoreV1JobDataOptions,
+    "CoreV1JsonEndpointData": CoreV1JsonEndpointData,
+    "CoreV1JsonPatch": CoreV1JsonPatch,
+    "CoreV1LdapEndpointData": CoreV1LdapEndpointData,
+    "CoreV1LdapEndpointDataResource": CoreV1LdapEndpointDataResource,
+    "CoreV1Link": CoreV1Link,
+    "CoreV1Links": CoreV1Links,
+    "CoreV1List": CoreV1List,
+    "CoreV1ListLinks": CoreV1ListLinks,
+    "CoreV1LogData": CoreV1LogData,
+    "CoreV1MongodbEndpointData": CoreV1MongodbEndpointData,
+    "CoreV1MongodbEndpointDataResource": CoreV1MongodbEndpointDataResource,
+    "CoreV1MysqlEndpointData": CoreV1MysqlEndpointData,
+    "CoreV1MysqlEndpointDataResource": CoreV1MysqlEndpointDataResource,
+    "CoreV1ObjectRelationData": CoreV1ObjectRelationData,
+    "CoreV1ObjectRelationDataRelation": CoreV1ObjectRelationDataRelation,
+    "CoreV1OdataRestEndpointData": CoreV1OdataRestEndpointData,
+    "CoreV1OdataRestEndpointDataResource": CoreV1OdataRestEndpointDataResource,
+    "CoreV1OdataRestEndpointDataResourceBasic": CoreV1OdataRestEndpointDataResourceBasic,
+    "CoreV1OdataRestEndpointDataResourceOauth2": CoreV1OdataRestEndpointDataResourceOauth2,
+    "CoreV1PdoEndpointData": CoreV1PdoEndpointData,
+    "CoreV1PdoEndpointDataResource": CoreV1PdoEndpointDataResource,
+    "CoreV1ProcessStatus": CoreV1ProcessStatus,
+    "CoreV1Resource": CoreV1Resource,
+    "CoreV1SecretMount": CoreV1SecretMount,
+    "CoreV1Storage": CoreV1Storage,
+    "CoreV1UcsEndpointData": CoreV1UcsEndpointData,
+    "CoreV1UcsEndpointDataResource": CoreV1UcsEndpointDataResource,
+    "CoreV1UserData": CoreV1UserData,
+    "CoreV1WorkflowData": CoreV1WorkflowData,
+    "CoreV1XmlEndpointData": CoreV1XmlEndpointData,
+    "CoreV1XmlEndpointDataResource": CoreV1XmlEndpointDataResource,
+    "CoreV1AccessRole": CoreV1AccessRole,
+    "CoreV1AccessRoles": CoreV1AccessRoles,
+    "CoreV1AccessRule": CoreV1AccessRule,
+    "CoreV1AccessRules": CoreV1AccessRules,
+    "CoreV1Collection": CoreV1Collection,
+    "CoreV1Collections": CoreV1Collections,
+    "CoreV1DataObject": CoreV1DataObject,
+    "CoreV1DataObjects": CoreV1DataObjects,
+    "CoreV1Endpoint": CoreV1Endpoint,
+    "CoreV1EndpointObject": CoreV1EndpointObject,
+    "CoreV1EndpointObjects": CoreV1EndpointObjects,
+    "CoreV1Endpoints": CoreV1Endpoints,
+    "CoreV1Job": CoreV1Job,
+    "CoreV1Jobs": CoreV1Jobs,
+    "CoreV1Log": CoreV1Log,
+    "CoreV1Logs": CoreV1Logs,
+    "CoreV1Namespace": CoreV1Namespace,
+    "CoreV1Namespaces": CoreV1Namespaces,
+    "CoreV1ObjectRelation": CoreV1ObjectRelation,
+    "CoreV1ObjectRelations": CoreV1ObjectRelations,
+    "CoreV1Processes": CoreV1Processes,
+    "CoreV1Secret": CoreV1Secret,
+    "CoreV1Secrets": CoreV1Secrets,
+    "CoreV1User": CoreV1User,
+    "CoreV1Users": CoreV1Users,
+    "CoreV1Workflow": CoreV1Workflow,
+    "CoreV1Workflows": CoreV1Workflows,
+    "CoreV1BalloonEndpoint": CoreV1BalloonEndpoint,
+    "CoreV1CsvEndpoint": CoreV1CsvEndpoint,
+    "CoreV1JsonEndpoint": CoreV1JsonEndpoint,
+    "CoreV1LdapEndpoint": CoreV1LdapEndpoint,
+    "CoreV1MongodbEndpoint": CoreV1MongodbEndpoint,
+    "CoreV1MysqlEndpoint": CoreV1MysqlEndpoint,
+    "CoreV1OdataRestEndpoint": CoreV1OdataRestEndpoint,
+    "CoreV1PdoEndpoint": CoreV1PdoEndpoint,
+    "CoreV1Process": CoreV1Process,
+    "CoreV1UcsEndpoint": CoreV1UcsEndpoint,
+    "CoreV1XmlEndpoint": CoreV1XmlEndpoint,
 }
 
 export interface Authentication {
@@ -4955,10 +4955,10 @@ export class VoidAuth implements Authentication {
     }
 }
 
-export enum V1ApiApiKeys {
+export enum CoreV1ApiApiKeys {
 }
 
-export class V1Api {
+export class CoreV1Api {
     protected _basePath = defaultBasePath;
     protected defaultHeaders : any = {};
     protected _useQuerystring : boolean = false;
@@ -4996,15 +4996,15 @@ export class V1Api {
 	this.authentications.default = auth;
     }
 
-    public setApiKey(key: V1ApiApiKeys, value: string) {
-        (this.authentications as any)[V1ApiApiKeys[key]].apiKey = value;
+    public setApiKey(key: CoreV1ApiApiKeys, value: string) {
+        (this.authentications as any)[CoreV1ApiApiKeys[key]].apiKey = value;
     }
     /**
      * 
      * @summary Create a new access role
      * @param data 
      */
-    public addAccessRole (data?: AccessRole) : any {
+    public addAccessRole (data?: CoreV1AccessRole) : any {
         const localVarPath = this.basePath + '/api/v1/access-roles';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5020,7 +5020,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "AccessRole")
+            body: ObjectSerializer.serialize(data, "CoreV1AccessRole")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5037,12 +5037,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRole;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRole;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRole");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRole");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5057,7 +5057,7 @@ export class V1Api {
      * @summary Create a new access rule
      * @param data 
      */
-    public addAccessRule (data?: AccessRule) : any {
+    public addAccessRule (data?: CoreV1AccessRule) : any {
         const localVarPath = this.basePath + '/api/v1/access-rules';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5073,7 +5073,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "AccessRule")
+            body: ObjectSerializer.serialize(data, "CoreV1AccessRule")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5090,12 +5090,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRule;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRule;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRule");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRule");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5111,7 +5111,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public addCollection (namespace: string, data?: Collection) : any {
+    public addCollection (namespace: string, data?: CoreV1Collection) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -5133,7 +5133,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Collection")
+            body: ObjectSerializer.serialize(data, "CoreV1Collection")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5150,12 +5150,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Collection;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Collection");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Collection");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5217,12 +5217,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Endpoint;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Endpoint;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Endpoint");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Endpoint");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5238,7 +5238,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public addJob (namespace: string, data?: Job) : any {
+    public addJob (namespace: string, data?: CoreV1Job) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/jobs'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -5260,7 +5260,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Job")
+            body: ObjectSerializer.serialize(data, "CoreV1Job")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5277,12 +5277,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Job;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Job");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5297,7 +5297,7 @@ export class V1Api {
      * @summary Add namespace
      * @param data 
      */
-    public addNamespace (data?: Namespace) : any {
+    public addNamespace (data?: CoreV1Namespace) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5313,7 +5313,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Namespace")
+            body: ObjectSerializer.serialize(data, "CoreV1Namespace")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5330,12 +5330,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Namespace");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5352,7 +5352,7 @@ export class V1Api {
      * @param collection Collection
      * @param data 
      */
-    public addObject (namespace: string, collection: string, data?: DataObject) : any {
+    public addObject (namespace: string, collection: string, data?: CoreV1DataObject) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/objects'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -5380,7 +5380,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "DataObject")
+            body: ObjectSerializer.serialize(data, "CoreV1DataObject")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5397,12 +5397,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObject;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1DataObject;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObject");
+                    body = ObjectSerializer.deserialize(body, "CoreV1DataObject");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5418,7 +5418,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public addProcess (namespace: string, data?: Process) : any {
+    public addProcess (namespace: string, data?: CoreV1Process) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/processes'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -5440,7 +5440,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Process")
+            body: ObjectSerializer.serialize(data, "CoreV1Process")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5457,12 +5457,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Process;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Process");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Process");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5478,7 +5478,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public addRelation (namespace: string, data?: ObjectRelation) : any {
+    public addRelation (namespace: string, data?: CoreV1ObjectRelation) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/relations'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -5500,7 +5500,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "ObjectRelation")
+            body: ObjectSerializer.serialize(data, "CoreV1ObjectRelation")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5517,12 +5517,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelation;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelation;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelation");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelation");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5538,7 +5538,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public addSecret (namespace: string, data?: Secret) : any {
+    public addSecret (namespace: string, data?: CoreV1Secret) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/secrets'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -5560,7 +5560,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Secret")
+            body: ObjectSerializer.serialize(data, "CoreV1Secret")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5577,12 +5577,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Secret;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Secret");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Secret");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5597,7 +5597,7 @@ export class V1Api {
      * @summary Create a new User
      * @param data 
      */
-    public addUser (data?: User) : any {
+    public addUser (data?: CoreV1User) : any {
         const localVarPath = this.basePath + '/api/v1/users';
         let localVarQueryParameters: any = {};
         let localVarHeaderParams: any = (<any>Object).assign({}, this.defaultHeaders);
@@ -5613,7 +5613,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "User")
+            body: ObjectSerializer.serialize(data, "CoreV1User")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5630,12 +5630,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1User;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "User");
+                    body = ObjectSerializer.deserialize(body, "CoreV1User");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -5653,7 +5653,7 @@ export class V1Api {
      * @param endpoint Endpoint name
      * @param data 
      */
-    public addWorkflow (namespace: string, collection: string, endpoint: string, data?: Workflow) : any {
+    public addWorkflow (namespace: string, collection: string, endpoint: string, data?: CoreV1Workflow) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -5687,7 +5687,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Workflow")
+            body: ObjectSerializer.serialize(data, "CoreV1Workflow")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -5704,12 +5704,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Workflow;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Workflow;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Workflow");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Workflow");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6146,12 +6146,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Job;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Job");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6531,12 +6531,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRole;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRole;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRole");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRole");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6617,12 +6617,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRoles;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRoles;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRoles");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRoles");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6675,12 +6675,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRule;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRule;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRule");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRule");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6761,12 +6761,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRules;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRules;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRules");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRules");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6881,12 +6881,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Collection;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Collection");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Collection");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -6953,12 +6953,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7053,12 +7053,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7146,12 +7146,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Collections;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Collections;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Collections");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Collections");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7223,12 +7223,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Endpoint;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Endpoint;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Endpoint");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Endpoint");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7302,12 +7302,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7409,12 +7409,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7516,12 +7516,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: EndpointObjects;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1EndpointObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "EndpointObjects");
+                    body = ObjectSerializer.deserialize(body, "CoreV1EndpointObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7616,12 +7616,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Endpoints;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Endpoints;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Endpoints");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Endpoints");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7681,12 +7681,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Job;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Job");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7753,12 +7753,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7853,12 +7853,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -7946,12 +7946,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Jobs;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Jobs;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Jobs");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Jobs");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8009,12 +8009,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Namespace");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8095,12 +8095,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Namespaces;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Namespaces;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Namespaces");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Namespaces");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8278,12 +8278,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1DataObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObjects");
+                    body = ObjectSerializer.deserialize(body, "CoreV1DataObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8357,12 +8357,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8464,12 +8464,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8543,12 +8543,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelation;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelation;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelation");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelation");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8650,12 +8650,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelations;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelations;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelations");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelations");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8750,12 +8750,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObjects;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1DataObjects;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObjects");
+                    body = ObjectSerializer.deserialize(body, "CoreV1DataObjects");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8815,12 +8815,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Process;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Process;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Process");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Process");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8887,12 +8887,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -8987,12 +8987,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Log;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Log;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Log");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Log");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9080,12 +9080,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Processes;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Processes;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Processes");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Processes");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9145,12 +9145,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelation;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelation;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelation");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelation");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9238,12 +9238,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelations;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelations;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelations");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelations");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9303,12 +9303,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Secret;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Secret");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Secret");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9396,12 +9396,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Secrets;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Secrets;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Secrets");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Secrets");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9454,12 +9454,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1User;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "User");
+                    body = ObjectSerializer.deserialize(body, "CoreV1User");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9540,12 +9540,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Users;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Users;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Users");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Users");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9674,12 +9674,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Workflow;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Workflow;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Workflow");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Workflow");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9781,12 +9781,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Workflows;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Workflows;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Workflows");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Workflows");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9802,7 +9802,7 @@ export class V1Api {
      * @param access_role Access role name
      * @param data 
      */
-    public replaceAccessRole (access_role: string, data?: AccessRole) : any {
+    public replaceAccessRole (access_role: string, data?: CoreV1AccessRole) : any {
         const localVarPath = this.basePath + '/api/v1/access-roles/{access-role}'
             .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
@@ -9824,7 +9824,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "AccessRole")
+            body: ObjectSerializer.serialize(data, "CoreV1AccessRole")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -9841,12 +9841,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRole;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRole;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRole");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRole");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9862,7 +9862,7 @@ export class V1Api {
      * @param access_rule Access rule name
      * @param data 
      */
-    public replaceAccessRule (access_rule: string, data?: AccessRule) : any {
+    public replaceAccessRule (access_rule: string, data?: CoreV1AccessRule) : any {
         const localVarPath = this.basePath + '/api/v1/access-rules/{access-rule}'
             .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
@@ -9884,7 +9884,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "AccessRule")
+            body: ObjectSerializer.serialize(data, "CoreV1AccessRule")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -9901,12 +9901,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRule;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRule;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRule");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRule");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9923,7 +9923,7 @@ export class V1Api {
      * @param collection Collection
      * @param data 
      */
-    public replaceCollection (namespace: string, collection: string, data?: Collection) : any {
+    public replaceCollection (namespace: string, collection: string, data?: CoreV1Collection) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -9951,7 +9951,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Collection")
+            body: ObjectSerializer.serialize(data, "CoreV1Collection")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -9968,12 +9968,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Collection;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Collection");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Collection");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -9991,7 +9991,7 @@ export class V1Api {
      * @param endpoint Endpoint name
      * @param data 
      */
-    public replaceEndpoint (namespace: string, collection: string, endpoint: string, data?: Endpoint) : any {
+    public replaceEndpoint (namespace: string, collection: string, endpoint: string, data?: CoreV1Endpoint) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -10025,7 +10025,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Endpoint")
+            body: ObjectSerializer.serialize(data, "CoreV1Endpoint")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10042,12 +10042,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Endpoint;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Endpoint;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Endpoint");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Endpoint");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10063,7 +10063,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data 
      */
-    public replaceNamespace (namespace: string, data?: Namespace) : any {
+    public replaceNamespace (namespace: string, data?: CoreV1Namespace) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -10085,7 +10085,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Namespace")
+            body: ObjectSerializer.serialize(data, "CoreV1Namespace")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10102,12 +10102,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Namespace");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10126,7 +10126,7 @@ export class V1Api {
      * @param write If true, the objects gets synced to all configured destination endpoints
      * @param data 
      */
-    public replaceObject (namespace: string, collection: string, object: string, write?: boolean, data?: DataObject) : any {
+    public replaceObject (namespace: string, collection: string, object: string, write?: boolean, data?: CoreV1DataObject) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/objects/{object}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -10164,7 +10164,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "DataObject")
+            body: ObjectSerializer.serialize(data, "CoreV1DataObject")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10181,12 +10181,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObject;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1DataObject;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObject");
+                    body = ObjectSerializer.deserialize(body, "CoreV1DataObject");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10203,7 +10203,7 @@ export class V1Api {
      * @param relation Relation
      * @param data 
      */
-    public replaceRelation (namespace: string, relation: string, data?: ObjectRelation) : any {
+    public replaceRelation (namespace: string, relation: string, data?: CoreV1ObjectRelation) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/relations/{relation}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'relation' + '}', encodeURIComponent(String(relation)));
@@ -10231,7 +10231,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "ObjectRelation")
+            body: ObjectSerializer.serialize(data, "CoreV1ObjectRelation")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10248,12 +10248,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelation;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelation;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelation");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelation");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10270,7 +10270,7 @@ export class V1Api {
      * @param secret secret name
      * @param data 
      */
-    public replaceSecret (namespace: string, secret: string, data?: Secret) : any {
+    public replaceSecret (namespace: string, secret: string, data?: CoreV1Secret) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/secrets/{secret}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
@@ -10298,7 +10298,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Secret")
+            body: ObjectSerializer.serialize(data, "CoreV1Secret")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10315,12 +10315,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Secret;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Secret");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Secret");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10336,7 +10336,7 @@ export class V1Api {
      * @param User User name
      * @param data 
      */
-    public replaceUser (User: string, data?: User) : any {
+    public replaceUser (User: string, data?: CoreV1User) : any {
         const localVarPath = this.basePath + '/api/v1/users/{User}'
             .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
         let localVarQueryParameters: any = {};
@@ -10358,7 +10358,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "User")
+            body: ObjectSerializer.serialize(data, "CoreV1User")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10375,12 +10375,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1User;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "User");
+                    body = ObjectSerializer.deserialize(body, "CoreV1User");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10399,7 +10399,7 @@ export class V1Api {
      * @param workflow Workflow name
      * @param data 
      */
-    public replaceWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: Workflow) : any {
+    public replaceWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: CoreV1Workflow) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -10439,7 +10439,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Workflow")
+            body: ObjectSerializer.serialize(data, "CoreV1Workflow")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10456,12 +10456,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Workflow;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Workflow;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Workflow");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Workflow");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10477,7 +10477,7 @@ export class V1Api {
      * @param access_role Access role name
      * @param job Access role json patch
      */
-    public updateAccessRole (access_role: string, job?: Array<JsonPatch>) : any {
+    public updateAccessRole (access_role: string, job?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/access-roles/{access-role}'
             .replace('{' + 'access-role' + '}', encodeURIComponent(String(access_role)));
         let localVarQueryParameters: any = {};
@@ -10499,7 +10499,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(job, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10516,12 +10516,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRole;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRole;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRole");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRole");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10537,7 +10537,7 @@ export class V1Api {
      * @param access_rule Access rule name
      * @param job Access rule json patch
      */
-    public updateAccessRule (access_rule: string, job?: Array<JsonPatch>) : any {
+    public updateAccessRule (access_rule: string, job?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/access-rules/{access-rule}'
             .replace('{' + 'access-rule' + '}', encodeURIComponent(String(access_rule)));
         let localVarQueryParameters: any = {};
@@ -10559,7 +10559,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(job, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10576,12 +10576,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: AccessRule;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1AccessRule;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "AccessRule");
+                    body = ObjectSerializer.deserialize(body, "CoreV1AccessRule");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10598,7 +10598,7 @@ export class V1Api {
      * @param collection Collection
      * @param data Collection
      */
-    public updateCollection (namespace: string, collection: string, data?: Array<JsonPatch>) : any {
+    public updateCollection (namespace: string, collection: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)));
@@ -10626,7 +10626,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10643,12 +10643,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Collection;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Collection;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Collection");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Collection");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10666,7 +10666,7 @@ export class V1Api {
      * @param endpoint Endpoint name
      * @param data Collection
      */
-    public updateEndpoint (namespace: string, collection: string, endpoint: string, data?: Array<JsonPatch>) : any {
+    public updateEndpoint (namespace: string, collection: string, endpoint: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -10700,7 +10700,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10717,12 +10717,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Endpoint;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Endpoint;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Endpoint");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Endpoint");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10739,7 +10739,7 @@ export class V1Api {
      * @param job Job ID
      * @param data Object
      */
-    public updateJob (namespace: string, job: string, data?: Array<JsonPatch>) : any {
+    public updateJob (namespace: string, job: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/jobs/{job}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'job' + '}', encodeURIComponent(String(job)));
@@ -10767,7 +10767,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10784,12 +10784,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Job;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Job;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Job");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Job");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10805,7 +10805,7 @@ export class V1Api {
      * @param namespace Namespace name
      * @param data Namespace
      */
-    public updateNamespace (namespace: string, data?: Array<JsonPatch>) : any {
+    public updateNamespace (namespace: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)));
         let localVarQueryParameters: any = {};
@@ -10827,7 +10827,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10844,12 +10844,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Namespace;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Namespace;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Namespace");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Namespace");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10867,7 +10867,7 @@ export class V1Api {
      * @param object Object ID
      * @param data Object
      */
-    public updateObject (namespace: string, collection: string, object: string, data?: Array<JsonPatch>) : any {
+    public updateObject (namespace: string, collection: string, object: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/objects/{object}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -10901,7 +10901,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10918,12 +10918,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: DataObject;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1DataObject;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "DataObject");
+                    body = ObjectSerializer.deserialize(body, "CoreV1DataObject");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -10940,7 +10940,7 @@ export class V1Api {
      * @param relation Relation
      * @param data Object
      */
-    public updateRelation (namespace: string, relation: string, data?: Array<JsonPatch>) : any {
+    public updateRelation (namespace: string, relation: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/relations/{relation}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'relation' + '}', encodeURIComponent(String(relation)));
@@ -10968,7 +10968,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -10985,12 +10985,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: ObjectRelation;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1ObjectRelation;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "ObjectRelation");
+                    body = ObjectSerializer.deserialize(body, "CoreV1ObjectRelation");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -11007,7 +11007,7 @@ export class V1Api {
      * @param secret secret name
      * @param job secret json patch
      */
-    public updateSecret (namespace: string, secret: string, job?: Array<JsonPatch>) : any {
+    public updateSecret (namespace: string, secret: string, job?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/secrets/{secret}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'secret' + '}', encodeURIComponent(String(secret)));
@@ -11035,7 +11035,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(job, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -11052,12 +11052,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Secret;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Secret;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Secret");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Secret");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -11073,7 +11073,7 @@ export class V1Api {
      * @param User User name
      * @param job User json patch
      */
-    public updateUser (User: string, job?: Array<JsonPatch>) : any {
+    public updateUser (User: string, job?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/users/{User}'
             .replace('{' + 'User' + '}', encodeURIComponent(String(User)));
         let localVarQueryParameters: any = {};
@@ -11095,7 +11095,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(job, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(job, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -11112,12 +11112,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: User;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1User;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "User");
+                    body = ObjectSerializer.deserialize(body, "CoreV1User");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
@@ -11136,7 +11136,7 @@ export class V1Api {
      * @param workflow Workflow name
      * @param data Workflow
      */
-    public updateWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: Array<JsonPatch>) : any {
+    public updateWorkflow (namespace: string, collection: string, endpoint: string, workflow: string, data?: Array<CoreV1JsonPatch>) : any {
         const localVarPath = this.basePath + '/api/v1/namespaces/{namespace}/collections/{collection}/endpoints/{endpoint}/workflows/{workflow}'
             .replace('{' + 'namespace' + '}', encodeURIComponent(String(namespace)))
             .replace('{' + 'collection' + '}', encodeURIComponent(String(collection)))
@@ -11176,7 +11176,7 @@ export class V1Api {
             uri: localVarPath,
             useQuerystring: this._useQuerystring,
             json: true,
-            body: ObjectSerializer.serialize(data, "Array<JsonPatch>")
+            body: ObjectSerializer.serialize(data, "Array<CoreV1JsonPatch>")
         };
 
         this.authentications.default.applyToRequest(localVarRequestOptions);
@@ -11193,12 +11193,12 @@ export class V1Api {
             return localVarRequest(localVarRequestOptions);
         }
 
-        return new Promise<{ response: http.ClientResponse; body: Workflow;  }>((resolve, reject) => {
+        return new Promise<{ response: http.ClientResponse; body: CoreV1Workflow;  }>((resolve, reject) => {
             localVarRequest(localVarRequestOptions, (error, response, body) => {
                 if (error) {
                     reject(error);
                 } else {
-                    body = ObjectSerializer.deserialize(body, "Workflow");
+                    body = ObjectSerializer.deserialize(body, "CoreV1Workflow");
                     if (response.statusCode && response.statusCode >= 200 && response.statusCode <= 299) {
                         resolve({ response: response, body: body });
                     } else {
