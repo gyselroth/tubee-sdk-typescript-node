@@ -3683,6 +3683,7 @@ components:
     core.v1.Links:
       description: Contains resource links (URL) to other resources.
       type: object
+      readOnly: true
       properties:
         self:
           $ref: "#/components/schemas/core.v1.Link"
@@ -3857,6 +3858,7 @@ components:
                 password:
                   description: The users password. Gets hashed on the server and can not be
                     retrieved after.
+                  writeOnly: true
                   type: string
     core.v1.AccessRules:
       description: A list of access rules.
@@ -4020,6 +4022,31 @@ components:
             namespace:
               description: The resource namespace
               type: string
+            status:
+              type: object
+              readOnly: true
+              properties:
+                 status:
+                   type: boolean
+                 last_process:
+                   type: object
+                   default: null
+                   nullable: true
+                   properties:
+                     process:
+                       type: string
+                     next:
+                       type: integer
+                     started:
+                       type: string
+                     ended:
+                       type: string
+                       nullable: true
+                       default: null
+                     result:
+                       type: string
+                     code:
+                       type: integer
             data:
               type: object
               default:
@@ -4375,12 +4402,25 @@ components:
                 - BalloonEndpoint
                 - OdataRestEndpoint
                 - UcsEndpoint
+                - MicrosoftGraphEndpoint
             namespace:
               description: The resource namespace
               type: string
             collection:
               description: The data object collection
               type: string
+            status:
+              type: object
+              readOnly: true
+              properties:
+                 available:
+                   type: boolean
+                 exception:
+                   type: string
+                 error:
+                   type: string
+                 code:
+                   type: integer
             data:
               type: object
               properties:
@@ -4576,6 +4616,16 @@ components:
                         (http://php.net/manual/en/function.ldap-set-option.php).
                       type: object
                       default: {}
+    core.v1.MicrosoftGraphEndpoint:
+      description: Microsoft graph API
+      allOf:
+        - $ref: "#/components/schemas/core.v1.OdataRestEndpoint"
+        - type: object
+          properties:
+            kind:
+              description: The type of endpoint. Always MicrosoftGraphEndpoint.
+              type: string
+              default: MicrosoftGraphEndpoint
     core.v1.OdataRestEndpoint:
       description: OData REST API endpoint (Compatible with Microsoft graph (Office365 and
         more) and other OData compatible api's)
@@ -4701,6 +4751,11 @@ components:
                   - $ref: "#/components/schemas/core.v1.LocalFilesystemStorage"
                   discriminator:
                     propertyName: kind
+                    mapping:
+                      StreamStorage: "#/components/schemas/core.v1.StreamStorage"
+                      SmbStorage: "#/components/schemas/core.v1.SmbStorage"
+                      BalloonStorage: "#/components/schemas/core.v1.BalloonStorage"
+                      LocalFilesystemStorage: "#/components/schemas/core.v1.LocalFilesystemStorage"
                 file:
                   description: File uri or pattern, depends what storage you have choosen.
                   type: string
@@ -4956,6 +5011,11 @@ components:
                   - $ref: "#/components/schemas/core.v1.LocalFilesystemStorage"
                   discriminator:
                     propertyName: kind
+                    mapping:
+                      StreamStorage: "#/components/schemas/core.v1.StreamStorage"
+                      SmbStorage: "#/components/schemas/core.v1.SmbStorage"
+                      BalloonStorage: "#/components/schemas/core.v1.BalloonStorage"
+                      LocalFilesystemStorage: "#/components/schemas/core.v1.LocalFilesystemStorage"
                 file:
                   description: File uri or pattern, depends what storage you have choosen.
                   type: string
@@ -5004,6 +5064,11 @@ components:
                   - $ref: "#/components/schemas/core.v1.LocalFilesystemStorage"
                   discriminator:
                     propertyName: kind
+                    mapping:
+                      StreamStorage: "#/components/schemas/core.v1.StreamStorage"
+                      SmbStorage: "#/components/schemas/core.v1.SmbStorage"
+                      BalloonStorage: "#/components/schemas/core.v1.BalloonStorage"
+                      LocalFilesystemStorage: "#/components/schemas/core.v1.LocalFilesystemStorage"
                 file:
                   description: File uri or pattern, depends what storage you have choosen.
                   type: string
@@ -5059,6 +5124,11 @@ components:
                   - $ref: "#/components/schemas/core.v1.LocalFilesystemStorage"
                   discriminator:
                     propertyName: kind
+                    mapping:
+                      StreamStorage: "#/components/schemas/core.v1.StreamStorage"
+                      SmbStorage: "#/components/schemas/core.v1.SmbStorage"
+                      BalloonStorage: "#/components/schemas/core.v1.BalloonStorage"
+                      LocalFilesystemStorage: "#/components/schemas/core.v1.LocalFilesystemStorage"
                 file:
                   description: File uri or pattern, depends what storage you have choosen.
                   type: string
@@ -5258,6 +5328,7 @@ components:
           default: null
         rewrite:
           type: array
+          default: []
           description: Rewrite resolved attribute values
           items:
             type: object
@@ -5277,6 +5348,27 @@ components:
               to:
                 type: string
                 description: "The destination value. You may use variables ($1, $2,...) from regex subsets if match has been used."
+        filter:
+          description: "Apply various filters."
+          type: array
+          default: []
+          items:
+            type: string
+            enum:
+            - Alnum
+            - Alpha
+            - BaseName
+            - Digits
+            - Dir
+            - HtmlEntities
+            - RealPath
+            - StringPrefix
+            - StringSuffix
+            - StringToLower
+            - StringToUpper
+            - StringTrim
+            - StripNewlines
+            - StripTags
     core.v1.EndpointObjects:
       description: A list of endpoint objects.
       allOf:
@@ -5328,6 +5420,9 @@ components:
             data:
               description: Attributes
               type: object
+            status:
+              type: object
+              readOnly: true
     core.v1.ObjectRelations:
       description: A list of relations.
       allOf:
@@ -5350,6 +5445,9 @@ components:
               description: The resource type, always DataObjectRelation.
               type: string
               default: DataObjectRelation
+            status:
+              type: object
+              readOnly: true
             data:
               type: object
               required:
