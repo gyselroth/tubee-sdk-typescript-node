@@ -12,8 +12,8 @@ script:
 after_success:
 - current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
 - new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
-- echo current
-- echo new
+- echo $current
+- echo $new
 #- sed s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
 #- git config --global user.email "sahli@gyselroth.com"
 #- git config --global user.name "Travis CI"
