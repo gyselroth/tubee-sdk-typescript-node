@@ -1,6 +1,4 @@
-language: php
-php:
-  - '7.3'
+language: java
 arch:
   - arm64
 before_install: 
