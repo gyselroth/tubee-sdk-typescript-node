@@ -3,15 +3,4 @@ os: linux
 arch:
   - arm64
 before_install: 
-- git clone https://github.com/swagger-api/swagger-codegen.git
-- cd swagger-codegen
-- mvn clean install
-- cd ..
-script:
-- npm install
-- npm run full-build
-after_success:
-- current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
-- new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
-- echo $current
-- echo $new
+  - git clone https://github.com/swagger-api/swagger-codegen.git
