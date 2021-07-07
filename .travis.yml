@@ -1,4 +1,5 @@
 lang: java
+os: linux
 arch:
   - arm64
 before_install: 
@@ -14,14 +15,3 @@ after_success:
 - new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
 - echo $current
 - echo $new
-env:
-  global: 
-secure: hZJlqgOzA2zIUJSWIka0PylqNaTkfHq+kS48RrHmocrK0vLyCW7ECWrzez2f2RVdTNzPi0b+yJq2uCbFfWjImZqg+XY1I75/CVVdSYMk7PJkYZ/iBDixMYY8CAkRRd5yZft9uZAdZzR4KLCPN18n7qfISv/M9VA8989NKcVyiEU=
-deploy:
-  provider: npm
-  email: sahli@gyselroth.com
-  api_key:
-    secure: oi9/8f6B0aEjPBP52PY6cNaRbeaRJRjXo3fpJiR4hX1cjF27OAzVPgH2PtqE27sw7NXsyiEN/I07srJDPvkQclYI/Q9WSjzUEZ+8a8SvDJEO0rjU0VvpSr7dgi2TheqOKOFsiGN+yo2+hn93j/XuUTZjvnTmDMmELyYfxzOoZ1SYRbTMTKQRt87TyyYGcJM4Q7Sl0RinX0a3WRGnEaAAUOYWP6GDpi2KcDEuIqP/wc8KLpmvDnl5YuPigg0rjqDZI2ZH1LhSBNel8WvOVTi8mgxMUAz6HJ338tfhtBmFkJ8tJcVP8ERzmYOgGldJJrePB0yWOj2eHBEePb20VpLt1oyHkrQ/Wh16hE28o4gfL8TExM2fswvrIv6r1DPWUQNSW+RIMaZWhq32FJs1BzQC3FHiu+fFehl1AHEVlfhHZoLH5HXyesgOqHMpnPRDQHz/7X4w92eVuZWioXWB5tgiY+VrFuA7viQIjJrLrTM4HThACRGniR5QDtLi8erUDJ8fzzzIM60r4bC/u6N4Dwnb5QqAPnLmLAAZLS0JrUlnEVAb5We4bOTm5ZRImskM4sEEOLOo21F3t8fmMvniaAhzObwrUW0BswjUpU/PVkEmae4WDHEKSgKSPikBpZ23z7gL3uMUs748DZJp4JLN6iWJPkn4eIUADf2kKPPAE/FfEhE=
-  on:
-    tags: true
-    repo: gyselroth/tubee-sdk-typescript-node
