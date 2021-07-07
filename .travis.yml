@@ -1,8 +1,8 @@
 language: java
-jdk:
-  - oraclejdk8
 arch:
   - arm64
+  - ppc64le
+  - s390x
 before_install: 
   - git clone https://github.com/swagger-api/swagger-codegen.git
   - cd swagger-codegen
