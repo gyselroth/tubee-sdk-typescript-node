@@ -1,4 +1,6 @@
 lang: java
+arch:
+  - arm64
 before_install: 
 - git clone https://github.com/swagger-api/swagger-codegen.git
 - cd swagger-codegen
@@ -10,12 +12,14 @@ script:
 after_success:
 - current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
 - new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
-- sed s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
-- git config --global user.email "sahli@gyselroth.com"
-- git config --global user.name "Travis CI"
-- git add src/*.ts; git add src/*.yml
-- git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-- git push --quiet --set-upstream master master
+- echo current
+- echo new
+#- sed s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
+#- git config --global user.email "sahli@gyselroth.com"
+#- git config --global user.name "Travis CI"
+#- git add src/*.ts; git add src/*.yml
+#- git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+#- git push --quiet --set-upstream master master
 env:
   global: 
 secure: hZJlqgOzA2zIUJSWIka0PylqNaTkfHq+kS48RrHmocrK0vLyCW7ECWrzez2f2RVdTNzPi0b+yJq2uCbFfWjImZqg+XY1I75/CVVdSYMk7PJkYZ/iBDixMYY8CAkRRd5yZft9uZAdZzR4KLCPN18n7qfISv/M9VA8989NKcVyiEU=
