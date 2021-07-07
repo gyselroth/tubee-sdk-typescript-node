@@ -1,6 +1,13 @@
-lang: java
-os: linux
+language: php
+php:
+  - '7.3'
 arch:
   - arm64
 before_install: 
   - git clone https://github.com/swagger-api/swagger-codegen.git
+  - cd swagger-codegen
+  - mvn clean install
+  - cd ..
+script:
+  - npm install
+  - npm run full-build
