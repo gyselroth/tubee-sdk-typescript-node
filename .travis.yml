@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - oraclejdk8
 arch:
   - ppc64le
 before_install:
