@@ -1,6 +1,6 @@
 {
   "name": "@gyselroth/tubee-sdk-node",
-  "version": "1.0.0-beta3",
+  "version": "1.0.0-beta4",
   "description": "The official tubee sdk for node with typescript support",
   "main": "build/api.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "tsc && nodejs build/main.js",
     "build": "tsc && jest --coverage",
     "test": "jest --coverage",
-    "fetch": "wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/swagger.yml && wget https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/openapi.yml",
+    "fetch": "wget -O swagger.yml https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/swagger.yml && wget -O openapi.yml https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/openapi.yml",
     "codegen": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i swagger.yml -l typescript-node --http-user-agent 'tubee typescript-node sdk' -t src -o src --reserved-words-mappings=import=import,class=class -D modelPropertyNaming=original",
     "coveralls": "coveralls < coverage/lcov.info",
     "full-build": "npm run fetch && npm run codegen && npm run build"
@@ -22,7 +22,7 @@
     "node",
     "sdk"
   ],
-  "author": "Raffael Sahli <sahli@gyselroth.com>",
+  "author": "gyselroth <mail@gyselroth.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/gyselroth/tubee-sdk-typescript-node/issues"
@@ -39,7 +39,7 @@
     "coveralls": "^3.0.3",
     "jest": "^23.0.1",
     "ts-jest": "^22.4.6",
-    "typescript": "^2.9.2"
+    "typescript": "*"
   },
   "jest": {
     "transform": {
