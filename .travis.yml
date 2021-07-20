@@ -4,7 +4,7 @@ jdk:
 arch:
   - ppc64le
 before_install:
-  - git checkout change-1
+  - git checkout $TRAVIS_BRANCH
   - git clone https://github.com/swagger-api/swagger-codegen.git
   - cd swagger-codegen
   - git checkout tags/v2.4.14
@@ -16,17 +16,18 @@ script:
 after_success:
   - |
     current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
-  - |
     new=$(cat swagger.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ' | cut -d '"' -f 2)
-  - sed -i s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
-  - git config --global user.email "aebischer@gyselroth.com"
-  - git config --global user.name "Travis CI"
-  - git add src/*.ts; git add src/*.yml
-  - git add package.json
-  - git add openapi.yml; git add swagger.yml
-  - |
-    git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-  - git push "https://${GH_TOKEN}@github.com/gyselroth/tubee-sdk-typescript-node.git" > /dev/null 2>&1
+
+    if [ $current != $new ]; then
+      sed -i s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
+      git config --global user.email "aebischer@gyselroth.com"
+      git config --global user.name "Travis CI"
+      git add src/*.ts; git add src/*.yml
+      git add package.json
+      git add openapi.yml; git add swagger.yml
+      git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+      git push "https://${GH_TOKEN}@github.com/gyselroth/tubee-sdk-typescript-node.git" > /dev/null 2>&1
+    fi
 env:
   global:
     secure: ebeXOyUTO0Drpf8jp31o9/5yaHAaN3q+mJqGhNkKzVwW5CURiL0qOFhdzTXIqgmVzFE1iHJk+poVX+otYr7NHebKu4iKUQFnxwstY3C25dncI7MpyZRlezse2xdpo9qULhc1W5NA/uvxzCB3DMzo5WxamXBGdDfDGhXfZozT4MV3rC/iq+Fq2xVd2S9apgVztMzToI5iK0es0Sn8WJJO4EbHKvLo7vR8+bpeCLgYZaEC7t9G9uAahMEgFeuGPxdfGd5cTynwdyNpZiU6OueQ9BmRxKO86MIufvcOdXXgeFzjkF+qCenz9Fmx+cU4Cba2nUOID2PcOoCrN8ckAu4qvTo3pODL5/BtRGk3prlULQr0ZEOPYb1claqjEOhxn7BQdTBATvkB/Ovz1DKVkQneK1rLCl8aInRo3QlLJTcxeWMFKCdIbCgvI7kuTLiTqc5HO7qdDhnB92eKIFUaiVeyUSTR338Bher/ZmwAbdPlJdx5lxn9f9mTQl9eKeEjbUUXCcao9p4TgBuAD6Np+X0DAoKvWbGcyF1wx44IyCuTFo0YBT3TST8/GKz2fv+tbFIQ3i5KsFnsWPd0OgSzP+n7DqjMrSiArw8gUTzE2gjk/bvGNkXYWVxt5q9GUs1tpOOMUs70iXuZbulRm79i9bxwLFLhEkSYfJ4Mi6DyH6/61nY=
