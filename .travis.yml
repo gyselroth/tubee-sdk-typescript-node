@@ -1,29 +1,32 @@
-lang: java
-before_install: 
-- git clone https://github.com/swagger-api/swagger-codegen.git
-- cd swagger-codegen
-- mvn clean install
-- cd ..
+language: java
+jdk:
+  - oraclejdk8
+arch:
+  - ppc64le
+before_install:
+  - git checkout change-1
+  - git clone https://github.com/swagger-api/swagger-codegen.git
+  - cd swagger-codegen
+  - git checkout tags/v2.4.14
+  - mvn clean install
+  - cd ..
 script:
-- npm install
-- npm run full-build
+  - npm install
+  - npm run full-build
 after_success:
-- current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
-- new=$(cat ../tubee/src/lib/Rest/v1/openapi.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ')
-- sed s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
-- git config --global user.email "sahli@gyselroth.com"
-- git config --global user.name "Travis CI"
-- git add src/*.ts; git add src/*.yml
-- git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
-- git push --quiet --set-upstream master master
+  - |
+    current=$(cat package.json  | grep version: | cat package.json  | grep \"version\" | cut -d'"' -f4)
+  - |
+    new=$(cat swagger.yml | head -n30 | grep 'version: ' | cut -d ':' -f 2 | tr -d ' ' | cut -d '"' -f 2)
+  - sed -i s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
+  - git config --global user.email "aebischer@gyselroth.com"
+  - git config --global user.name "Travis CI"
+  - git add src/*.ts; git add src/*.yml
+  - git add package.json
+  - git add openapi.yml; git add swagger.yml
+  - |
+    git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  - git push "https://${GH_TOKEN}@github.com/gyselroth/tubee-sdk-typescript-node.git" > /dev/null 2>&1
 env:
-  global: 
-secure: hZJlqgOzA2zIUJSWIka0PylqNaTkfHq+kS48RrHmocrK0vLyCW7ECWrzez2f2RVdTNzPi0b+yJq2uCbFfWjImZqg+XY1I75/CVVdSYMk7PJkYZ/iBDixMYY8CAkRRd5yZft9uZAdZzR4KLCPN18n7qfISv/M9VA8989NKcVyiEU=
-deploy:
-  provider: npm
-  email: sahli@gyselroth.com
-  api_key:
-    secure: oi9/8f6B0aEjPBP52PY6cNaRbeaRJRjXo3fpJiR4hX1cjF27OAzVPgH2PtqE27sw7NXsyiEN/I07srJDPvkQclYI/Q9WSjzUEZ+8a8SvDJEO0rjU0VvpSr7dgi2TheqOKOFsiGN+yo2+hn93j/XuUTZjvnTmDMmELyYfxzOoZ1SYRbTMTKQRt87TyyYGcJM4Q7Sl0RinX0a3WRGnEaAAUOYWP6GDpi2KcDEuIqP/wc8KLpmvDnl5YuPigg0rjqDZI2ZH1LhSBNel8WvOVTi8mgxMUAz6HJ338tfhtBmFkJ8tJcVP8ERzmYOgGldJJrePB0yWOj2eHBEePb20VpLt1oyHkrQ/Wh16hE28o4gfL8TExM2fswvrIv6r1DPWUQNSW+RIMaZWhq32FJs1BzQC3FHiu+fFehl1AHEVlfhHZoLH5HXyesgOqHMpnPRDQHz/7X4w92eVuZWioXWB5tgiY+VrFuA7viQIjJrLrTM4HThACRGniR5QDtLi8erUDJ8fzzzIM60r4bC/u6N4Dwnb5QqAPnLmLAAZLS0JrUlnEVAb5We4bOTm5ZRImskM4sEEOLOo21F3t8fmMvniaAhzObwrUW0BswjUpU/PVkEmae4WDHEKSgKSPikBpZ23z7gL3uMUs748DZJp4JLN6iWJPkn4eIUADf2kKPPAE/FfEhE=
-  on:
-    tags: true
-    repo: gyselroth/tubee-sdk-typescript-node
+  global:
+    secure: ebeXOyUTO0Drpf8jp31o9/5yaHAaN3q+mJqGhNkKzVwW5CURiL0qOFhdzTXIqgmVzFE1iHJk+poVX+otYr7NHebKu4iKUQFnxwstY3C25dncI7MpyZRlezse2xdpo9qULhc1W5NA/uvxzCB3DMzo5WxamXBGdDfDGhXfZozT4MV3rC/iq+Fq2xVd2S9apgVztMzToI5iK0es0Sn8WJJO4EbHKvLo7vR8+bpeCLgYZaEC7t9G9uAahMEgFeuGPxdfGd5cTynwdyNpZiU6OueQ9BmRxKO86MIufvcOdXXgeFzjkF+qCenz9Fmx+cU4Cba2nUOID2PcOoCrN8ckAu4qvTo3pODL5/BtRGk3prlULQr0ZEOPYb1claqjEOhxn7BQdTBATvkB/Ovz1DKVkQneK1rLCl8aInRo3QlLJTcxeWMFKCdIbCgvI7kuTLiTqc5HO7qdDhnB92eKIFUaiVeyUSTR338Bher/ZmwAbdPlJdx5lxn9f9mTQl9eKeEjbUUXCcao9p4TgBuAD6Np+X0DAoKvWbGcyF1wx44IyCuTFo0YBT3TST8/GKz2fv+tbFIQ3i5KsFnsWPd0OgSzP+n7DqjMrSiArw8gUTzE2gjk/bvGNkXYWVxt5q9GUs1tpOOMUs70iXuZbulRm79i9bxwLFLhEkSYfJ4Mi6DyH6/61nY=
