@@ -1,6 +1,6 @@
 # tubee node.js SDK with typescript support
 
-[![Build Status](https://travis-ci.org/gyselroth/tubee-sdk-node.svg?branch=master)](https://travis-ci.org/gyselroth/tubee-sdk-typescript-node)
+[![Build Status](https://travis-ci.com/gyselroth/tubee-sdk-typescript-node.svg?branch=master)](https://travis-ci.com/gyselroth/tubee-sdk-typescript-node)
 [![GitHub release](https://img.shields.io/github/release/gyselroth/tubee-sdk-node.svg)](https://github.com/gyselroth/tubee-sdk-typescript-node/releases)
 [![npm](https://img.shields.io/npm/v/@gyselroth/tubee-sdk-node.svg)](https://www.npmjs.com/package/@gyselroth/tubee-sdk-node)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/gyselroth/tubee-sdk-typescript-node/master/LICENSE) 
