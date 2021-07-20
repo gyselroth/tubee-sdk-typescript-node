@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: ""
-  version: "1.0.0"
+  version: "1.0.0-beta4"
   title: "Tubee API"
   termsOfService: ""
   contact:
@@ -3578,6 +3578,13 @@ definitions:
                     description: "The number of secconds after the job should be executed again. The default is only run once."
                     type: "integer"
                     default: 0
+                  interval_reference:
+                    description: "You may specify if the interval refers to the start or the end of the previous job. The default is 'end' which means the interval refers to the end time of the previous job. When you define 'start' the interval refers to the start time of the previous job. The default is 'end'."
+                    type: "string"
+                    default: "end"
+                    enum:
+                      - start
+                      - end
                   retry:
                     description: "The number of times a failed job should be restarted. The default is never."
                     type: "integer"
@@ -3682,6 +3689,7 @@ definitions:
               - BalloonEndpoint
               - OdataRestEndpoint
               - UcsEndpoint
+              - SqlSrvUsersEndpoint
           data:
             type: "object"
             properties:
@@ -3817,6 +3825,47 @@ definitions:
                   options:
                     description: "More ldap specific settings (http://php.net/manual/en/function.ldap-set-option.php)."
                     type: object
+  core.v1.SqlSrvUsersEndpoint:
+    description: "MSSQL User endpoint"
+    allOf:
+      - $ref: '#/definitions/core.v1.Endpoint'
+      - type: object
+        properties:
+          kind:
+            description: "The type of endpoint. Always SqlSrvUsersEndpoint."
+            type: "string"
+            default: "SqlSrvUsersEndpoint"
+          data:
+            properties:
+              resource:
+                description: "Holds the relevant options of how to connect to the endpoint."
+                type: "object"
+                properties:
+                  host:
+                    description: "MSSQL Server."
+                    type: string
+                  username:
+                    description: "Username if required."
+                    type: string
+                  password:
+                    description: "Password if required."
+                    type: string
+                  dbname:
+                    description: "Database."
+                    type: string
+                  port:
+                    description: "Specifies the port number to attempt to connect to the MSSQL server."
+                    type: integer
+                options:
+                  type: object
+                  default:
+                    identifier: principal_id
+                  properties:
+                    identifier:
+                      nullable: true
+                      default: principal_id
+                      description: Endpoint resource identifier.
+                      type: string
   core.v1.OdataRestEndpoint:
     description: "OData REST API endpoint (Compatible with Microsoft graph (Office365 and more) and other OData compatible api's)"
     allOf:
@@ -3918,6 +3967,9 @@ definitions:
             default: "MongodbEndpoint"
           data:
             properties:
+              database:
+                description: "The name of the MongoDB database where the collection is located at."
+                type: string
               collection:
                 description: "The name of the MongoDB collection where the data is located at."
                 type: string

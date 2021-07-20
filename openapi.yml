@@ -4063,6 +4063,7 @@ components:
                 options:
                   at: 0
                   interval: 0
+                  interval_reference: end
                   retry: 0
                   retry_interval: 0
                   timeout: 0
@@ -4144,6 +4145,7 @@ components:
                   default:
                     at: 0
                     interval: 0
+                    interval_reference: end
                     retry: 0
                     retry_interval: 0
                   properties:
@@ -4157,6 +4159,16 @@ components:
                         again. The default is only run once.
                       type: integer
                       default: 0
+                    interval_reference:
+                      description: You may specify if the interval refers to the start or the end of the previous job.
+                        The default is 'end' which means the interval refers to the end time of the previous job.
+                        When you define 'start' the interval refers to the start time of the previous job.
+                        The default is 'end'.
+                      type: string
+                      default: end
+                      enum:
+                        - start
+                        - end
                     retry:
                       description: The number of times a failed job should be restarted.
                         The default is never.
@@ -4318,6 +4330,11 @@ components:
           type: string
           nullable: true
           default: null
+        workgroup:
+          description: "SMB workgroup"
+          type: string
+          nullable: true
+          default: null
     core.v1.BalloonStorage:
       description: Access a balloon cloud storage.
       type: object
@@ -4403,6 +4420,7 @@ components:
                 - OdataRestEndpoint
                 - UcsEndpoint
                 - MicrosoftGraphEndpoint
+                - SqlSrvUsersEndpoint
             namespace:
               description: The resource namespace
               type: string
@@ -4539,6 +4557,7 @@ components:
                   type: object
                   required:
                   - host
+                  - dbname
                   properties:
                     host:
                       description: MySQL Server (Or compatible MySQL fork like MariaDB).
@@ -4553,6 +4572,10 @@ components:
                       type: string
                       nullable: true
                       default: null
+                    dbname:
+                      description: Database.
+                      type: string
+                      nullable: false
                     port:
                       description: Specifies the port number to attempt to connect to the
                         MySQL server.
@@ -4616,6 +4639,58 @@ components:
                         (http://php.net/manual/en/function.ldap-set-option.php).
                       type: object
                       default: {}
+    core.v1.SqlSrvUsersEndpoint:
+      description: MSSQL User endpoint
+      allOf:
+        - $ref: "#/components/schemas/core.v1.Endpoint"
+        - type: object
+          properties:
+            kind:
+              description: The type of endpoint. Always SqlSrvUsersEndpoint.
+              type: string
+              default: SqlSrvUsersEndpoint
+            data:
+              type: object
+              required:
+                - resource
+              properties:
+                resource:
+                  description: Holds the relevant options of how to connect to the endpoint.
+                  type: object
+                  required:
+                    - host
+                  properties:
+                    host:
+                      description: MSSQL Server
+                      type: string
+                    username:
+                      description: Username if required.
+                      type: string
+                      nullable: true
+                      default: null
+                    password:
+                      description: Password if required.
+                      type: string
+                      nullable: true
+                      default: null
+                    dbname:
+                      description: Database.
+                      type: string
+                      nullable: false
+                    port:
+                      description: Specifies the port number to attempt to connect to the MSSQL server.
+                      type: integer
+                      default: 1433
+                options:
+                  type: object
+                  default:
+                    identifier: principal_id
+                  properties:
+                    identifier:
+                      nullable: true
+                      default: principal_id
+                      description: Endpoint resource identifier.
+                      type: string
     core.v1.MicrosoftGraphEndpoint:
       description: Microsoft graph API
       allOf:
@@ -4847,9 +4922,14 @@ components:
             data:
               type: object
               required:
+              - database
               - collection
               - resource
               properties:
+                database:
+                  description: The name of the MongoDB database where the collection is located
+                    at.
+                  type: string
                 collection:
                   description: The name of the MongoDB collection where the data is located
                     at.
@@ -5244,20 +5324,19 @@ components:
         name:
           type: string
           description: The name of the attribute to map to
-        from:
+        kind:
           type: string
-          description: Use from to map source attribute to destination one to one. (Note you must define one of from, value or script).
+          description: Defines the attribute type.
+          enum:
+          - map
+          - static
+          - script
           nullable: true
-          default: null
+          default: map
         value:
           nullable: true
           default: null
-          description: Defines a static value attribute. (Note you must define one of from, value or script).
-        script:
-          type: string
-          nullable: true
-          default: null
-          description: Define a scripted attribute. Write a vanilla javascript code to resolve a value. Return the value with `core.result()`. The current object is available in the variable `core.object` (Note you must define one of from, value or script).
+          description: Holds the value of the attribute. If this is a `map` attribute, the value must be an attribute name. If this is a static attribute the value holds the actual static value. And at last if the attribute is of type script, the value is javascript code executed by the V8 engine. Write a vanilla javascript code to resolve a value. Return the value with `core.result()`. The current object is available in the variable `core.object` (Note you must define one of from, value or script).
         ensure:
           type: string
           description: The name of the attribute to map to
@@ -5312,6 +5391,11 @@ components:
               - exists
               - last
               - absent
+            identifiers:
+              type: array
+              default: []
+              items:
+                type: string
             context:
               type: array
               default: []
