@@ -34,6 +34,7 @@ env:
 deploy:
   provider: npm
   email: aebischer@gyselroth.com
+  skip_cleanup: true
   api_key:
     secure: OhdZGh4tT0YAhQ28AQ3TFs0emuSYtgBaUCwuYaAAg38RTV+f9/JQhKWlDibfb6/0vZrTn+2ddUL5aZhwOsgb7v27K8zaEbNrPz53LM+LL8MT3xeHMkmytuD0I6mfwnF7KQffmAgBFCyj9CRXLvhT++rNLFqtYk7rl20mB1HgYiJnf92Zk8MWkabwnjYtENPh9K3K7zYilIeTR05w+VB8k00rhs/eFGByoajzqZIjDTGN1BX9P8OlZ+Q/xKrZXAQwXXD56PN5lcWWCX0MarapIHyVfMThN/lXbq9sdvUH9MpdEaAQIwmU/6SpeCJR1GgnRNpsc4zD2EyUeKui8EoVia1JJAzj87r5R/CDiaK/7LHJdINP+3Ra9QOkuZNzyU9TQRBcSt6ke3NRFEhc/Gq0Cn+ZwPwENTXPcRyM9tgWmA1V1Lix/wZVtMjm9jcNggJuKsZCDbw+CfVEZa5cBSjOhPfIewCvKacOVDvNbkqFHOJm/h1uPtCRfHt/wBRNvi49/0dMDxawhK9cW5zKSglFmFqLHcphJCNAxKAvemEG7wjWxY4BB+Q0ZQzD67zaYaTgkq84D+I6yZE6W9ZDOm3BynA2ZYZqFbtcTx7Nw09fJ+c7usEslDYOg42vRC/0oECyUnJKecr1rQ3v8FOOST0uWRxirMTQiAn8DwJNmwE2DpQ=
   on:
