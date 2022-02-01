@@ -1,6 +1,6 @@
 {
   "name": "@gyselroth/tubee-sdk-node",
-  "version": "1.0.0-beta3",
+  "version": "1.1.0",
   "description": "The official tubee sdk for node with typescript support",
   "main": "build/api.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raffis/tubee-client-cli.git"
+    "url": "git+https://github.com/gyselroth/tubee-client-cli.git"
   },
   "keywords": [
     "tubee",
