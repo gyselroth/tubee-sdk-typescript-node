@@ -4148,6 +4148,7 @@ components:
                     interval_reference: end
                     retry: 0
                     retry_interval: 0
+                    timeout: 0
                   properties:
                     at:
                       description: Holds a unix timestamp at what time the job should be
@@ -4726,6 +4727,9 @@ components:
                     base_uri:
                       description: Base uri to resources (Like
                         https://rest.api/v1/resources).
+                      type: string
+                    container:
+                      description: Key of array which contains the data in REST response
                       type: string
                     request_options:
                       description: Advanced request options, see
