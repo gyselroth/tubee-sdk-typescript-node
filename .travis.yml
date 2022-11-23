@@ -3,6 +3,7 @@ jdk:
   - oraclejdk8
 arch:
   - ppc64le
+dist: trusty
 before_install:
   - git checkout $TRAVIS_BRANCH
   - git clone https://github.com/swagger-api/swagger-codegen.git
