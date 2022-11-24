@@ -23,7 +23,7 @@ after_success:
       sed -i s/\"version\":\ \"$current\"/\"version\":\ \"$new\"/g package.json
       git config --global user.email "aebischer@gyselroth.com"
       git config --global user.name "Travis CI"
-      git add src/*.ts; git add src/*.yml
+      git add src/*.ts;
       git add package.json
       git add openapi.yml; git add swagger.yml
       git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
