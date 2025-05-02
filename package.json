@@ -8,7 +8,7 @@
     "start": "tsc && nodejs build/main.js",
     "build": "tsc && jest --coverage",
     "test": "jest --coverage",
-    "fetch": "wget -O swagger.yml https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/swagger.yml && wget -O openapi.yml https://raw.githubusercontent.com/gyselroth/tubee/master/src/lib/Rest/v1/openapi.yml",
+    "fetch": "wget -O swagger.yml https://raw.githubusercontent.com/gyselroth/tubee/mattermost/src/lib/Rest/v1/swagger.yml && wget -O openapi.yml https://raw.githubusercontent.com/gyselroth/tubee/mattermost/src/lib/Rest/v1/openapi.yml",
     "codegen": "java -jar swagger-codegen/modules/swagger-codegen-cli/target/swagger-codegen-cli.jar generate -i swagger.yml -l typescript-node --http-user-agent 'tubee typescript-node sdk' -t src -o src --reserved-words-mappings=import=import,class=class -D modelPropertyNaming=original",
     "coveralls": "coveralls < coverage/lcov.info",
     "full-build": "npm run fetch && npm run codegen && npm run build"
@@ -28,17 +28,18 @@
     "url": "https://github.com/gyselroth/tubee-sdk-typescript-node/issues"
   },
   "dependencies": {
-    "@types/bluebird": "^3.5.26",
+    "@types/bluebird": "^3.5.42",
+    "@types/jest": "^29.5.14",
     "@types/request": "^2.48.1",
-    "bluebird": "^3.5.4",
+    "bluebird": "^3.7.2",
     "http": "0.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
     "@types/node": "^8.10.48",
     "coveralls": "^3.0.3",
-    "jest": "^23.0.1",
-    "ts-jest": "^22.4.6",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
     "typescript": "*"
   },
   "jest": {
