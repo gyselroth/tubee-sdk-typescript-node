@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: ""
-  version: "1.2.4"
+  version: "1.2.5-beta1"
   title: "Tubee API"
   termsOfService: ""
   contact:
@@ -3810,6 +3810,11 @@ definitions:
             default: "LdapEndpoint"
           data:
             properties:
+              attributes:
+                description: "Specifies the attributes to be read while importing from ldap server."
+                type: "array"
+                items:
+                  type: "string"
               resource:
                 description: "Holds the relevant options of how to connect to the endpoint."
                 type: "object"
